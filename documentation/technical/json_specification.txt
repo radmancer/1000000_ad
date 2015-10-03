@@ -1,0 +1,18 @@
+object
+    voxel           [absoluteX, absoluteY, absoluteZ, width, color, borderWidth, borderColor]
+        stage       [super]
+        vertice     [super]
+            cursor  [super]
+
+event
+    transformation  [relativeX, relativeY, relativeZ]
+        translation [super]
+        rotation    [super]
+        scale       [super]
+    edit            [index]
+        add         [super, import]
+        delete      [super, clear]
+    cycle           [direction]
+    export          [format]
+    center          [focus]
+    
