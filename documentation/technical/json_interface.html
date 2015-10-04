@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <script>
+        window.onload = function(){
+            var jsonText = '{"objects":[{"events":[{"translation":{"x":"10"}}]},{"voxels":[{"stage":{"x":"101","y":"102","z":"103","width":"3","color":"green","borderWidth":"1","borderColor":"black"}},{"vertex":{"x":"101","y":"102","z":"103","width":"3","color":"green","borderWidth":"1","borderColor":"black"}},{"cursor":{"x":"101","y":"102","z":"103","width":"3","color":"green","borderWidth":"1","borderColor":"black"}}]}]}';
+            var json = JSON.parse(jsonText);
+
+//tests
+var stageData = "stage: ";
+var vertexData = "vertex: ";
+var cursorData = "cursor: ";
+var translationData = "translation: ";
+
+            if(json.objects){
+                for(var i in json.objects){
+                    if(json.objects[i].events){
+                        for(var j in json.objects[i].events){
+                            if(json.objects[i].events[j].translation){
+                                if(json.objects[i].events[j].translation.x){
+                                    translationData += json.objects[i].events[j].translation.x + ", ";
+                                }
+                            }
+                        }
+                    }
+                    if(json.objects[i].voxels){
+                        for(var j in json.objects[i].voxels){
+                            if(json.objects[i].voxels[j].stage){
+                                if(json.objects[i].voxels[j].stage.x){
+                                    stageData += json.objects[i].voxels[j].stage.x + ", ";
+                                }
+                                if(json.objects[i].voxels[j].stage.y){
+                                    stageData += json.objects[i].voxels[j].stage.y + ", ";
+                                }
+                                if(json.objects[i].voxels[j].stage.z){
+                                    stageData += json.objects[i].voxels[j].stage.z + ", ";
+                                }
+                                if(json.objects[i].voxels[j].stage.width){
+                                    stageData += json.objects[i].voxels[j].stage.width + ", ";
+                                }
+                                if(json.objects[i].voxels[j].stage.color){
+                                    stageData += json.objects[i].voxels[j].stage.color + ", ";
+                                }
+                                if(json.objects[i].voxels[j].stage.borderWidth){
+                                    stageData += json.objects[i].voxels[j].stage.borderWidth + ", ";
+                                }
+                                if(json.objects[i].voxels[j].stage.borderColor){
+                                    stageData += json.objects[i].voxels[j].stage.borderColor;
+                                }
+                            }
+                            if(json.objects[i].voxels[j].vertex){
+                                if(json.objects[i].voxels[j].vertex.x){
+                                    vertexData += json.objects[i].voxels[j].vertex.x + ", ";
+                                }
+                                if(json.objects[i].voxels[j].vertex.y){
+                                    vertexData += json.objects[i].voxels[j].vertex.y + ", ";
+                                }
+                                if(json.objects[i].voxels[j].vertex.z){
+                                    vertexData += json.objects[i].voxels[j].vertex.z + ", ";
+                                }
+                                if(json.objects[i].voxels[j].vertex.width){
+                                    vertexData += json.objects[i].voxels[j].vertex.width + ", ";
+                                }
+                                if(json.objects[i].voxels[j].vertex.color){
+                                    vertexData += json.objects[i].voxels[j].vertex.color + ", ";
+                                }
+                                if(json.objects[i].voxels[j].vertex.borderWidth){
+                                    vertexData += json.objects[i].voxels[j].vertex.borderWidth + ", ";
+                                }
+                                if(json.objects[i].voxels[j].vertex.borderColor){
+                                    vertexData += json.objects[i].voxels[j].vertex.borderColor;
+                                }
+                            }
+                            if(json.objects[i].voxels[j].cursor){
+                                if(json.objects[i].voxels[j].cursor.x){
+                                    cursorData += json.objects[i].voxels[j].cursor.x + ", ";
+                                }
+                                if(json.objects[i].voxels[j].cursor.y){
+                                    cursorData += json.objects[i].voxels[j].cursor.y + ", ";
+                                }
+                                if(json.objects[i].voxels[j].cursor.z){
+                                    cursorData += json.objects[i].voxels[j].cursor.z + ", ";
+                                }
+                                if(json.objects[i].voxels[j].cursor.width){
+                                    cursorData += json.objects[i].voxels[j].cursor.width + ", ";
+                                }
+                                if(json.objects[i].voxels[j].cursor.color){
+                                    cursorData += json.objects[i].voxels[j].cursor.color + ", ";
+                                }
+                                if(json.objects[i].voxels[j].cursor.borderWidth){
+                                    cursorData += json.objects[i].voxels[j].cursor.borderWidth + ", ";
+                                }
+                                if(json.objects[i].voxels[j].cursor.borderColor){
+                                    cursorData += json.objects[i].voxels[j].cursor.borderColor;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+alert(stageData);
+alert(vertexData);
+alert(cursorData);
+alert(translationData);
+        }
+    </script>
+    <body>
+        <span id="demo"></span>
+    </body>
+</html>
