@@ -2,7 +2,7 @@
 <html>
     <script>
         window.onload = function(){
-            var jsonText = '{"objects":[{"events":[{"translation":{"x":"10"}}]},{"voxels":[{"stage":{"x":"101","y":"102","z":"103","width":"3","color":"green","borderWidth":"1","borderColor":"black"}},{"vertex":{"x":"101","y":"102","z":"103","width":"3","color":"green","borderWidth":"1","borderColor":"black"}},{"cursor":{"x":"101","y":"102","z":"103","width":"3","color":"green","borderWidth":"1","borderColor":"black"}}]}]}';
+            var jsonText = '{"objects":[{"events":[{"translation":{"x":"10","y":"20","z":"30"}},{"rotation":{"x":"110","y":"120","z":"130"}},{"scale":{"x":"210","y":"220","z":"230"}},{"add":{"x":"210","y":"220","z":"230","import":"true"}},{"delete":{"x":"310","y":"420","z":"530","clear":"true"}},{"cycle":{"direction":"back"}},{"export":{"format":"cartesian"}},{"center":{"focus":"true"}}]},{"voxels":[{"stage":{"x":"101","y":"102","z":"103","width":"3","color":"green","borderWidth":"1","borderColor":"black"}},{"vertex":{"x":"101","y":"102","z":"103","width":"3","color":"green","borderWidth":"1","borderColor":"black"}},{"cursor":{"x":"101","y":"102","z":"103","width":"3","color":"green","borderWidth":"1","borderColor":"black"}}]}]}';
             var json = JSON.parse(jsonText);
 
 //tests
@@ -10,6 +10,13 @@ var stageData = "stage: ";
 var vertexData = "vertex: ";
 var cursorData = "cursor: ";
 var translationData = "translation: ";
+var rotationData = "rotation: ";
+var scaleData = "scale: ";
+var addData = "add: ";
+var deleteData = "delete: ";
+var cycleData = "cycle: ";
+var exportData = "export: ";
+var centerData = "center: ";
 
             if(json.objects){
                 for(var i in json.objects){
@@ -18,6 +25,77 @@ var translationData = "translation: ";
                             if(json.objects[i].events[j].translation){
                                 if(json.objects[i].events[j].translation.x){
                                     translationData += json.objects[i].events[j].translation.x + ", ";
+                                }
+                                if(json.objects[i].events[j].translation.y){
+                                    translationData += json.objects[i].events[j].translation.y + ", ";
+                                }
+                                if(json.objects[i].events[j].translation.z){
+                                    translationData += json.objects[i].events[j].translation.z;
+                                }
+                            }
+                            if(json.objects[i].events[j].rotation){
+                                if(json.objects[i].events[j].rotation.x){
+                                    rotationData += json.objects[i].events[j].rotation.x + ", ";
+                                }
+                                if(json.objects[i].events[j].rotation.y){
+                                    rotationData += json.objects[i].events[j].rotation.y + ", ";
+                                }
+                                if(json.objects[i].events[j].rotation.z){
+                                    rotationData += json.objects[i].events[j].rotation.z;
+                                }
+                            }
+                            if(json.objects[i].events[j].scale){
+                                if(json.objects[i].events[j].scale.x){
+                                    scaleData += json.objects[i].events[j].scale.x + ", ";
+                                }
+                                if(json.objects[i].events[j].scale.y){
+                                    scaleData += json.objects[i].events[j].scale.y + ", ";
+                                }
+                                if(json.objects[i].events[j].scale.z){
+                                    scaleData += json.objects[i].events[j].scale.z;
+                                }
+                            }
+                            if(json.objects[i].events[j].add){
+                                if(json.objects[i].events[j].add.x){
+                                    addData += json.objects[i].events[j].add.x + ", ";
+                                }
+                                if(json.objects[i].events[j].add.y){
+                                    addData += json.objects[i].events[j].add.y + ", ";
+                                }
+                                if(json.objects[i].events[j].add.z){
+                                    addData += json.objects[i].events[j].add.z + ", ";
+                                }
+                                if(json.objects[i].events[j].add.import){
+                                    addData += json.objects[i].events[j].add.import;
+                                }
+                            }
+                            if(json.objects[i].events[j].delete){
+                                if(json.objects[i].events[j].delete.x){
+                                    deleteData += json.objects[i].events[j].delete.x + ", ";
+                                }
+                                if(json.objects[i].events[j].delete.y){
+                                    deleteData += json.objects[i].events[j].delete.y + ", ";
+                                }
+                                if(json.objects[i].events[j].delete.z){
+                                    deleteData += json.objects[i].events[j].delete.z + ", ";
+                                }
+                                if(json.objects[i].events[j].delete.clear){
+                                    deleteData += json.objects[i].events[j].delete.clear;
+                                }
+                            }
+                            if(json.objects[i].events[j].cycle){
+                                if(json.objects[i].events[j].cycle.direction){
+                                    cycleData += json.objects[i].events[j].cycle.direction;
+                                }
+                            }
+                            if(json.objects[i].events[j].export){
+                                if(json.objects[i].events[j].export.format){
+                                    exportData += json.objects[i].events[j].export.format;
+                                }
+                            }
+                            if(json.objects[i].events[j].center){
+                                if(json.objects[i].events[j].center.focus){
+                                    centerData += json.objects[i].events[j].center.focus;
                                 }
                             }
                         }
@@ -101,6 +179,13 @@ alert(stageData);
 alert(vertexData);
 alert(cursorData);
 alert(translationData);
+alert(rotationData);
+alert(scaleData);
+alert(addData);
+alert(deleteData);
+alert(cycleData);
+alert(exportData);
+alert(centerData);
         }
     </script>
     <body>
