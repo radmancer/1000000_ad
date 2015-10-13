@@ -15,6 +15,18 @@
  
  */
 
+const int analogInPin0 = A0;
+int sensorValue0 = 0;
+const int analogInPin1 = A1;
+int sensorValue1 = 0;
+const int analogInPin2 = A2;
+int sensorValue2 = 0;
+
+int potResistanceRange = 1024;
+int potResistanceMiddle = (potResistanceRange/2) - 1; //minus one because the actual values are between 0 and 1023.
+int potResistanceFloor = potResistanceMiddle - 15; //Establishes the lower bound of the deadzone.
+int potResistanceCeiling = potResistanceMiddle + 15; //Establishes the upper bound of the deadzone.
+
 #include <SPI.h>
 #include <Ethernet.h>
 
@@ -28,6 +40,13 @@ IPAddress ip(192,168,1,177);
 // with the IP address and port you want to use 
 // (port 80 is default for HTTP):
 EthernetServer server(80);
+
+boolean isInDeadZone(int knobValue){
+  if(knobValue >= potResistanceFloor && knobValue <= potResistanceCeiling){
+    return true;
+  }
+  return false;
+}
 
 void setup() {
  // Open serial communications and wait for port to open:
@@ -81,9 +100,37 @@ void loop() {
             client.println("<br />");       
           }
 */
-client.println("{'objects':[{'events':[{'translation':{'voxel':'cursor','direction':'right'}}]}]}");
+  sensorValue0 = analogRead(analogInPin0);
+  sensorValue1 = analogRead(analogInPin1);
+  sensorValue2 = analogRead(analogInPin2);
+
+  String json = "{'objects':[";
+  if(isInDeadZone(sensorValue1) && isInDeadZone(sensorValue2)){ //X axis is on
+    json += "{'events':[{'translation':{'voxel':'cursor','direction':'right'}}]}]}";
+    client.println(json);
+    delay(1000);
+    break;
+  }
+  else if(isInDeadZone(sensorValue0) && isInDeadZone(sensorValue2)){ //Y axis is on
+    json += "{'events':[{'translation':{'voxel':'cursor','direction':'right'}}]}]}";
+    client.println(json);
+    delay(1000);
+    break;
+  }
+  else if(isInDeadZone(sensorValue0) && isInDeadZone(sensorValue1)){ //Z axis is on
+    json += "{'events':[{'translation':{'voxel':'cursor','direction':'right'}}]}]}";
+    client.println(json);
+    delay(1000);
+    break;
+  }
+  //json += "]}";
+  //client.println(json);
+/*
+          client.println("{'objects':[{'events':[{'translation':{'voxel':'cursor','direction':'right'}}]}]}");
           //client.println("</html>");
           break;
+*/
+  //break;
         }
         if (c == '\n') {
           // you're starting a new line
