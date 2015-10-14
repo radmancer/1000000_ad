@@ -104,21 +104,21 @@ void loop() {
   sensorValue1 = analogRead(analogInPin1);
   sensorValue2 = analogRead(analogInPin2);
 
-  String json = "{'objects':[";
+  String json = "";
   if(isInDeadZone(sensorValue1) && isInDeadZone(sensorValue2)){ //X axis is on
-    json += "{'events':[{'translation':{'voxel':'cursor','direction':'right'}}]}]}";
+    json += "{'translation':{'voxel':'cursor','direction':'right'}}";
     client.println(json);
     delay(1000);
     break;
   }
   else if(isInDeadZone(sensorValue0) && isInDeadZone(sensorValue2)){ //Y axis is on
-    json += "{'events':[{'translation':{'voxel':'cursor','direction':'right'}}]}]}";
+    json += "{'translation':{'voxel':'cursor','direction':'out'}}";
     client.println(json);
     delay(1000);
     break;
   }
   else if(isInDeadZone(sensorValue0) && isInDeadZone(sensorValue1)){ //Z axis is on
-    json += "{'events':[{'translation':{'voxel':'cursor','direction':'right'}}]}]}";
+    json += "{'translation':{'voxel':'cursor','direction':'down'}}";
     client.println(json);
     delay(1000);
     break;

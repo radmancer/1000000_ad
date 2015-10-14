@@ -215,7 +215,7 @@
 													</div>
 												</td>
 												<td>
-													<div id="up" onmouseover="buttonFocus(this, 'black', 'white');" onmouseout="buttonFocus(this, document.body.style.backgroundColor, 'black');" onmousedown="updateGridOnMouseDown('up');" onmouseup="updateGridOnMouseUp();" class="button">
+													<div id="up" onmouseover="buttonFocus(this, 'black', 'white');" onmouseout="buttonFocus(this, document.body.style.backgroundColor, 'black');" onmousedown="updateGridOnMouseDown('{\'translation\':{\'voxel\':\'cursor\',\'direction\':\'up\'}}');" onmouseup="updateGridOnMouseUp();" class="button">
 														<center>
 															<table>
 																<tr>
@@ -245,7 +245,7 @@
 											</tr>
 											<tr>
 												<td>
-													<div id="left" onmouseover="buttonFocus(this, 'black', 'white');" onmouseout="buttonFocus(this, document.body.style.backgroundColor, 'black');" onmousedown="updateGridOnMouseDown('left');" onmouseup="updateGridOnMouseUp();" class="button">
+													<div id="left" onmouseover="buttonFocus(this, 'black', 'white');" onmouseout="buttonFocus(this, document.body.style.backgroundColor, 'black');" onmousedown="updateGridOnMouseDown('{\'translation\':{\'voxel\':\'cursor\',\'direction\':\'left\'}}');" onmouseup="updateGridOnMouseUp();" class="button">
 														<center>
 															<table>
 																<tr>
@@ -273,7 +273,7 @@
 													</div>
 												</td>
 												<td>
-													<div id="right" onmouseover="buttonFocus(this, 'black', 'white');" onmouseout="buttonFocus(this, document.body.style.backgroundColor, 'black');" onmousedown="updateGridOnMouseDown('right');" onmouseup="updateGridOnMouseUp();" class="button">
+													<div id="right" onmouseover="buttonFocus(this, 'black', 'white');" onmouseout="buttonFocus(this, document.body.style.backgroundColor, 'black');" onmousedown="updateGridOnMouseDown('{\'translation\':{\'voxel\':\'cursor\',\'direction\':\'right\'}}');" onmouseup="updateGridOnMouseUp();" class="button">
 														<center>
 															<table>
 																<tr>
@@ -289,7 +289,7 @@
 											</tr>
 											<tr>
 												<td>
-													<div id="down" onmouseover="buttonFocus(this, 'black', 'white');" onmouseout="buttonFocus(this, document.body.style.backgroundColor, 'black');" class="button" onmousedown="updateGridOnMouseDown('out');" onmouseup="updateGridOnMouseUp();" class="button">
+													<div id="down" onmouseover="buttonFocus(this, 'black', 'white');" onmouseout="buttonFocus(this, document.body.style.backgroundColor, 'black');" class="button" onmousedown="updateGridOnMouseDown('{\'translation\':{\'voxel\':\'cursor\',\'direction\':\'out\'}}');" onmouseup="updateGridOnMouseUp();" class="button">
 														<center>
 															<table>
 																<tr>
@@ -303,7 +303,7 @@
 													</div>
 												</td>
 												<td>
-													<div onmouseover="buttonFocus(this, 'black', 'white');" onmouseout="buttonFocus(this, document.body.style.backgroundColor, 'black');" onmousedown="updateGridOnMouseDown('down');" onmouseup="updateGridOnMouseUp();" class="button">
+													<div onmouseover="buttonFocus(this, 'black', 'white');" onmouseout="buttonFocus(this, document.body.style.backgroundColor, 'black');" onmousedown="updateGridOnMouseDown('{\'translation\':{\'voxel\':\'cursor\',\'direction\':\'down\'}}');" onmouseup="updateGridOnMouseUp();" class="button">
 														<center>
 															<table>
 																<tr>
@@ -317,7 +317,7 @@
 													</div>
 												</td>
 												<td>
-													<div id="down" onmouseover="buttonFocus(this, 'black', 'white');" onmouseout="buttonFocus(this, document.body.style.backgroundColor, 'black');" class="button" onmousedown="updateGridOnMouseDown('in');" onmouseup="updateGridOnMouseUp();" class="button">
+													<div id="down" onmouseover="buttonFocus(this, 'black', 'white');" onmouseout="buttonFocus(this, document.body.style.backgroundColor, 'black');" class="button" onmousedown="updateGridOnMouseDown('{\'translation\':{\'voxel\':\'cursor\',\'direction\':\'in\'}}');" onmouseup="updateGridOnMouseUp();" class="button">
 														<center>
 															<table>
 																<tr>
@@ -350,50 +350,5 @@
 		createCursor();
 	</script>
 	<script src="js/stage.js"></script>
-        <script>
-var pingInterval = 1000;
-var radUrl = "http://192.168.1.177/";
-function pingRadServer(url){
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange=function()
-    {
-        if (xmlHttp.readyState==4 && xmlHttp.status==200){
-//alert(xmlHttp.responseText);
-var cleanResponseText = xmlHttp.responseText.replace(/'/g,"\"");
-//var cleanJson=JSON.stringify(cleanResponseText);
-            var json = JSON.parse(cleanResponseText);
-            if(json.objects){
-                for(var i in json.objects){
-                    if(json.objects[i].events){
-                        for(var j in json.objects[i].events){
-                            if(json.objects[i].events[j].translation){
-                                if(json.objects[i].events[j].translation.voxel){
-                                    if(json.objects[i].events[j].translation.voxel == "stage"){
-                                        //updateGrid(json.objects[i].events[j].translation.direction);
-                                        //translationData += json.objects[i].events[j].translation.voxel + ", ";//
-                                    }
-                                    else if(json.objects[i].events[j].translation.voxel == "vertex"){
-                                        //updateGrid(json.objects[i].events[j].translation.direction);
-					//translationData += json.objects[i].events[j].translation.voxel + ", ";//
-                                    }
-                                    else if(json.objects[i].events[j].translation.voxel == "cursor"){
-					updateGrid(json.objects[i].events[j].translation.direction);
-                                        //translationData += json.objects[i].events[j].translation.voxel + ", ";
-                                    }
-                                }
-                                if(json.objects[i].events[j].translation.direction){
-                                    translationData += json.objects[i].events[j].translation.direction;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    xmlHttp.open("GET", url, true);
-    xmlHttp.send();
-}
-window.setInterval(function(){pingRadServer(radUrl);}, pingInterval);
-        </script>
+        <script src="js/control.js"></script>
 </html>

@@ -36,3 +36,8 @@ var cubeSideDimension = cubeDimension / 2;
 //However, to aid the user, a conventional z dimension is required, that is,
 //set the voxel's start position to the top-left-back of the 3d grid.
 var correctedZCoordinate = -((cubeDimension / 2) - (voxelDimension / 2));
+
+//The IP address of the server device and the interval
+//of how often the device should be pinged.
+var pingInterval = 1000;
+var radUrl = "http://192.168.1.177/";
