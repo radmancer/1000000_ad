@@ -270,37 +270,54 @@ function capturePoint(){
 	document.getElementById("cube").appendChild(point);	
 }
 
+function escapeRegExp(string) {
+    return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+}
+
+function replaceAll(find, replace, string) {
+  return string.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+}
+
 //Traverses all voxels on screen, strips their coordinates, and stores their coordinates in a textarea element.
 //The user is expected to copy and past the coordinates into a text file.
-function saveMesh(){
-	var voxelCoordinates = "{";
+function saveMesh(format){
+    var voxelCoordinates = "{";
 
-	for(var i = 0; i < voxelCount; i++){
-		var voxel = document.getElementById(i + "");
-		var voxelX = voxel.style.paddingLeft;
-		var voxelY = voxel.style.paddingTop;
-		var voxelZ = voxel.style.transform;
+    for(var i = 0; i < voxelCount; i++){
+        var voxel = document.getElementById(i + "");
+        var voxelX = voxel.style.paddingLeft;
+        var voxelY = voxel.style.paddingTop;
+        var voxelZ = voxel.style.transform;
 
-		//Strips the numeric information from the padding 
-		//and translation properties of the x, y, and z coordinates.
-		voxelX = voxelX.substring(0, voxelX.length - 2);
-		voxelX = parseInt(voxelX);
-		voxelY = voxelY.substring(0, voxelY.length - 2);
-		voxelY = parseInt(voxelY);
-		voxelZ = voxelZ.substring(11, voxelZ.length - 3);
-		voxelZ = parseInt(voxelZ);
+        //Strips the numeric information from the padding 
+        //and translation properties of the x, y, and z coordinates.
+        voxelX = voxelX.substring(0, voxelX.length - 2);
+        voxelX = parseInt(voxelX);
+        voxelY = voxelY.substring(0, voxelY.length - 2);
+        voxelY = parseInt(voxelY);
+        voxelZ = voxelZ.substring(11, voxelZ.length - 3);
+        voxelZ = parseInt(voxelZ);
 
-		if(i == voxelCount - 1){
-			voxelCoordinates += "(" + voxelX + "," + voxelY + "," + voxelZ + ")";
-		}
-		else{
-			voxelCoordinates += "(" + voxelX + "," + voxelY + "," + voxelZ + ");";
-		}
-	}
+        if(i == voxelCount - 1){
+            voxelCoordinates += "(" + voxelX + "," + voxelY + "," + voxelZ + ")";
+        }
+        else{
+            voxelCoordinates += "(" + voxelX + "," + voxelY + "," + voxelZ + ");";
+        }
+    }
 
-	voxelCoordinates += "}";
+    voxelCoordinates += "}";
 
-	document.getElementById("importExport").value = voxelCoordinates;
+    if(format == "blender"){
+        voxelCoordinates = replaceAll("{", "[", voxelCoordinates);
+        voxelCoordinates = replaceAll("}", "]", voxelCoordinates);
+        voxelCoordinates = replaceAll("(", "[", voxelCoordinates);
+        voxelCoordinates = replaceAll(")", "]", voxelCoordinates);
+        voxelCoordinates = replaceAll(";", ",", voxelCoordinates);
+        voxelCoordinates = "from Blender import *\nimport bpy\npoint_cloud = " + voxelCoordinates + "\nmesh = bpy.data.meshes.new(\"rad_mesh\")\nmesh.verts.extend(point_cloud)\nscene = bpy.data.scenes.active\nscene.objects.new(mesh, \"rad_object\")";
+    }
+
+    document.getElementById("importExport").value = voxelCoordinates;
 }
 
 //Reads coordinates from the import/export text area and populates the stage with voxels based on the supplied coordinates.

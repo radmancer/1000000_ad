@@ -27,4 +27,4 @@ function pingRadServer(url){
     xmlHttp.send();
 }
 
-window.setInterval(function(){pingRadServer(radUrl);}, pingInterval);
+//window.setInterval(function(){pingRadServer(radUrl);}, pingInterval);
