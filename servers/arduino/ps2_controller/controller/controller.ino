@@ -46,6 +46,8 @@ void setup() {
 }
 
 boolean right = false;
+boolean up = false;
+boolean left = false;
 boolean down = false;
 
 void loop() {
@@ -54,12 +56,20 @@ void loop() {
     return;
   ps2x.read_gamepad();
     if(!((ps2x.Analog(PSS_LY) > 96 && ps2x.Analog(PSS_LY) < 160) && (ps2x.Analog(PSS_LX) > 96 && ps2x.Analog(PSS_LX) < 160))){
-        Serial.print("Left Stick Values:");
-        Serial.print(ps2x.Analog(PSS_LY), DEC); //Left stick, Y axis. Other options: LX, RY, RX  
-        Serial.print(",");
-        Serial.println(ps2x.Analog(PSS_LX), DEC);
-        right = true;
+        if(ps2x.Analog(PSS_LX) > 160){
+            right = true;
+        }
+        else if(ps2x.Analog(PSS_LY) < 96){
+            up = true;
+        }
+        else if(ps2x.Analog(PSS_LX) < 96){
+            left = true;
+        }
+        else if(ps2x.Analog(PSS_LY) > 160){
+            down = true;
+        }
     }
+/*    
     if(!((ps2x.Analog(PSS_RY) > 96 && ps2x.Analog(PSS_RY) < 160) && (ps2x.Analog(PSS_RX) > 96 && ps2x.Analog(PSS_RX) < 160))){
         Serial.print("Right Stick Values:");
         Serial.print(ps2x.Analog(PSS_RY), DEC); //Left stick, Y axis. Other options: LX, RY, RX  
@@ -67,6 +77,7 @@ void loop() {
         Serial.println(ps2x.Analog(PSS_RX), DEC);
         down = true;
     }
+*/
   if (client) {
     boolean currentLineIsBlank = true;
     while (client.connected()) {
@@ -85,14 +96,26 @@ void loop() {
           if(right == true){
               json += "{'translation':{'voxel':'cursor','direction':'right'}}";
               client.println(json);
-              delay(1000);
+              delay(100);
+          }
+          else if(up == true){
+              json += "{'translation':{'voxel':'cursor','direction':'up'}}";
+              client.println(json);
+              delay(100);
+          }
+          else if(left == true){
+              json += "{'translation':{'voxel':'cursor','direction':'left'}}";
+              client.println(json);
+              delay(100);
           }
           else if(down == true){
               json += "{'translation':{'voxel':'cursor','direction':'down'}}";
               client.println(json);
-              delay(1000);
+              delay(100);
           }
           right = false;
+          up = false;
+          left = false;
           down = false;
           break;
         }
