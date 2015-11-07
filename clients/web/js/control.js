@@ -7,7 +7,7 @@ function jsonInterpreter(jsonText){
             updateGrid(json.translation.direction);
         }
         else if(json.translation.voxel == "stage"){
-            //translation function for stage.
+            rotateOrthogonally(json.translation.direction);
         }
         else if(json.translation.voxel == "vertex"){
             //translation function for vertex.

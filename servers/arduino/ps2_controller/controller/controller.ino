@@ -51,6 +51,10 @@ boolean left = false;
 boolean down = false;
 boolean in = false;
 boolean out = false;
+boolean dPadRight = false;
+boolean dPadUp = false;
+boolean dPadLeft = false;
+boolean dPadDown = false;
 
 void loop() {
   EthernetClient client = server.available();
@@ -76,6 +80,18 @@ void loop() {
     }
     else if(ps2x.Button(PSB_R2)){
        out = true;
+    }
+    else if(ps2x.Button(PSB_PAD_RIGHT)){
+        dPadRight = true;
+    }
+    else if(ps2x.Button(PSB_PAD_UP)){
+        dPadUp = true;
+    }
+    else if(ps2x.Button(PSB_PAD_LEFT)){
+        dPadLeft = true;
+    }
+    else if(ps2x.Button(PSB_PAD_DOWN)){
+        dPadDown = true;
     }
 /*    
     if(!((ps2x.Analog(PSS_RY) > 96 && ps2x.Analog(PSS_RY) < 160) && (ps2x.Analog(PSS_RX) > 96 && ps2x.Analog(PSS_RX) < 160))){
@@ -131,12 +147,32 @@ void loop() {
               client.println(json);
               delay(1000);
           }
+          else if(dPadRight == true){
+              json += "{'translation':{'voxel':'stage','direction':'right'}}";
+              client.println(json);
+          }
+          else if(dPadUp == true){
+              json += "{'translation':{'voxel':'stage','direction':'up'}}";
+              client.println(json);
+          }
+          else if(dPadLeft == true){
+              json += "{'translation':{'voxel':'stage','direction':'left'}}";
+              client.println(json);
+          }
+          else if(dPadDown == true){
+              json += "{'translation':{'voxel':'stage','direction':'down'}}";
+              client.println(json);
+          }
           right = false;
           up = false;
           left = false;
           down = false;
           in = false;
           out = false;
+          dPadRight = false;
+          dPadUp = false;
+          dPadLeft = false;
+          dPadDown = false;
           break;
         }
         if (c == '\n') {
