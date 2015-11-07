@@ -1,4 +1,44 @@
 function jsonInterpreter(jsonText){
+    if(jsonText != ""){
+        //alert(jsonText);
+        var jsonText = jsonText.replace(/(\r\n|\n|\r)/gm,"");
+        switch(jsonText){
+            case "right":
+                updateGrid(jsonText);
+                break;
+            case "up":
+                updateGrid(jsonText);
+                break;
+            case "left":
+                updateGrid(jsonText);
+                break;
+            case "down":
+                updateGrid(jsonText);
+                break;
+            case "in":
+                updateGrid(jsonText);
+                break;
+            case "out":
+                updateGrid(jsonText);
+                break;
+            case "x":
+                capturePoint();
+                break;
+            case "dpad_right":
+                rotateOrthogonally("right");
+                break;
+            case "dpad_up":
+                rotateOrthogonally("up");
+                break;
+            case "dpad_left":
+                rotateOrthogonally("left");
+                break;
+            case "dpad_down":
+                rotateOrthogonally("down");
+                break;
+        }
+    }
+/*
     var jsonText = jsonText.replace(/'/g,"\"");
     var json = JSON.parse(jsonText);
 
@@ -13,6 +53,7 @@ function jsonInterpreter(jsonText){
             //translation function for vertex.
         }
     }
+*/
 }
 
 function pingRadServer(url){

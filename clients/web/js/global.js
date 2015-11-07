@@ -39,5 +39,5 @@ var correctedZCoordinate = -((cubeDimension / 2) - (voxelDimension / 2));
 
 //The IP address of the server device and the interval
 //of how often the device should be pinged.
-var pingInterval = 1000;
+var pingInterval = 1;
 var radUrl = "http://192.168.1.177/";
