@@ -36,6 +36,27 @@ function jsonInterpreter(jsonText){
             case "dpad_down":
                 rotateOrthogonally("down");
                 break;
+            case "start":
+                resetStage();
+                break;
+            case "select":
+                window.location='display.html';
+                break;
+            case "triangle":
+                deleteVoxel(1);
+                break;
+            case "square":
+                importMesh(document.getElementById('importExport').value);
+                break;
+            case "circle":
+                saveMesh('blender');
+                break;
+            case "cycle_back":
+                cycleVoxel('back');
+                break;
+            case "cycle_forward":
+                cycleVoxel('forward');
+                break;
         }
     }
 /*

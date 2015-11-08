@@ -56,6 +56,13 @@ boolean dPadUp = false;
 boolean dPadLeft = false;
 boolean dPadDown = false;
 boolean xButton = false;
+boolean start = false;
+boolean select = false;
+boolean triangle = false;
+boolean squareButton = false;
+boolean circle = false;
+boolean cycle_back = false;
+boolean cycle_forward = false;
 
 void loop() {
   EthernetClient client = server.available();
@@ -96,6 +103,30 @@ void loop() {
     }
     else if(ps2x.Button(PSB_BLUE)){
         xButton = true;
+        delay(250);
+    }
+    else if(ps2x.Button(PSB_START)){
+        start = true;
+    }
+    else if(ps2x.Button(PSB_SELECT)){
+        select = true;
+    }
+    else if(ps2x.Button(PSB_GREEN)){
+        triangle = true;
+        delay(500);
+    }
+    else if(ps2x.Button(PSB_PINK)){
+        squareButton = true;
+        delay(500);
+    }
+    else if(ps2x.Button(PSB_RED)){
+        circle = true;
+    }
+    else if(ps2x.Button(PSB_L1)){
+        cycle_back = true;
+    }
+    else if(ps2x.Button(PSB_R1)){
+        cycle_forward = true;
     }
 /*    
     if(!((ps2x.Analog(PSS_RY) > 96 && ps2x.Analog(PSS_RY) < 160) && (ps2x.Analog(PSS_RX) > 96 && ps2x.Analog(PSS_RX) < 160))){
@@ -156,6 +187,27 @@ void loop() {
           else if(xButton == true){
               client.println("x");
           }
+          else if(start == true){
+              client.println("start");
+          }
+          else if(select == true){
+              client.println("select");
+          }
+          else if(triangle == true){
+              client.println("triangle");
+          }
+          else if(squareButton == true){
+              client.println("square");
+          }
+          else if(circle == true){
+              client.println("circle");
+          }
+          else if(cycle_back == true){
+              client.println("cycle_back");
+          }
+          else if(cycle_forward == true){
+              client.println("cycle_forward");
+          }
           right = false;
           up = false;
           left = false;
@@ -167,6 +219,13 @@ void loop() {
           dPadLeft = false;
           dPadDown = false;
           xButton = false;
+          start = false;
+          select = false;
+          triangle = false;
+          squareButton = false;
+          circle = false;
+          cycle_back = false;
+          cycle_forward = false;
           break;
         }
         if (c == '\n') {
