@@ -45,24 +45,24 @@ void setup() {
   server.begin();
 }
 
-boolean right = false;
-boolean up = false;
-boolean left = false;
-boolean down = false;
-boolean in = false;
-boolean out = false;
+boolean joypadRight = false;
+boolean joypadUp = false;
+boolean joypadLeft = false;
+boolean joypadDown = false;
+boolean l2Button = false;
+boolean r2Button = false;
 boolean dPadRight = false;
 boolean dPadUp = false;
 boolean dPadLeft = false;
 boolean dPadDown = false;
 boolean xButton = false;
-boolean start = false;
-boolean select = false;
-boolean triangle = false;
+boolean startButton = false;
+boolean selectButton = false;
+boolean triangleButton = false;
 boolean squareButton = false;
-boolean circle = false;
-boolean cycle_back = false;
-boolean cycle_forward = false;
+boolean circleButton = false;
+boolean l1Button = false;
+boolean r1Button = false;
 
 void loop() {
   EthernetClient client = server.available();
@@ -71,62 +71,62 @@ void loop() {
   ps2x.read_gamepad();
     if(!((ps2x.Analog(PSS_LY) > 96 && ps2x.Analog(PSS_LY) < 160) && (ps2x.Analog(PSS_LX) > 96 && ps2x.Analog(PSS_LX) < 160))){
         if(ps2x.Analog(PSS_LX) > 160){
-            right = true;
+            joypadRight = true;
         }
-        else if(ps2x.Analog(PSS_LY) < 96){
-            up = true;
+        if(ps2x.Analog(PSS_LY) < 96){
+            joypadUp = true;
         }
-        else if(ps2x.Analog(PSS_LX) < 96){
-            left = true;
+        if(ps2x.Analog(PSS_LX) < 96){
+            joypadLeft = true;
         }
-        else if(ps2x.Analog(PSS_LY) > 160){
-            down = true;
+        if(ps2x.Analog(PSS_LY) > 160){
+            joypadDown = true;
         }
     }
-    else if(ps2x.Button(PSB_L2)){
-       in = true;
+    if(ps2x.Button(PSB_L2)){
+       l2Button = true;
     }
-    else if(ps2x.Button(PSB_R2)){
-       out = true;
+    if(ps2x.Button(PSB_R2)){
+       r2Button = true;
     }
-    else if(ps2x.Button(PSB_PAD_RIGHT)){
+    if(ps2x.Button(PSB_PAD_RIGHT)){
         dPadRight = true;
     }
-    else if(ps2x.Button(PSB_PAD_UP)){
+    if(ps2x.Button(PSB_PAD_UP)){
         dPadUp = true;
     }
-    else if(ps2x.Button(PSB_PAD_LEFT)){
+    if(ps2x.Button(PSB_PAD_LEFT)){
         dPadLeft = true;
     }
-    else if(ps2x.Button(PSB_PAD_DOWN)){
+    if(ps2x.Button(PSB_PAD_DOWN)){
         dPadDown = true;
     }
-    else if(ps2x.Button(PSB_BLUE)){
+    if(ps2x.Button(PSB_BLUE)){
         xButton = true;
-        delay(250);
+        delay(100);
     }
-    else if(ps2x.Button(PSB_START)){
-        start = true;
+    if(ps2x.Button(PSB_START)){
+        startButton = true;
     }
-    else if(ps2x.Button(PSB_SELECT)){
-        select = true;
+    if(ps2x.Button(PSB_SELECT)){
+        selectButton = true;
     }
-    else if(ps2x.Button(PSB_GREEN)){
-        triangle = true;
+    if(ps2x.Button(PSB_GREEN)){
+        triangleButton = true;
         delay(500);
     }
-    else if(ps2x.Button(PSB_PINK)){
+    if(ps2x.Button(PSB_PINK)){
         squareButton = true;
         delay(500);
     }
-    else if(ps2x.Button(PSB_RED)){
-        circle = true;
+    if(ps2x.Button(PSB_RED)){
+        circleButton = true;
     }
-    else if(ps2x.Button(PSB_L1)){
-        cycle_back = true;
+    if(ps2x.Button(PSB_L1)){
+        l1Button = true;
     }
-    else if(ps2x.Button(PSB_R1)){
-        cycle_forward = true;
+    if(ps2x.Button(PSB_R1)){
+        r1Button = true;
     }
 /*    
     if(!((ps2x.Analog(PSS_RY) > 96 && ps2x.Analog(PSS_RY) < 160) && (ps2x.Analog(PSS_RX) > 96 && ps2x.Analog(PSS_RX) < 160))){
@@ -134,7 +134,7 @@ void loop() {
         Serial.print(ps2x.Analog(PSS_RY), DEC); //Left stick, Y axis. Other options: LX, RY, RX  
         Serial.print(",");
         Serial.println(ps2x.Analog(PSS_RX), DEC);
-        down = true;
+        joypadDown = true;
     }
 */
   if (client) {
@@ -146,86 +146,86 @@ void loop() {
           client.println("HTTP/1.1 200 OK");
           client.println("Access-Control-Allow-Origin: *");   
           client.println("Access-Control-Allow-Methods: GET");
-          client.println("Content-Type: text/html");
+          client.println("Content-Type: application/json");
           client.println("Connection: close");  // the connection will be closed after completion of the response
           //client.println("Refresh: 1");  // refresh the page automatically every 5 sec
           client.println();
           String json = "";
           Serial.println("client made contact");
-          if(right == true){
-              client.println("right");
+          if(joypadRight == true){
+              client.println("{\"voxel\":\"right\"}");
           }
-          else if(up == true){
-              client.println("up");
+          else if(joypadUp == true){
+              client.println("{\"voxel\":\"up\"}");
           }
-          else if(left == true){
-              client.println("left");
+          else if(joypadLeft == true){
+              client.println("{\"voxel\":\"left\"}");
           }
-          else if(down == true){
-              client.println("down");
+          else if(joypadDown == true){
+              client.println("{\"voxel\":\"down\"}");
           }
-          else if(in == true){
-              client.println("in");
+          else if(l2Button == true){
+              client.println("{\"voxel\":\"in\"}");
               delay(500);
           }
-          else if(out == true){
-              client.println("out");
+          else if(r2Button == true){
+              client.println("{\"voxel\":\"out\"}");
               delay(500);
           }
           else if(dPadRight == true){
-              client.println("dpad_right");
+              client.println("{\"stage\":\"yawCCW\"}");
           }
           else if(dPadUp == true){
-              client.println("dpad_up");
+              client.println("{\"stage\":\"pitchCCW\"}");
           }
           else if(dPadLeft == true){
-              client.println("dpad_left");
+              client.println("{\"stage\":\"yawCW\"}");
           }
           else if(dPadDown == true){
-              client.println("dpad_down");
+              client.println("{\"stage\":\"pitchCW\"}");
           }
           else if(xButton == true){
-              client.println("x");
+              client.println("{\"vertex\":\"add\"}");
           }
-          else if(start == true){
-              client.println("start");
+          else if(startButton == true){
+              client.println("{\"stage\":\"center\"}");
           }
-          else if(select == true){
-              client.println("select");
+          else if(selectButton == true){
+              client.println("{\"stage\":\"reset\"}");
           }
-          else if(triangle == true){
-              client.println("triangle");
+          else if(triangleButton == true){
+              client.println("{\"vertex\":\"delete\"}");
           }
           else if(squareButton == true){
-              client.println("square");
+              client.println("{\"stage\":\"import\"}");
           }
-          else if(circle == true){
-              client.println("circle");
+          else if(circleButton == true){
+              client.println("{\"stage\":\"export\"}");
           }
-          else if(cycle_back == true){
-              client.println("cycle_back");
+          else if(l1Button == true){
+              client.println("{\"vertex\":\"back\"}");
           }
-          else if(cycle_forward == true){
-              client.println("cycle_forward");
+          else if(r1Button == true){
+              client.println("{\"vertex\":\"forward\"}");
           }
-          right = false;
-          up = false;
-          left = false;
-          down = false;
-          in = false;
-          out = false;
+          joypadRight = false;
+          joypadUp = false;
+          joypadLeft = false;
+          joypadDown = false;
+          l2Button = false;
+          r2Button = false;
           dPadRight = false;
           dPadUp = false;
           dPadLeft = false;
           dPadDown = false;
           xButton = false;
-          start = false;
-          select = false;
-          triangle = false;
+          startButton = false;
+          selectButton = false;
+          triangleButton = false;
           squareButton = false;
-          circle = false;
-          cycle_back = false;
-          cycle_forward = false;
+          circleButton = false;
+          l1Button = false;
+          r1Button = false;
           break;
         }
         if (c == '\n') {
