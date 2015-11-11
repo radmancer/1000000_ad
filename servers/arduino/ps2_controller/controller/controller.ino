@@ -103,7 +103,6 @@ void loop() {
     }
     if(ps2x.Button(PSB_BLUE)){
         xButton = true;
-        delay(100);
     }
     if(ps2x.Button(PSB_START)){
         startButton = true;
@@ -113,11 +112,9 @@ void loop() {
     }
     if(ps2x.Button(PSB_GREEN)){
         triangleButton = true;
-        delay(500);
     }
     if(ps2x.Button(PSB_PINK)){
         squareButton = true;
-        delay(500);
     }
     if(ps2x.Button(PSB_RED)){
         circleButton = true;
@@ -166,11 +163,11 @@ void loop() {
           }
           else if(l2Button == true){
               client.println("{\"voxel\":\"in\"}");
-              delay(500);
+              delay(100);
           }
           else if(r2Button == true){
               client.println("{\"voxel\":\"out\"}");
-              delay(500);
+              delay(100);
           }
           else if(dPadRight == true){
               client.println("{\"stage\":\"yawCCW\"}");
@@ -186,6 +183,7 @@ void loop() {
           }
           else if(xButton == true){
               client.println("{\"vertex\":\"add\"}");
+              delay(100);
           }
           else if(startButton == true){
               client.println("{\"stage\":\"center\"}");
@@ -195,9 +193,11 @@ void loop() {
           }
           else if(triangleButton == true){
               client.println("{\"vertex\":\"delete\"}");
+              delay(500);
           }
           else if(squareButton == true){
               client.println("{\"stage\":\"import\"}");
+              delay(500);
           }
           else if(circleButton == true){
               client.println("{\"stage\":\"export\"}");
@@ -240,4 +240,3 @@ void loop() {
     client.stop();
   }
 }
-
