@@ -67,7 +67,7 @@ function cycleVoxel(direction){
 	}
 
 	for(var i = 0; i < 6; i++){
-		document.getElementById(selectedVoxelPosition+"").childNodes[i].style.backgroundColor = "red";
+		document.getElementById(selectedVoxelPosition+"").childNodes[i].style.backgroundColor = selectedVoxelColor;
 		document.getElementById(previousSelectedVoxelPosition+"").childNodes[i].style.backgroundColor = voxelColor;
 	}
 }

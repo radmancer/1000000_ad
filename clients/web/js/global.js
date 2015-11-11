@@ -8,7 +8,10 @@ var globalCursorZ = -245;
 var cursorInterval = 100;
 
 //The background color used for all voxels.
-var voxelColor = "#00ff00";
+var voxelColor = "black";
+
+//The background color for the currently selected voxel.
+var selectedVoxelColor = "white";
 
 //z-index property allows voxels to clip through each other.
 var zIndexCount = 0;
@@ -21,7 +24,7 @@ var voxelCount = 0;
 var selectedVoxelPosition = 0;
 
 //The length, width, and height of a voxel.
-var voxelDimension = 10;
+var voxelDimension = 2;
 
 //The length, width, and height of a voxel's faces.
 var voxelSideDimension = voxelDimension / 2;
