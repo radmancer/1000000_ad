@@ -46,6 +46,7 @@ function pingRadServer(url){
     {
         if (xmlHttp.readyState==4 && xmlHttp.status==200){
             jsonInterpreter(xmlHttp.responseText);
+            delete xmlHttp;
         }
     }
     xmlHttp.open("GET", url, true);
