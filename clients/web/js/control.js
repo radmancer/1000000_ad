@@ -1,4 +1,13 @@
+function escapeRegExp(str) {
+    return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+}
+
+function replaceAll(str, find, replace) {
+  return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+}
+
 function jsonInterpreter(jsonText){
+    jsonText = replaceAll(jsonText, "'", "\"");
     if(jsonText != ""){
         var json = JSON.parse(jsonText);
         if(json.voxel == "right")
@@ -41,16 +50,24 @@ function jsonInterpreter(jsonText){
 }
 
 function pingRadServer(url){
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange=function()
-    {
-        if (xmlHttp.readyState==4 && xmlHttp.status==200){
-            jsonInterpreter(xmlHttp.responseText);
-            delete xmlHttp;
+    if(radDeviceDetectionCounter < radDeviceDetectionLimit){
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange=function()
+        {
+            if (xmlHttp.readyState==4 && xmlHttp.status==200){
+                jsonInterpreter(xmlHttp.responseText);
+            }
+            else if(xmlHttp.status == 0){
+                radDeviceDetectionCounter += 1;
+            }
         }
+        xmlHttp.open("GET", url, true);
+        xmlHttp.send();
     }
-    xmlHttp.open("GET", url, true);
-    xmlHttp.send();
+    else if(radDeviceDetectionCounter == radDeviceDetectionLimit){
+        alert("Please connect a R.A.D. compatible device and reload this page.  If you do not have a R.A.D. device, use the web controls.");
+        radDeviceDetectionCounter += 1;
+    }
 }
 
 window.setInterval(function(){pingRadServer(radUrl);}, pingInterval);

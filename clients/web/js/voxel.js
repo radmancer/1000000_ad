@@ -95,27 +95,27 @@ function createCursor(){
 	cursor.className = 'voxel';
 	var face1 = document.createElement('div');
 	face1.className = "voxelFace";
-	var cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + voxelColor + ";-webkit-transform: rotateX(90deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateX(90deg) translateZ(" + voxelSideDimension + "px);transform: rotateX(90deg) translateZ(" + voxelSideDimension + "px);";
+	var cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + cursorVoxelColor + ";-webkit-transform: rotateX(90deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateX(90deg) translateZ(" + voxelSideDimension + "px);transform: rotateX(90deg) translateZ(" + voxelSideDimension + "px);";
 	face1.setAttribute('style', cssText);
 	var face2 = document.createElement('div');
 	face2.className = "voxelFace";
-	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + voxelColor + ";-webkit-transform: translateZ(" + voxelSideDimension + "px);-moz-transform: translateZ(" + voxelSideDimension + "px);transform: translateZ(" + voxelSideDimension + "px);";
+	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + cursorVoxelColor + ";-webkit-transform: translateZ(" + voxelSideDimension + "px);-moz-transform: translateZ(" + voxelSideDimension + "px);transform: translateZ(" + voxelSideDimension + "px);";
 	face2.setAttribute('style', cssText);
 	var face3 = document.createElement('div');
 	face3.className = "voxelFace";
-	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + voxelColor + ";-webkit-transform: rotateY(90deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateY(90deg) translateZ(" + voxelSideDimension + "px);transform: rotateY(90deg) translateZ(" + voxelSideDimension + "px);";
+	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + cursorVoxelColor + ";-webkit-transform: rotateY(90deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateY(90deg) translateZ(" + voxelSideDimension + "px);transform: rotateY(90deg) translateZ(" + voxelSideDimension + "px);";
 	face3.setAttribute('style', cssText);
 	var face4 = document.createElement('div');
 	face4.className = "voxelFace";
-	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + voxelColor + ";-webkit-transform: rotateY(180deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateY(180deg) translateZ(" + voxelSideDimension + "px);transform: rotateY(180deg) translateZ(" + voxelSideDimension + "px);";
+	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + cursorVoxelColor + ";-webkit-transform: rotateY(180deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateY(180deg) translateZ(" + voxelSideDimension + "px);transform: rotateY(180deg) translateZ(" + voxelSideDimension + "px);";
 	face4.setAttribute('style', cssText);
 	var face5 = document.createElement('div');
 	face5.className = "voxelFace";
-	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + voxelColor + ";-webkit-transform: rotateY(-90deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateY(-90deg) translateZ(" + voxelSideDimension + "px);transform: rotateY(-90deg) translateZ(" + voxelSideDimension + "px);";
+	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + cursorVoxelColor + ";-webkit-transform: rotateY(-90deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateY(-90deg) translateZ(" + voxelSideDimension + "px);transform: rotateY(-90deg) translateZ(" + voxelSideDimension + "px);";
 	face5.setAttribute('style', cssText);
 	var face6 = document.createElement('div');
 	face6.className = "voxelFace";
-	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + voxelColor + ";-webkit-transform: rotateX(-90deg) rotate(180deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateX(-90deg) rotate(180deg) translateZ(" + voxelSideDimension + "px);transform: rotateX(-90deg) rotate(180deg) translateZ(" + voxelSideDimension + "px);";
+	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + cursorVoxelColor + ";-webkit-transform: rotateX(-90deg) rotate(180deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateX(-90deg) rotate(180deg) translateZ(" + voxelSideDimension + "px);transform: rotateX(-90deg) rotate(180deg) translateZ(" + voxelSideDimension + "px);";
 	face6.setAttribute('style', cssText);
 	cursor.appendChild(face1);
 	cursor.appendChild(face2);
@@ -202,6 +202,14 @@ function updateGrid(direction){
 	cursor.style.transform = cursorZ;
 }
 
+//The old cursor is now a new point and must be set to the uniform color of the other voxels.
+function updateNewPointColor(cursor){
+    var cursorChildren = cursor.children;
+    for (var i = 0; i < cursorChildren.length; i++) {
+        cursorChildren[i].style.backgroundColor=voxelColor;
+    }
+}
+
 //Captures a voxel-point at the cursor's current position.
 //NOTE: The following sets the voxel's CSS with concatenated JavaScript strings.
 //      Setting the CSS with a JavaScript style property is desired, but I have not had any luck setting the webkit transform property.
@@ -219,27 +227,27 @@ function capturePoint(){
 	point.className = 'voxel';
 	var face1 = document.createElement('div');
 	face1.className = "voxelFace";
-	var cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + voxelColor + ";-webkit-transform: rotateX(90deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateX(90deg) translateZ(" + voxelSideDimension + "px);transform: rotateX(90deg) translateZ(" + voxelSideDimension + "px);";
+	var cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + cursorVoxelColor + ";-webkit-transform: rotateX(90deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateX(90deg) translateZ(" + voxelSideDimension + "px);transform: rotateX(90deg) translateZ(" + voxelSideDimension + "px);";
 	face1.setAttribute('style', cssText);
 	var face2 = document.createElement('div');
 	face2.className = "voxelFace";
-	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + voxelColor + ";-webkit-transform: translateZ(" + voxelSideDimension + "px);-moz-transform: translateZ(" + voxelSideDimension + "px);transform: translateZ(" + voxelSideDimension + "px);";
+	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + cursorVoxelColor + ";-webkit-transform: translateZ(" + voxelSideDimension + "px);-moz-transform: translateZ(" + voxelSideDimension + "px);transform: translateZ(" + voxelSideDimension + "px);";
 	face2.setAttribute('style', cssText);
 	var face3 = document.createElement('div');
 	face3.className = "voxelFace";
-	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + voxelColor + ";-webkit-transform: rotateY(90deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateY(90deg) translateZ(" + voxelSideDimension + "px);transform: rotateY(90deg) translateZ(" + voxelSideDimension + "px);";
+	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + cursorVoxelColor + ";-webkit-transform: rotateY(90deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateY(90deg) translateZ(" + voxelSideDimension + "px);transform: rotateY(90deg) translateZ(" + voxelSideDimension + "px);";
 	face3.setAttribute('style', cssText);
 	var face4 = document.createElement('div');
 	face4.className = "voxelFace";
-	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + voxelColor + ";-webkit-transform: rotateY(180deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateY(180deg) translateZ(" + voxelSideDimension + "px);transform: rotateY(180deg) translateZ(" + voxelSideDimension + "px);";
+	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + cursorVoxelColor + ";-webkit-transform: rotateY(180deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateY(180deg) translateZ(" + voxelSideDimension + "px);transform: rotateY(180deg) translateZ(" + voxelSideDimension + "px);";
 	face4.setAttribute('style', cssText);
 	var face5 = document.createElement('div');
 	face5.className = "voxelFace";
-	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + voxelColor + ";-webkit-transform: rotateY(-90deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateY(-90deg) translateZ(" + voxelSideDimension + "px);transform: rotateY(-90deg) translateZ(" + voxelSideDimension + "px);";
+	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + cursorVoxelColor + ";-webkit-transform: rotateY(-90deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateY(-90deg) translateZ(" + voxelSideDimension + "px);transform: rotateY(-90deg) translateZ(" + voxelSideDimension + "px);";
 	face5.setAttribute('style', cssText);
 	var face6 = document.createElement('div');
 	face6.className = "voxelFace";
-	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + voxelColor + ";-webkit-transform: rotateX(-90deg) rotate(180deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateX(-90deg) rotate(180deg) translateZ(" + voxelSideDimension + "px);transform: rotateX(-90deg) rotate(180deg) translateZ(" + voxelSideDimension + "px);";
+	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + cursorVoxelColor + ";-webkit-transform: rotateX(-90deg) rotate(180deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateX(-90deg) rotate(180deg) translateZ(" + voxelSideDimension + "px);transform: rotateX(-90deg) rotate(180deg) translateZ(" + voxelSideDimension + "px);";
 	face6.setAttribute('style', cssText);
 	point.appendChild(face1);
 	point.appendChild(face2);
@@ -265,9 +273,9 @@ function capturePoint(){
 	//As new points are added, the numeric IDs will increase.
 	point.id = cursor.id;
 	cursor.id = voxelCount + "";
+        updateNewPointColor(cursor);
 	voxelCount += 1;
-
-	document.getElementById("cube").appendChild(point);	
+	document.getElementById("cube").appendChild(point);
 }
 
 function escapeRegExp(string) {
