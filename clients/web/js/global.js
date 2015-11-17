@@ -3,14 +3,9 @@ var globalCursorX = 0;
 var globalCursorY = 0;
 var globalCursorZ = -245;
 
-//Increments every time the R.A.D. server is not found.
-radDeviceDetectionCounter = 0;
-
-//If the rad device detection counter exceeds this limit,
-//then no further AJAX requests are made to the server.
-//This prevents the application from using up too much RAM, 
-//which typically happens when the debugging screen is open and printing constant error messages.
-radDeviceDetectionLimit = 10;
+//A boolean that is switched to true
+//when the user wishes to use a RAD device.
+var isRadDeviceConnected = false;
 
 //Controls the amount of time in milliseconds 
 //between voxel translation function calls.

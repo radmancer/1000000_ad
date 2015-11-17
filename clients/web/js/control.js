@@ -50,24 +50,17 @@ function jsonInterpreter(jsonText){
 }
 
 function pingRadServer(url){
-    if(radDeviceDetectionCounter < radDeviceDetectionLimit){
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.onreadystatechange=function()
-        {
-            if (xmlHttp.readyState==4 && xmlHttp.status==200){
-                jsonInterpreter(xmlHttp.responseText);
-            }
-            else if(xmlHttp.status == 0){
-                radDeviceDetectionCounter += 1;
-            }
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange=function()
+    {
+        if (xmlHttp.readyState==4 && xmlHttp.status==200){
+            jsonInterpreter(xmlHttp.responseText);
         }
-        xmlHttp.open("GET", url, true);
-        xmlHttp.send();
     }
-    else if(radDeviceDetectionCounter == radDeviceDetectionLimit){
-        alert("Please connect a R.A.D. compatible device and reload this page.  If you do not have a R.A.D. device, use the web controls.");
-        radDeviceDetectionCounter += 1;
-    }
+    xmlHttp.open("GET", url, true);
+    xmlHttp.send();
 }
 
-window.setInterval(function(){pingRadServer(radUrl);}, pingInterval);
+if(isRadDeviceConnected == true){
+    window.setInterval(function(){pingRadServer(radUrl);}, pingInterval);
+}
