@@ -3,6 +3,10 @@ var globalCursorX = 0;
 var globalCursorY = 0;
 var globalCursorZ = -245;
 
+//Specifies what the user wishes to export their work as.
+//These formats can be raw points, a blender script, or something else.
+var exportFormat = "points";
+
 //A boolean that is switched to true
 //when the user wishes to use a RAD device.
 var isRadDeviceConnected = true;

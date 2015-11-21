@@ -282,8 +282,8 @@ function escapeRegExp(string) {
     return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
 }
 
-function replaceAll(find, replace, string) {
-  return string.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+function customReplaceAll(find, replace, string) {
+    return string.replace(new RegExp(escapeRegExp(find), 'g'), replace);
 }
 
 //Traverses all voxels on screen, strips their coordinates, and stores their coordinates in a textarea element.
@@ -317,11 +317,11 @@ function saveMesh(format){
     voxelCoordinates += "}";
 
     if(format == "blender"){
-        voxelCoordinates = replaceAll("{", "[", voxelCoordinates);
-        voxelCoordinates = replaceAll("}", "]", voxelCoordinates);
-        voxelCoordinates = replaceAll("(", "[", voxelCoordinates);
-        voxelCoordinates = replaceAll(")", "]", voxelCoordinates);
-        voxelCoordinates = replaceAll(";", ",", voxelCoordinates);
+        voxelCoordinates = customReplaceAll("{", "[", voxelCoordinates);
+        voxelCoordinates = customReplaceAll("}", "]", voxelCoordinates);
+        voxelCoordinates = customReplaceAll("(", "[", voxelCoordinates);
+        voxelCoordinates = customReplaceAll(")", "]", voxelCoordinates);
+        voxelCoordinates = customReplaceAll(";", ",", voxelCoordinates);
         voxelCoordinates = "from Blender import *\nimport bpy\npoint_cloud = " + voxelCoordinates + "\nmesh = bpy.data.meshes.new(\"rad_mesh\")\nmesh.verts.extend(point_cloud)\nscene = bpy.data.scenes.active\nscene.objects.new(mesh, \"rad_object\")";
     }
 
