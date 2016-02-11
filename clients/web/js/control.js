@@ -6,7 +6,7 @@ function replaceAll(str, find, replace) {
   return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
 }
 
-function jsonInterpreter(jsonText){
+function transform(jsonText){
     jsonText = replaceAll(jsonText, "'", "\"");
     if(jsonText != ""){
         var json = JSON.parse(jsonText);
@@ -27,11 +27,11 @@ function jsonInterpreter(jsonText){
         if(json.stage == "yawCCW")
             rotateOrthogonally("right");
         if(json.stage == "pitchCCW")
-            rotateOrthogonally("up");
+            rotateOrthogonally("down");
         if(json.stage == "yawCW")
             rotateOrthogonally("left");
         if(json.stage == "pitchCW")
-            rotateOrthogonally("down");
+            rotateOrthogonally("up");
         if(json.vertex == "back")
             cycleVoxel('back');
         if(json.vertex == "forward")
@@ -62,5 +62,5 @@ function pingRadServer(url){
 }
 
 if(isRadDeviceConnected == true){
-    window.setInterval(function(){pingRadServer(radUrl);}, pingInterval);
+    //window.setInterval(function(){pingRadServer(radUrl);}, pingInterval);
 }

@@ -26,6 +26,10 @@ document.getElementById("face5").setAttribute('style', cssText);
 cssText = "height: " + cubeDimension + "px;width: " + cubeDimension + "px;-webkit-transform: rotateX(-90deg) rotate(180deg) translateZ(" + cubeSideDimension + "px);-moz-transform: rotateX(-90deg) rotate(180deg) translateZ(" + cubeSideDimension + "px);transform: rotateX(-90deg) rotate(180deg) translateZ(" + cubeSideDimension + "px);";
 document.getElementById("face6").setAttribute('style', cssText);
 
+function transformStage(jsonText){
+    jsonInterpreter(jsonText);
+}
+
 //A normalized vector has a magnitude of 1 and can point in any direction on a plane.
 //Mouse coordinates are fed into the parameters as X and Y values, 
 //and their vector magnitude is found after performing the Pythagorean theorem on each coordinate.
