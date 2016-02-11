@@ -3,7 +3,7 @@
 							<table>
 								<tr>
 									<td>
-										<div><center><span>stage</span></center></div>
+										<div><center><span>Stage</span></center></div>
 									</td>
 								</tr>
 								<tr>
