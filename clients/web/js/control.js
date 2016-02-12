@@ -44,8 +44,10 @@ function transform(jsonText){
             resetStage();
         if(json.stage == "import")
             importMesh(document.getElementById('importExport').value);
-        if(json.stage == "export")
-            saveMesh('blender');
+        if(json.stage == "export_default")
+            saveMesh('export_default');
+        if(json.stage == "export_blender")
+            saveMesh('export_blender');
     }
 }
 

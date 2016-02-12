@@ -316,7 +316,7 @@ function saveMesh(format){
 
     voxelCoordinates += "}";
 
-    if(format == "blender"){
+    if(format == "export_blender"){
         voxelCoordinates = customReplaceAll("{", "[", voxelCoordinates);
         voxelCoordinates = customReplaceAll("}", "]", voxelCoordinates);
         voxelCoordinates = customReplaceAll("(", "[", voxelCoordinates);

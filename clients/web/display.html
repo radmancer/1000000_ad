@@ -37,6 +37,8 @@
 <br>
 <br>
 <br>
+        <input type="button" value="stage reset" onclick="transform('{\'stage\':\'reset\'}')">
+        <input type="button" value="stage center" onclick="transform('{\'stage\':\'center\'}')">
         <input type="button" value="stage ccw" onclick="transform('{\'stage\':\'yawCCW\'}')">
         <input type="button" value="stage cw" onclick="transform('{\'stage\':\'yawCW\'}')">
         <input type="button" value="stage pitch ccw" onclick="transform('{\'stage\':\'pitchCCW\'}')">
@@ -47,7 +49,14 @@
         <input type="button" value="voxel down" onclick="transform('{\'voxel\':\'down\'}')">
         <input type="button" value="voxel out" onclick="transform('{\'voxel\':\'out\'}')">
         <input type="button" value="voxel in" onclick="transform('{\'voxel\':\'in\'}')">
-        <input type="button" value="voxel save" onclick="transform('{\'vertex\':\'add\'}')">
+        <input type="button" value="vertex save" onclick="transform('{\'vertex\':\'add\'}')">
+        <input type="button" value="vertex >>" onclick="transform('{\'vertex\':\'forward\'}')">
+        <input type="button" value="vertex <<" onclick="transform('{\'vertex\':\'back\'}')">
+        <input type="button" value="vertex delete" onclick="transform('{\'vertex\':\'delete\'}')">
+        <input type="button" value="export default" onclick="transform('{\'stage\':\'export_default\'}')">
+        <input type="button" value="export blender" onclick="transform('{\'stage\':\'export_blender\'}')">
+        <input type="button" value="stage import" onclick="transform('{\'stage\':\'import\'}')">
+        <textarea id="importExport" rows="10" cols="19"></textarea>
     </body>
     <script>
         //A cursor voxel must be created directly after the entire page has finished loading.
