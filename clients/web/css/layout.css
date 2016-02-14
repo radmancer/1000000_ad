@@ -1,22 +1,32 @@
 /*
-Collapses all tables so that undesired internal spaces will not appear.
-*/
-table{
-	border-collapse:collapse;
-}
-
-/*
-Eliminates space between table cell content and cell walls.
-*/
-td{
-	padding:0px;
-}
-
-/*
 Eliminates space between the outer edges of the body and the borders of the web browser window.
 This class also controls the default color of the body.
 */
 body{
-	margin:0px;
-	background-color:silver;
+    margin:0rem;
+    background-color:silver;
+}
+.vertical-horizontal-center{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.columnHeight{
+    height:38rem;
+}
+p{
+    padding-top:0.5rem;
+}
+.column-left{
+    float:left;
+    width:20%;
+}
+.column-right{
+    float:right;
+    width:20%;
+}
+.column-center{
+    display:inline-block;
+    width:60%;
+    vertical-align:top;
 }

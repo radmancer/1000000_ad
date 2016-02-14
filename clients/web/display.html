@@ -3,25 +3,6 @@
     <head>
         <meta charset="utf-8" />
         <title>Render by Accretion Display</title>
-        <style>
-            .column-left{ float: left; width: 20%; }
-            .column-right{ float: right; width: 20%; }
-            .column-center{ display: inline-block; width: 60%; vertical-align: top;}
-            .button-column-left{ display: inline-block; float: left; width: 33%; }
-            .button-column-right{ display: inline-block; float: right; width: 33%; }
-            .button-column-center{ display: inline-block; width: 33%; vertical-align: top;}
-            .vertical-horizontal-center{
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            .columnHeight{
-                height:38rem;
-            }
-            p{
-                padding-top:0.5rem;
-            }
-        </style>
         <script src="js/global.js"></script>
         <script src="js/voxel.js"></script>
         <link rel="stylesheet" type="text/css" href="css/layout.css">
@@ -32,7 +13,7 @@
     <body onkeydown='rotateByArrowKeys(event);'>
         <div class="column-left vertical-horizontal-center columnHeight">
             <div class="buttonPanel">
-                <textarea id="importExport" rows="10" cols="24"></textarea>
+                <textarea id="importExport" style="width:11.65rem;height:6rem;"></textarea>
                 <div class="button button-column-left" onclick="transform('{\'stage\':\'import\'}')"><p>import</p></div>
                 <div class="button button-column-center" onclick="transform('{\'stage\':\'pitchCW\'}')" ontouch="transform('{\'stage\':\'pitchCW\'}')"><p>&uarr;</p></div>
                 <div class="button button-column-right" onclick="transform('{\'stage\':\'reset\'}')" ontouch="transform('{\'stage\':\'reset\'}')"><p>reset</p></div>

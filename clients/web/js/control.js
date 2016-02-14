@@ -64,5 +64,5 @@ function pingRadServer(url){
 }
 
 if(isRadDeviceConnected == true){
-    //window.setInterval(function(){pingRadServer(radUrl);}, pingInterval);
+    window.setInterval(function(){pingRadServer(radUrl);}, pingInterval);
 }

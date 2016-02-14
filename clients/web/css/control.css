@@ -2,40 +2,38 @@
 Controls the styling of buttons used for manipulating the stage and voxels.
 */
 div.button {
-	width:4rem;
-	height:4rem;
-/*
-	border-style:solid;
-	border-width:1px;
-	border-color:black;
-	border-right:none;
-	border-bottom:none;
-*/
-        background-color:gray;
-	font-size:small;
-	color:black;
-
-	/*Changes the default cursor to a pointing hand icon.*/
-	cursor:pointer;
-
-	/*Disables the user from inadvertently selecting the div's text.*/
-	-webkit-user-select:none;  
-	-moz-user-select:none;    
-	-ms-user-select:none;      
-	user-select:none;
-        text-align: center;
+    width:4rem;
+    height:4rem;
+    background-color:gray;
+    font-size:small;
+    color:black;
+    /*Changes the default cursor to a pointing hand icon.*/
+    cursor:pointer;
+    /*Disables the user from inadvertently selecting the div's text.*/
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+    text-align: center;
 }
-
 /*
-Controls the border styling of a collection of buttons arranged in a 3 x 3 grid.
+Organizes button controls into a tight group.
 */
 .buttonPanel{
     width:12rem;
-/*
-    border-style:solid;
-    border-width:1px;
-    border-color:black;
-    border-left:none;
-    border-top:none;
-*/
+}
+.button-column-left{
+    display:inline-block;
+    float:left;
+    width:33%;
+}
+.button-column-right{
+    display:inline-block;
+    float:right;
+    width:33%;
+}
+.button-column-center{
+    display:inline-block;
+    width:33%;
+    vertical-align:top;
 }
