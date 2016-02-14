@@ -9,21 +9,139 @@
         <link rel="stylesheet" type="text/css" href="css/control.css">
         <link rel="stylesheet" type="text/css" href="css/stage.css">
         <link rel="stylesheet" type="text/css" href="css/voxel.css">
+        <script>
+            var rightViewCounter = 0;
+            var upViewCounter = 0;
+            var leftViewCounter = 0;
+            var downViewCounter = 0;
+            function updateViewDirection(direction){
+                switch (direction) {
+                    case "right":
+                        leftViewCounter -= 1;
+                        if(leftViewCounter < 0){
+                            leftViewCounter = 3;
+                        }
+                        rightViewCounter += 1;
+                        if(rightViewCounter == 4){
+                            rightViewCounter = 0;
+                        }
+                        break;
+                    case "up":
+                        downViewCounter -= 1;
+                        if(downViewCounter < 0){
+                            downViewCounter = 3;
+                        }
+                        upViewCounter += 1;
+                        if(upViewCounter == 4){
+                            upViewCounter = 0;
+                        }
+                        break;
+                    case "left":
+                        rightViewCounter -= 1;
+                        if(rightViewCounter < 0){
+                            rightViewCounter = 3;
+                        }
+                        leftViewCounter += 1;
+                        if(leftViewCounter == 4){
+                            leftViewCounter = 0;
+                        }
+                        break;
+                    case "down":
+                        upViewCounter -= 1;
+                        if(upViewCounter < 0){
+                            upViewCounter = 3;
+                        }
+                        downViewCounter += 1;
+                        if(downViewCounter == 4){
+                            downViewCounter = 0;
+                        }
+                        break;
+                }
+            }
+            function changeVoxelDirectionByView(direction){
+                switch (direction) {
+                    case "right":
+                        switch (rightViewCounter){
+                            case 0:
+                                updateGridOnMouseDown('{\'voxel\':\'right\'}');
+                                break;
+                            case 1:
+                                updateGridOnMouseDown('{\'voxel\':\'out\'}');
+                                break;
+                            case 2:
+                                updateGridOnMouseDown('{\'voxel\':\'left\'}');
+                                break;
+                            case 3:
+                                updateGridOnMouseDown('{\'voxel\':\'in\'}');
+                                break;
+                        }
+                        break;
+                    case "up":
+                        switch (upViewCounter){
+                            case 0:
+                                updateGridOnMouseDown('{\'voxel\':\'up\'}');
+                                break;
+                            case 1:
+                                updateGridOnMouseDown('{\'voxel\':\'out\'}');
+                                break;
+                            case 2:
+                                updateGridOnMouseDown('{\'voxel\':\'down\'}');
+                                break;
+                            case 3:
+                                updateGridOnMouseDown('{\'voxel\':\'in\'}');
+                                break;
+                        }
+                        break;
+                    case "left":
+                        switch (leftViewCounter){
+                            case 0:
+                                updateGridOnMouseDown('{\'voxel\':\'left\'}');
+                                break;
+                            case 1:
+                                updateGridOnMouseDown('{\'voxel\':\'out\'}');
+                                break;
+                            case 2:
+                                updateGridOnMouseDown('{\'voxel\':\'right\'}');
+                                break;
+                            case 3:
+                                updateGridOnMouseDown('{\'voxel\':\'in\'}');
+                                break;
+                        }
+                        break;
+                    case "down":
+                        switch (downViewCounter){
+                            case 0:
+                                updateGridOnMouseDown('{\'voxel\':\'down\'}');
+                                break;
+                            case 1:
+                                updateGridOnMouseDown('{\'voxel\':\'out\'}');
+                                break;
+                            case 2:
+                                updateGridOnMouseDown('{\'voxel\':\'up\'}');
+                                break;
+                            case 3:
+                                updateGridOnMouseDown('{\'voxel\':\'in\'}');
+                                break;
+                        }
+                        break;
+                }
+            }
+        </script>
     </head>
     <body onkeydown='rotateByArrowKeys(event);'>
         <div class="column-left vertical-horizontal-center columnHeight">
             <div class="buttonPanel">
                 <textarea id="importExport" style="width:11.65rem;height:6rem;"></textarea>
                 <div class="button button-column-left" onclick="transform('{\'stage\':\'import\'}')"><p>import</p></div>
-                <div class="button button-column-center" onclick="transform('{\'stage\':\'pitchCW\'}')" ontouch="transform('{\'stage\':\'pitchCW\'}')"><p>&uarr;</p></div>
+                <div class="button button-column-center" onclick="transform('{\'stage\':\'pitchCW\'}');updateViewDirection('up');" ontouch="transform('{\'stage\':\'pitchCW\'}')"><p>&uarr;</p></div>
                 <div class="button button-column-right" onclick="transform('{\'stage\':\'reset\'}')" ontouch="transform('{\'stage\':\'reset\'}')"><p>reset</p></div>
                 <br>
-                <div class="button button-column-left" onclick="transform('{\'stage\':\'yawCW\'}')" ontouch="transform('{\'stage\':\'yawCW\'}')"><p>&larr;</p></div>
+                <div class="button button-column-left" onclick="transform('{\'stage\':\'yawCW\'}');updateViewDirection('left');" ontouch="transform('{\'stage\':\'yawCW\'}')"><p>&larr;</p></div>
                 <div class="button button-column-center" onclick="transform('{\'stage\':\'center\'}')" ontouch="transform('{\'stage\':\'center\'}')"><p>center</p></div>
-                <div class="button button-column-right" onclick="transform('{\'stage\':\'yawCCW\'}')" ontouch="transform('{\'stage\':\'yawCCW\'}')"><p>&rarr;</p></div>
+                <div class="button button-column-right" onclick="transform('{\'stage\':\'yawCCW\'}');updateViewDirection('right');" ontouch="transform('{\'stage\':\'yawCCW\'}')"><p>&rarr;</p></div>
                 <br>
                 <div class="button button-column-left" onclick="transform('{\'stage\':\'export_default\'}')"><p>export default</p></div>
-                <div class="button button-column-center" onclick="transform('{\'stage\':\'pitchCCW\'}')" ontouch="transform('{\'stage\':\'pitchCCW\'}')"><p>&darr;</p></div>
+                <div class="button button-column-center" onclick="transform('{\'stage\':\'pitchCCW\'}');updateViewDirection('down');" ontouch="transform('{\'stage\':\'pitchCCW\'}')"><p>&darr;</p></div>
                 <div class="button button-column-right" onclick="transform('{\'stage\':\'export_blender\'}')"><p>export blender</p></div>
             </div>
         </div>
@@ -47,15 +165,15 @@
         <div class="column-right vertical-horizontal-center columnHeight">
             <div class="buttonPanel" style="margin: 0">
                 <div class="button button-column-left"></div>
-                <div class="button button-column-center" onmousedown="updateGridOnMouseDown('{\'voxel\':\'up\'}');" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'voxel\':\'up\'}');" ontouchend="updateGridOnMouseUp();"><p>&uarr;</p></div>
+                <div class="button button-column-center" onmousedown="changeVoxelDirectionByView('up');" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'voxel\':\'up\'}');" ontouchend="updateGridOnMouseUp();"><p>&uarr;</p></div>
                 <div class="button button-column-right"></div>
                 <br>
-                <div class="button button-column-left" onmousedown="updateGridOnMouseDown('{\'voxel\':\'left\'}');" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'voxel\':\'left\'}');" ontouchend="updateGridOnMouseUp();"><p>&larr;</p></div>
+                <div class="button button-column-left" onmousedown="changeVoxelDirectionByView('left');" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'voxel\':\'left\'}');" ontouchend="updateGridOnMouseUp();"><p>&larr;</p></div>
                 <div class="button button-column-center" onclick="transform('{\'vertex\':\'add\'}');" ontouch="('{\'vertex\':\'add\'}');"><p>&#9632;</p></div>
-                <div class="button button-column-right" onmousedown="updateGridOnMouseDown('{\'voxel\':\'right\'}');" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'voxel\':\'right\'}');" ontouchend="updateGridOnMouseUp();"><p>&rarr;</p></div>
+                <div class="button button-column-right" onmousedown="changeVoxelDirectionByView('right');" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'voxel\':\'right\'}');" ontouchend="updateGridOnMouseUp();"><p>&rarr;</p></div>
                 <br>
                 <div class="button button-column-left" onmousedown="updateGridOnMouseDown('{\'voxel\':\'in\'}');" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'voxel\':\'in\'}');" ontouchend="updateGridOnMouseUp();"><p>&#x2297</p></div>
-                <div class="button button-column-center" onmousedown="updateGridOnMouseDown('{\'voxel\':\'down\'}');" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'voxel\':\'down\'}');" ontouchend="updateGridOnMouseUp();"><p>&darr;</p></div>
+                <div class="button button-column-center" onmousedown="changeVoxelDirectionByView('down');" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'voxel\':\'down\'}');" ontouchend="updateGridOnMouseUp();"><p>&darr;</p></div>
                 <div class="button button-column-right" onmousedown="updateGridOnMouseDown('{\'voxel\':\'out\'}');" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'voxel\':\'out\'}');" ontouchend="updateGridOnMouseUp();"><p>&#x2299</p></div>
                 <br>
                 <div class="button button-column-left" onclick="transform('{\'vertex\':\'back\'}');" ontouch="transform('{\'vertex\':\'back\'}');"><p><<</p></div>
