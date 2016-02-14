@@ -3,7 +3,7 @@ var timer = null;
 
 //Calls the voxel translation function multiple times for the duration that the left mouse button is being held down.
 function updateGridOnMouseDown(jsonText){
-  timer = setInterval("jsonInterpreter(\"" + jsonText + "\");", cursorInterval);
+  timer = setInterval("transform(\"" + jsonText + "\");", cursorInterval);
 }
 
 //As soon as the user lifts up on the left mouse button, the translation timer needs to be reset.

@@ -3,6 +3,25 @@
     <head>
         <meta charset="utf-8" />
         <title>Render by Accretion Display</title>
+        <style>
+            .column-left{ float: left; width: 20%; }
+            .column-right{ float: right; width: 20%; }
+            .column-center{ display: inline-block; width: 60%; vertical-align: top;}
+            .button-column-left{ display: inline-block; float: left; width: 33%; }
+            .button-column-right{ display: inline-block; float: right; width: 33%; }
+            .button-column-center{ display: inline-block; width: 33%; vertical-align: top;}
+            .vertical-horizontal-center{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .columnHeight{
+                height:38rem;
+            }
+            p{
+                padding-top:0.5rem;
+            }
+        </style>
         <script src="js/global.js"></script>
         <script src="js/voxel.js"></script>
         <link rel="stylesheet" type="text/css" href="css/layout.css">
@@ -11,21 +30,56 @@
         <link rel="stylesheet" type="text/css" href="css/voxel.css">
     </head>
     <body onkeydown='rotateByArrowKeys(event);'>
+        <div class="column-left vertical-horizontal-center columnHeight">
+            <div class="buttonPanel">
+                <textarea id="importExport" rows="10" cols="24"></textarea>
+                <div class="button button-column-left" onclick="transform('{\'stage\':\'import\'}')"><p>import</p></div>
+                <div class="button button-column-center" onclick="transform('{\'stage\':\'pitchCW\'}')" ontouch="transform('{\'stage\':\'pitchCW\'}')"><p>&uarr;</p></div>
+                <div class="button button-column-right" onclick="transform('{\'stage\':\'reset\'}')" ontouch="transform('{\'stage\':\'reset\'}')"><p>reset</p></div>
+                <br>
+                <div class="button button-column-left" onclick="transform('{\'stage\':\'yawCW\'}')" ontouch="transform('{\'stage\':\'yawCW\'}')"><p>&larr;</p></div>
+                <div class="button button-column-center" onclick="transform('{\'stage\':\'center\'}')" ontouch="transform('{\'stage\':\'center\'}')"><p>center</p></div>
+                <div class="button button-column-right" onclick="transform('{\'stage\':\'yawCCW\'}')" ontouch="transform('{\'stage\':\'yawCCW\'}')"><p>&rarr;</p></div>
+                <br>
+                <div class="button button-column-left" onclick="transform('{\'stage\':\'export_default\'}')"><p>export default</p></div>
+                <div class="button button-column-center" onclick="transform('{\'stage\':\'pitchCCW\'}')" ontouch="transform('{\'stage\':\'pitchCCW\'}')"><p>&darr;</p></div>
+                <div class="button button-column-right" onclick="transform('{\'stage\':\'export_blender\'}')"><p>export blender</p></div>
+            </div>
+        </div>
         <!--Stage object, a cube consisting of six face elements.-->
-        <div id="stage">
+        <div id="stage" class="column-center">
             <div id="cube" onclick='rotateByMouse(event);'>
                 <!--top-->
                 <div id="face1" class="face"></div>
                 <!--front-->
                 <div id="face2" class="face two"></div>
                 <!--right-->
-                <div id="face3" class="face three"><!--<img class="view" src="images/views/left.png">--></div>
+                <div id="face3" class="face three"><!--<img class="view" src="images/left.png">--></div>
                 <!--back-->
-                <div id="face4" class="face four"><!--<img class="view" src="images/views/front.png">--></div>
+                <div id="face4" class="face four"><img class="view" src="images/front.jpg"></div>
                 <!--left-->
-                <div id="face5" class="face five"><!--<img class="view" src="images/views/right.png">--></div>
+                <div id="face5" class="face five"><!--<img class="view" src="images/right.png">--></div>
                 <!--bottom-->
-                <div id="face6" class="face six"><!--<img class="view" src="images/views/top.png">--></div>
+                <div id="face6" class="face six"><!--<img class="view" src="images/top.png">--></div>
+            </div>
+        </div>
+        <div class="column-right vertical-horizontal-center columnHeight">
+            <div class="buttonPanel" style="margin: 0">
+                <div class="button button-column-left"></div>
+                <div class="button button-column-center" onmousedown="updateGridOnMouseDown('{\'voxel\':\'up\'}');" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'voxel\':\'up\'}');" ontouchend="updateGridOnMouseUp();"><p>&uarr;</p></div>
+                <div class="button button-column-right"></div>
+                <br>
+                <div class="button button-column-left" onmousedown="updateGridOnMouseDown('{\'voxel\':\'left\'}');" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'voxel\':\'left\'}');" ontouchend="updateGridOnMouseUp();"><p>&larr;</p></div>
+                <div class="button button-column-center" onclick="transform('{\'vertex\':\'add\'}');" ontouch="('{\'vertex\':\'add\'}');"><p>&#9632;</p></div>
+                <div class="button button-column-right" onmousedown="updateGridOnMouseDown('{\'voxel\':\'right\'}');" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'voxel\':\'right\'}');" ontouchend="updateGridOnMouseUp();"><p>&rarr;</p></div>
+                <br>
+                <div class="button button-column-left" onmousedown="updateGridOnMouseDown('{\'voxel\':\'in\'}');" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'voxel\':\'in\'}');" ontouchend="updateGridOnMouseUp();"><p>&#x2297</p></div>
+                <div class="button button-column-center" onmousedown="updateGridOnMouseDown('{\'voxel\':\'down\'}');" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'voxel\':\'down\'}');" ontouchend="updateGridOnMouseUp();"><p>&darr;</p></div>
+                <div class="button button-column-right" onmousedown="updateGridOnMouseDown('{\'voxel\':\'out\'}');" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'voxel\':\'out\'}');" ontouchend="updateGridOnMouseUp();"><p>&#x2299</p></div>
+                <br>
+                <div class="button button-column-left" onclick="transform('{\'vertex\':\'back\'}');" ontouch="transform('{\'vertex\':\'back\'}');"><p><<</p></div>
+                <div class="button button-column-center" onclick="transform('{\'vertex\':\'delete\'}');" ontouch="transform('{\'vertex\':\'delete\'}');"><p>x</p></div>
+                <div class="button button-column-right" onclick="transform('{\'vertex\':\'forward\'}');" ontouch="transform('{\'vertex\':\'forward\'}');"><p>>></p></div>
             </div>
         </div>
 <br>
@@ -37,26 +91,8 @@
 <br>
 <br>
 <br>
-        <input type="button" value="stage reset" onclick="transform('{\'stage\':\'reset\'}')">
-        <input type="button" value="stage center" onclick="transform('{\'stage\':\'center\'}')">
-        <input type="button" value="stage ccw" onclick="transform('{\'stage\':\'yawCCW\'}')">
-        <input type="button" value="stage cw" onclick="transform('{\'stage\':\'yawCW\'}')">
-        <input type="button" value="stage pitch ccw" onclick="transform('{\'stage\':\'pitchCCW\'}')">
-        <input type="button" value="stage pitch cw" onclick="transform('{\'stage\':\'pitchCW\'}')">
-        <input type="button" value="voxel right" onclick="transform('{\'voxel\':\'right\'}')">
-        <input type="button" value="voxel up" onclick="transform('{\'voxel\':\'up\'}')">
-        <input type="button" value="voxel left" onclick="transform('{\'voxel\':\'left\'}')">
-        <input type="button" value="voxel down" onclick="transform('{\'voxel\':\'down\'}')">
-        <input type="button" value="voxel out" onclick="transform('{\'voxel\':\'out\'}')">
-        <input type="button" value="voxel in" onclick="transform('{\'voxel\':\'in\'}')">
-        <input type="button" value="vertex save" onclick="transform('{\'vertex\':\'add\'}')">
-        <input type="button" value="vertex >>" onclick="transform('{\'vertex\':\'forward\'}')">
-        <input type="button" value="vertex <<" onclick="transform('{\'vertex\':\'back\'}')">
-        <input type="button" value="vertex delete" onclick="transform('{\'vertex\':\'delete\'}')">
-        <input type="button" value="export default" onclick="transform('{\'stage\':\'export_default\'}')">
+        <input type="button" value="export default" >
         <input type="button" value="export blender" onclick="transform('{\'stage\':\'export_blender\'}')">
-        <input type="button" value="stage import" onclick="transform('{\'stage\':\'import\'}')">
-        <textarea id="importExport" rows="10" cols="19"></textarea>
     </body>
     <script>
         //A cursor voxel must be created directly after the entire page has finished loading.

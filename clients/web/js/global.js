@@ -13,7 +13,7 @@ var isRadDeviceConnected = true;
 
 //Controls the amount of time in milliseconds 
 //between voxel translation function calls.
-var cursorInterval = 100;
+var cursorInterval = 20;
 
 //The background color used for all voxels.
 var voxelColor = "black";
@@ -41,7 +41,7 @@ var voxelDimension = 2;
 var voxelSideDimension = voxelDimension / 2;
 
 //The length, width, and height of the stage.
-var cubeDimension = 500;
+var cubeDimension = 400;
 
 //The length, width, and height of the grid's faces.
 var cubeSideDimension = cubeDimension / 2;
