@@ -14,6 +14,12 @@
             var upViewCounter = 0;
             var leftViewCounter = 0;
             var downViewCounter = 0;
+function showViewCounters(){
+    alert("right: " + rightViewCounter + ", up: " + upViewCounter + ", left: " + leftViewCounter + ", down: " + downViewCounter);
+}
+function getViewCounters(){
+    return rightViewCounter + ":" + upViewCounter + ":" + leftViewCounter + ":" + downViewCounter;
+}
             function updateViewDirection(direction){
                 switch (direction) {
                     case "right":
@@ -25,6 +31,7 @@
                         if(rightViewCounter == 4){
                             rightViewCounter = 0;
                         }
+showViewCounters();
                         break;
                     case "up":
                         downViewCounter -= 1;
@@ -35,6 +42,7 @@
                         if(upViewCounter == 4){
                             upViewCounter = 0;
                         }
+showViewCounters();
                         break;
                     case "left":
                         rightViewCounter -= 1;
@@ -45,6 +53,7 @@
                         if(leftViewCounter == 4){
                             leftViewCounter = 0;
                         }
+showViewCounters();
                         break;
                     case "down":
                         upViewCounter -= 1;
@@ -55,75 +64,207 @@
                         if(downViewCounter == 4){
                             downViewCounter = 0;
                         }
+showViewCounters();
                         break;
                 }
             }
             function changeVoxelDirectionByView(direction){
-                switch (direction) {
-                    case "right":
-                        switch (rightViewCounter){
-                            case 0:
-                                updateGridOnMouseDown('{\'voxel\':\'right\'}');
-                                break;
-                            case 1:
-                                updateGridOnMouseDown('{\'voxel\':\'out\'}');
-                                break;
-                            case 2:
-                                updateGridOnMouseDown('{\'voxel\':\'left\'}');
-                                break;
-                            case 3:
-                                updateGridOnMouseDown('{\'voxel\':\'in\'}');
-                                break;
-                        }
-                        break;
-                    case "up":
-                        switch (upViewCounter){
-                            case 0:
-                                updateGridOnMouseDown('{\'voxel\':\'up\'}');
-                                break;
-                            case 1:
-                                updateGridOnMouseDown('{\'voxel\':\'out\'}');
-                                break;
-                            case 2:
-                                updateGridOnMouseDown('{\'voxel\':\'down\'}');
-                                break;
-                            case 3:
-                                updateGridOnMouseDown('{\'voxel\':\'in\'}');
-                                break;
-                        }
-                        break;
-                    case "left":
-                        switch (leftViewCounter){
-                            case 0:
-                                updateGridOnMouseDown('{\'voxel\':\'left\'}');
-                                break;
-                            case 1:
-                                updateGridOnMouseDown('{\'voxel\':\'out\'}');
-                                break;
-                            case 2:
-                                updateGridOnMouseDown('{\'voxel\':\'right\'}');
-                                break;
-                            case 3:
-                                updateGridOnMouseDown('{\'voxel\':\'in\'}');
-                                break;
-                        }
-                        break;
-                    case "down":
-                        switch (downViewCounter){
-                            case 0:
-                                updateGridOnMouseDown('{\'voxel\':\'down\'}');
-                                break;
-                            case 1:
-                                updateGridOnMouseDown('{\'voxel\':\'out\'}');
-                                break;
-                            case 2:
-                                updateGridOnMouseDown('{\'voxel\':\'up\'}');
-                                break;
-                            case 3:
-                                updateGridOnMouseDown('{\'voxel\':\'in\'}');
-                                break;
-                        }
-                        break;
+                if(direction == "right"){
+                    switch(getViewCounters()){
+/*right*/
+                        case "0:0:0:0":
+                            updateGridOnMouseDown('{\'voxel\':\'right\'}');
+                            break;
+                        case "1:0:3:0":
+                            updateGridOnMouseDown('{\'voxel\':\'out\'}');
+                            break;
+                        case "2:0:2:0":
+                            updateGridOnMouseDown('{\'voxel\':\'left\'}');
+                            break;
+                        case "3:0:1:0":
+                            updateGridOnMouseDown('{\'voxel\':\'in\'}');
+                            break;
+/*right, up*/
+                        case "1:1:3:3":
+                            updateGridOnMouseDown('{\'voxel\':\'out\'}');
+                            break;
+                        case "1:2:3:2":
+                            updateGridOnMouseDown('{\'voxel\':\'out\'}');
+                            break;
+                        case "1:3:3:1":
+                            updateGridOnMouseDown('{\'voxel\':\'out\'}');
+                            break;
+                        case "0:3:0:1":
+                            updateGridOnMouseDown('{\'voxel\':\'right\'}');
+                            break;
+                        case "0:2:0:2":
+                            updateGridOnMouseDown('{\'voxel\':\'right\'}');
+                            break;
+                        case "0:1:0:3":
+                            updateGridOnMouseDown('{\'voxel\':\'right\'}');
+                            break;
+                        case "2:1:2:3":
+                            updateGridOnMouseDown('{\'voxel\':\'left\'}');
+                            break;
+                        case "3:1:1:3":
+                            updateGridOnMouseDown('{\'voxel\':\'in\'}');
+                            break;
+                        case "2:3:2:1":
+                            updateGridOnMouseDown('{\'voxel\':\'left\'}');
+                            break;
+                        case "3:3:1:1":
+                            updateGridOnMouseDown('{\'voxel\':\'in\'}');
+                            break;
+                    }
+                }
+                else if(direction == "up"){
+/*up*/
+                    switch(getViewCounters()){
+                        case "0:0:0:0":
+                            updateGridOnMouseDown('{\'voxel\':\'up\'}');
+                            break;
+                        case "0:1:0:3":
+                            updateGridOnMouseDown('{\'voxel\':\'out\'}');
+                            break;
+                        case "0:2:0:2":
+                            updateGridOnMouseDown('{\'voxel\':\'down\'}');
+                            break;
+                        case "0:3:0:1":
+                            updateGridOnMouseDown('{\'voxel\':\'in\'}');
+                            break;
+/*up, left*/
+                        case "3:1:1:3":
+                            updateGridOnMouseDown('{\'voxel\':\'right\'}');
+                            break;
+                        case "2:1:2:3":
+                            updateGridOnMouseDown('{\'voxel\':\'in\'}');
+                            break;
+                        case "1:1:3:3":
+                            updateGridOnMouseDown('{\'voxel\':\'left\'}');
+                            break;
+/*extra*/
+                        case "1:0:3:0":
+                            updateGridOnMouseDown('{\'voxel\':\'up\'}');
+                            break;
+                        case "2:0:2:0":
+                            updateGridOnMouseDown('{\'voxel\':\'up\'}');
+                            break;
+                        case "3:0:1:0":
+                            updateGridOnMouseDown('{\'voxel\':\'up\'}');
+                            break;
+                        case "1:3:3:1":
+                            updateGridOnMouseDown('{\'voxel\':\'right\'}');
+                            break;
+                        case "1:2:3:2":
+                            updateGridOnMouseDown('{\'voxel\':\'down\'}');
+                            break;
+                        case "2:3:2:1":
+                            updateGridOnMouseDown('{\'voxel\':\'out\'}');
+                            break;
+                        case "3:3:1:1":
+                            updateGridOnMouseDown('{\'voxel\':\'left\'}');
+                            break;
+                    }
+                }
+                else if(direction == "left"){
+                    switch(getViewCounters()){
+/*left*/
+                        case "0:0:0:0":
+                            updateGridOnMouseDown('{\'voxel\':\'left\'}');
+                            break;
+                        case "3:0:1:0":
+                            updateGridOnMouseDown('{\'voxel\':\'out\'}');
+                            break;
+                        case "2:0:2:0":
+                            updateGridOnMouseDown('{\'voxel\':\'right\'}');
+                            break;
+                        case "1:0:3:0":
+                            updateGridOnMouseDown('{\'voxel\':\'in\'}');
+                            break;
+/*left, down*/
+                        case "3:3:1:1":
+                            updateGridOnMouseDown('{\'voxel\':\'out\'}');
+                            break;
+                        case "3:2:1:2":
+                            updateGridOnMouseDown('{\'voxel\':\'out\'}');
+                            break;
+                        case "3:1:1:3":
+                            updateGridOnMouseDown('{\'voxel\':\'out\'}');
+                            break;
+                        case "0:3:0:1":
+                            updateGridOnMouseDown('{\'voxel\':\'left\'}');
+                            break;
+                        case "0:2:0:2":
+                            updateGridOnMouseDown('{\'voxel\':\'left\'}');
+                            break;
+                        case "0:1:0:3":
+                            updateGridOnMouseDown('{\'voxel\':\'left\'}');
+                            break;
+                        case "1:3:3:1":
+                            updateGridOnMouseDown('{\'voxel\':\'in\'}');
+                            break;
+                        case "1:1:3:3":
+                            updateGridOnMouseDown('{\'voxel\':\'in\'}');
+                            break;
+                        case "1:2:3:2":
+                            updateGridOnMouseDown('{\'voxel\':\'in\'}');
+                            break;
+                        case "2:1:2:3":
+                            updateGridOnMouseDown('{\'voxel\':\'right\'}');
+                            break;
+                        case "2:3:2:1":
+                            updateGridOnMouseDown('{\'voxel\':\'right\'}');
+                            break;
+                    }
+                }
+                else if(direction == "down"){
+                    switch(getViewCounters()){
+/*down*/
+                        case "0:0:0:0":
+                            updateGridOnMouseDown('{\'voxel\':\'down\'}');
+                            break;
+                        case "0:3:0:1":
+                            updateGridOnMouseDown('{\'voxel\':\'out\'}');
+                            break;
+                        case "0:2:0:2":
+                            updateGridOnMouseDown('{\'voxel\':\'up\'}');
+                            break;
+                        case "0:1:0:3":
+                            updateGridOnMouseDown('{\'voxel\':\'in\'}');
+                            break;
+/*down, right*/
+                        case "1:3:3:1":
+                            updateGridOnMouseDown('{\'voxel\':\'left\'}');
+                            break;
+                        case "2:3:2:1":
+                            updateGridOnMouseDown('{\'voxel\':\'in\'}');
+                            break;
+                        case "3:3:1:1":
+                            updateGridOnMouseDown('{\'voxel\':\'right\'}');
+                            break;
+/*extra*/
+                        case "1:0:3:0":
+                            updateGridOnMouseDown('{\'voxel\':\'down\'}');
+                            break;
+                        case "2:0:2:0":
+                            updateGridOnMouseDown('{\'voxel\':\'down\'}');
+                            break;
+                        case "3:0:1:0":
+                            updateGridOnMouseDown('{\'voxel\':\'down\'}');
+                            break;
+                        case "1:1:3:3":
+                            updateGridOnMouseDown('{\'voxel\':\'right\'}');
+                            break;
+                        case "1:2:3:2":
+                            updateGridOnMouseDown('{\'voxel\':\'up\'}');
+                            break;
+                        case "2:1:2:3":
+                            updateGridOnMouseDown('{\'voxel\':\'out\'}');
+                            break;
+                        case "3:1:1:3":
+                            updateGridOnMouseDown('{\'voxel\':\'left\'}');
+                            break;
+                    }
                 }
             }
         </script>
