@@ -31,7 +31,7 @@ function getViewCounters(){
                         if(rightViewCounter == 4){
                             rightViewCounter = 0;
                         }
-showViewCounters();
+//showViewCounters();
                         break;
                     case "up":
                         downViewCounter -= 1;
@@ -42,7 +42,7 @@ showViewCounters();
                         if(upViewCounter == 4){
                             upViewCounter = 0;
                         }
-showViewCounters();
+//showViewCounters();
                         break;
                     case "left":
                         rightViewCounter -= 1;
@@ -53,7 +53,7 @@ showViewCounters();
                         if(leftViewCounter == 4){
                             leftViewCounter = 0;
                         }
-showViewCounters();
+//showViewCounters();
                         break;
                     case "down":
                         upViewCounter -= 1;
@@ -64,7 +64,7 @@ showViewCounters();
                         if(downViewCounter == 4){
                             downViewCounter = 0;
                         }
-showViewCounters();
+//showViewCounters();
                         break;
                 }
             }
@@ -392,16 +392,16 @@ showViewCounters();
         <div class="column-right vertical-horizontal-center columnHeight">
             <div class="buttonPanel" style="margin: 0">
                 <div class="button button-column-left"></div>
-                <div class="button button-column-center" onmousedown="changeVoxelDirectionByView('up');" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'voxel\':\'up\'}');" ontouchend="updateGridOnMouseUp();"><p>&uarr;</p></div>
+                <div class="button button-column-center" onmousedown="changeVoxelDirectionByView('up');" onmouseup="updateGridOnMouseUp();" ontouchstart="changeVoxelDirectionByView('up');" ontouchend="updateGridOnMouseUp();"><p>&uarr;</p></div>
                 <div class="button button-column-right"></div>
                 <br>
-                <div class="button button-column-left" onmousedown="changeVoxelDirectionByView('left');" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'voxel\':\'left\'}');" ontouchend="updateGridOnMouseUp();"><p>&larr;</p></div>
+                <div class="button button-column-left" onmousedown="changeVoxelDirectionByView('left');" onmouseup="updateGridOnMouseUp();" ontouchstart="changeVoxelDirectionByView('left');" ontouchend="updateGridOnMouseUp();"><p>&larr;</p></div>
                 <div class="button button-column-center" onclick="transform('{\'vertex\':\'add\'}');" ontouch="('{\'vertex\':\'add\'}');"><p>&#9632;</p></div>
-                <div class="button button-column-right" onmousedown="changeVoxelDirectionByView('right');" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'voxel\':\'right\'}');" ontouchend="updateGridOnMouseUp();"><p>&rarr;</p></div>
+                <div class="button button-column-right" onmousedown="changeVoxelDirectionByView('right');" onmouseup="updateGridOnMouseUp();" ontouchstart="changeVoxelDirectionByView('right');" ontouchend="updateGridOnMouseUp();"><p>&rarr;</p></div>
                 <br>
-                <div class="button button-column-left" onmousedown="changeVoxelDirectionByView('in');" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'voxel\':\'in\'}');" ontouchend="updateGridOnMouseUp();"><p>&#x2297</p></div>
-                <div class="button button-column-center" onmousedown="changeVoxelDirectionByView('down');" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'voxel\':\'down\'}');" ontouchend="updateGridOnMouseUp();"><p>&darr;</p></div>
-                <div class="button button-column-right" onmousedown="changeVoxelDirectionByView('out');" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'voxel\':\'out\'}');" ontouchend="updateGridOnMouseUp();"><p>&#x2299</p></div>
+                <div class="button button-column-left" onmousedown="changeVoxelDirectionByView('in');" onmouseup="updateGridOnMouseUp();" ontouchstart="changeVoxelDirectionByView('in');" ontouchend="updateGridOnMouseUp();"><p>&#x2297</p></div>
+                <div class="button button-column-center" onmousedown="changeVoxelDirectionByView('down');" onmouseup="updateGridOnMouseUp();" ontouchstart="changeVoxelDirectionByView('down');" ontouchend="updateGridOnMouseUp();"><p>&darr;</p></div>
+                <div class="button button-column-right" onmousedown="changeVoxelDirectionByView('out');" onmouseup="updateGridOnMouseUp();" ontouchstart="changeVoxelDirectionByView('out');" ontouchend="updateGridOnMouseUp();"><p>&#x2299</p></div>
                 <br>
                 <div class="button button-column-left" onclick="transform('{\'vertex\':\'back\'}');" ontouch="transform('{\'vertex\':\'back\'}');"><p><<</p></div>
                 <div class="button button-column-center" onclick="transform('{\'vertex\':\'delete\'}');" ontouch="transform('{\'vertex\':\'delete\'}');"><p>x</p></div>
