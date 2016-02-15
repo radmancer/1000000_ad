@@ -266,6 +266,92 @@ showViewCounters();
                             break;
                     }
                 }
+                else if(direction == "in"){
+                    switch(getViewCounters()){
+                        case "0:0:0:0":
+                            updateGridOnMouseDown('{\'voxel\':\'in\'}');
+                            break;
+                        case "1:0:3:0":
+                            updateGridOnMouseDown('{\'voxel\':\'right\'}');
+                            break;
+                        case "2:0:2:0":
+                            updateGridOnMouseDown('{\'voxel\':\'out\'}');
+                            break;
+                        case "3:0:1:0":
+                            updateGridOnMouseDown('{\'voxel\':\'left\'}');
+                            break;
+                        case "0:1:0:3":
+                            updateGridOnMouseDown('{\'voxel\':\'up\'}');
+                            break;
+                        case "0:2:0:2":
+                            updateGridOnMouseDown('{\'voxel\':\'out\'}');
+                            break;
+                        case "0:3:0:1":
+                            updateGridOnMouseDown('{\'voxel\':\'down\'}');
+                            break;
+                        case "1:3:3:1":
+                            updateGridOnMouseDown('{\'voxel\':\'down\'}');
+                            break;
+                        case "2:3:2:1":
+                            updateGridOnMouseDown('{\'voxel\':\'down\'}');
+                            break;
+                        case "3:3:1:1":
+                            updateGridOnMouseDown('{\'voxel\':\'down\'}');
+                            break;
+                        case "1:1:3:3":
+                            updateGridOnMouseDown('{\'voxel\':\'up\'}');
+                            break;
+                        case "2:1:2:3":
+                            updateGridOnMouseDown('{\'voxel\':\'up\'}');
+                            break;
+                        case "3:1:1:3":
+                            updateGridOnMouseDown('{\'voxel\':\'up\'}');
+                            break;
+                    }
+                }
+                else if(direction == "out"){
+                    switch(getViewCounters()){
+                        case "0:0:0:0":
+                            updateGridOnMouseDown('{\'voxel\':\'out\'}');
+                            break;
+                        case "1:0:3:0":
+                            updateGridOnMouseDown('{\'voxel\':\'left\'}');
+                            break;
+                        case "2:0:2:0":
+                            updateGridOnMouseDown('{\'voxel\':\'in\'}');
+                            break;
+                        case "3:0:1:0":
+                            updateGridOnMouseDown('{\'voxel\':\'right\'}');
+                            break;
+                        case "0:1:0:3":
+                            updateGridOnMouseDown('{\'voxel\':\'down\'}');
+                            break;
+                        case "0:2:0:2":
+                            updateGridOnMouseDown('{\'voxel\':\'in\'}');
+                            break;
+                        case "0:3:0:1":
+                            updateGridOnMouseDown('{\'voxel\':\'up\'}');
+                            break;
+                        case "1:3:3:1":
+                            updateGridOnMouseDown('{\'voxel\':\'up\'}');
+                            break;
+                        case "2:3:2:1":
+                            updateGridOnMouseDown('{\'voxel\':\'up\'}');
+                            break;
+                        case "3:3:1:1":
+                            updateGridOnMouseDown('{\'voxel\':\'up\'}');
+                            break;
+                        case "1:1:3:3":
+                            updateGridOnMouseDown('{\'voxel\':\'down\'}');
+                            break;
+                        case "2:1:2:3":
+                            updateGridOnMouseDown('{\'voxel\':\'down\'}');
+                            break;
+                        case "3:1:1:3":
+                            updateGridOnMouseDown('{\'voxel\':\'down\'}');
+                            break;
+                    }
+                }
             }
         </script>
     </head>
@@ -313,9 +399,9 @@ showViewCounters();
                 <div class="button button-column-center" onclick="transform('{\'vertex\':\'add\'}');" ontouch="('{\'vertex\':\'add\'}');"><p>&#9632;</p></div>
                 <div class="button button-column-right" onmousedown="changeVoxelDirectionByView('right');" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'voxel\':\'right\'}');" ontouchend="updateGridOnMouseUp();"><p>&rarr;</p></div>
                 <br>
-                <div class="button button-column-left" onmousedown="updateGridOnMouseDown('{\'voxel\':\'in\'}');" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'voxel\':\'in\'}');" ontouchend="updateGridOnMouseUp();"><p>&#x2297</p></div>
+                <div class="button button-column-left" onmousedown="changeVoxelDirectionByView('in');" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'voxel\':\'in\'}');" ontouchend="updateGridOnMouseUp();"><p>&#x2297</p></div>
                 <div class="button button-column-center" onmousedown="changeVoxelDirectionByView('down');" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'voxel\':\'down\'}');" ontouchend="updateGridOnMouseUp();"><p>&darr;</p></div>
-                <div class="button button-column-right" onmousedown="updateGridOnMouseDown('{\'voxel\':\'out\'}');" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'voxel\':\'out\'}');" ontouchend="updateGridOnMouseUp();"><p>&#x2299</p></div>
+                <div class="button button-column-right" onmousedown="changeVoxelDirectionByView('out');" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'voxel\':\'out\'}');" ontouchend="updateGridOnMouseUp();"><p>&#x2299</p></div>
                 <br>
                 <div class="button button-column-left" onclick="transform('{\'vertex\':\'back\'}');" ontouch="transform('{\'vertex\':\'back\'}');"><p><<</p></div>
                 <div class="button button-column-center" onclick="transform('{\'vertex\':\'delete\'}');" ontouch="transform('{\'vertex\':\'delete\'}');"><p>x</p></div>
