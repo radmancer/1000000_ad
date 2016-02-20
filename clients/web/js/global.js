@@ -11,6 +11,10 @@ var isRadDeviceConnected = false;
 //between voxel translation function calls.
 var cursorInterval = 20;
 
+//Controls the amount of time in milliseconds
+//between the forward and backward vertex selections.
+var cycleInterval = 100;
+
 //The background color used for all voxels.
 var voxelColor = "black";
 
