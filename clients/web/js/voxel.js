@@ -66,10 +66,8 @@ function cycleVoxel(direction){
 		}
 	}
 
-	for(var i = 0; i < 6; i++){
-		document.getElementById(selectedVoxelPosition+"").childNodes[i].style.backgroundColor = selectedVoxelColor;
-		document.getElementById(previousSelectedVoxelPosition+"").childNodes[i].style.backgroundColor = voxelColor;
-	}
+	document.getElementById(selectedVoxelPosition+"").childNodes[0].style.backgroundColor = selectedVoxelColor;
+	document.getElementById(previousSelectedVoxelPosition+"").childNodes[0].style.backgroundColor = voxelColor;
 }
 
 //Deletes a voxel at a specific position.
@@ -96,9 +94,9 @@ function createCursor(){
 
 	var face4 = document.createElement('div');
 	face4.className = "voxelFace";
-	cssText = "height:" + voxelDimension + "px;"
-                + "width:" + voxelDimension + "px;"
-                + "transform: rotateZ(90deg);"
+	cssText = "width:" + voxelDimension + "px;"
+                + "height:" + voxelDimension + "px;"
+                + "transform: rotateY(0deg);"
                 + "background-color:" + cursorVoxelColor + ";";
 	face4.setAttribute('style', cssText);
 
@@ -195,7 +193,6 @@ function updateNewPointColor(cursor){
 //      Setting the CSS with a JavaScript style property is desired, but I have not had any luck setting the webkit transform property.
 //      The concatenation method works across all browsers regardless.
 function capturePoint(){
-
 	//Gets the cursor voxel and its coordinates.
 	var cursor = document.getElementById("cursor");
 	var cursorX = cursor.style.paddingLeft;
@@ -205,36 +202,14 @@ function capturePoint(){
 	//Creates a new voxel.
 	var point = document.createElement('div');
 	point.className = 'voxel';
-	var face1 = document.createElement('div');
-	face1.className = "voxelFace";
-	var cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + cursorVoxelColor + ";-webkit-transform: rotateX(90deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateX(90deg) translateZ(" + voxelSideDimension + "px);transform: rotateX(90deg) translateZ(" + voxelSideDimension + "px);";
-	face1.setAttribute('style', cssText);
-	var face2 = document.createElement('div');
-	face2.className = "voxelFace";
-	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + cursorVoxelColor + ";-webkit-transform: translateZ(" + voxelSideDimension + "px);-moz-transform: translateZ(" + voxelSideDimension + "px);transform: translateZ(" + voxelSideDimension + "px);";
-	face2.setAttribute('style', cssText);
-	var face3 = document.createElement('div');
-	face3.className = "voxelFace";
-	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + cursorVoxelColor + ";-webkit-transform: rotateY(90deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateY(90deg) translateZ(" + voxelSideDimension + "px);transform: rotateY(90deg) translateZ(" + voxelSideDimension + "px);";
-	face3.setAttribute('style', cssText);
 	var face4 = document.createElement('div');
 	face4.className = "voxelFace";
-	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + cursorVoxelColor + ";-webkit-transform: rotateY(180deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateY(180deg) translateZ(" + voxelSideDimension + "px);transform: rotateY(180deg) translateZ(" + voxelSideDimension + "px);";
+	cssText = "width:" + voxelDimension + "px;"
+                + "height:" + voxelDimension + "px;"
+                + "transform: rotateY(0deg);"
+                + "background-color:" + cursorVoxelColor + ";";
 	face4.setAttribute('style', cssText);
-	var face5 = document.createElement('div');
-	face5.className = "voxelFace";
-	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + cursorVoxelColor + ";-webkit-transform: rotateY(-90deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateY(-90deg) translateZ(" + voxelSideDimension + "px);transform: rotateY(-90deg) translateZ(" + voxelSideDimension + "px);";
-	face5.setAttribute('style', cssText);
-	var face6 = document.createElement('div');
-	face6.className = "voxelFace";
-	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + cursorVoxelColor + ";-webkit-transform: rotateX(-90deg) rotate(180deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateX(-90deg) rotate(180deg) translateZ(" + voxelSideDimension + "px);transform: rotateX(-90deg) rotate(180deg) translateZ(" + voxelSideDimension + "px);";
-	face6.setAttribute('style', cssText);
-	point.appendChild(face1);
-	point.appendChild(face2);
-	point.appendChild(face3);
 	point.appendChild(face4);
-	point.appendChild(face5);
-	point.appendChild(face6);
 
 	//Assigns the cursor's coordinates to the new voxel.
 	point.style.paddingLeft = cursorX;

@@ -35,7 +35,7 @@ var voxelCount = 0;
 var selectedVoxelPosition = 0;
 
 //The length, width, and height of a voxel.
-var voxelDimension = 200;
+var voxelDimension = 2;
 
 //The length, width, and height of a voxel's faces.
 var voxelSideDimension = voxelDimension / 2;
