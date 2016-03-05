@@ -66,8 +66,10 @@ function cycleVoxel(direction){
 		}
 	}
 
-	document.getElementById(selectedVoxelPosition+"").childNodes[0].style.backgroundColor = selectedVoxelColor;
-	document.getElementById(previousSelectedVoxelPosition+"").childNodes[0].style.backgroundColor = voxelColor;
+        for(var i = 0; i < 3; i++){ //There are 3 intersecting planes inside a point.
+	    document.getElementById(selectedVoxelPosition+"").childNodes[i].style.backgroundColor = selectedVoxelColor;
+	    document.getElementById(previousSelectedVoxelPosition+"").childNodes[i].style.backgroundColor = voxelColor;
+        }
 }
 
 //Deletes a voxel at a specific position.
@@ -92,15 +94,33 @@ function createCursor(){
 	var cursor = document.createElement('div');
 	cursor.className = 'voxel';
 
-	var face4 = document.createElement('div');
-	face4.className = "voxelFace";
+	var face1 = document.createElement('div');
+	face1.className = "voxelFace";
 	cssText = "width:" + voxelDimension + "px;"
                 + "height:" + voxelDimension + "px;"
                 + "transform: rotateY(0deg);"
                 + "background-color:" + cursorVoxelColor + ";";
-	face4.setAttribute('style', cssText);
+	face1.setAttribute('style', cssText);
 
-	cursor.appendChild(face4);
+	var face2 = document.createElement('div');
+	face2.className = "voxelFace";
+	cssText = "width:" + voxelDimension + "px;"
+                + "height:" + voxelDimension + "px;"
+                + "transform: rotateY(90deg);"
+                + "background-color:" + cursorVoxelColor + ";";
+	face2.setAttribute('style', cssText);
+
+	var face3 = document.createElement('div');
+	face3.className = "voxelFace";
+	cssText = "width:" + voxelDimension + "px;"
+                + "height:" + voxelDimension + "px;"
+                + "transform: rotateX(90deg);"
+                + "background-color:" + cursorVoxelColor + ";";
+	face3.setAttribute('style', cssText);
+
+        cursor.appendChild(face1);
+	cursor.appendChild(face2);
+        cursor.appendChild(face3);
 
 	//Sets the cursor's coordinates.
 	cursor.style.paddingLeft = "0px";
@@ -202,14 +222,34 @@ function capturePoint(){
 	//Creates a new voxel.
 	var point = document.createElement('div');
 	point.className = 'voxel';
-	var face4 = document.createElement('div');
-	face4.className = "voxelFace";
+
+	var face1 = document.createElement('div');
+	face1.className = "voxelFace";
 	cssText = "width:" + voxelDimension + "px;"
                 + "height:" + voxelDimension + "px;"
                 + "transform: rotateY(0deg);"
                 + "background-color:" + cursorVoxelColor + ";";
-	face4.setAttribute('style', cssText);
-	point.appendChild(face4);
+	face1.setAttribute('style', cssText);
+
+	var face2 = document.createElement('div');
+	face2.className = "voxelFace";
+	cssText = "width:" + voxelDimension + "px;"
+                + "height:" + voxelDimension + "px;"
+                + "transform: rotateY(90deg);"
+                + "background-color:" + cursorVoxelColor + ";";
+	face2.setAttribute('style', cssText);
+
+	var face3 = document.createElement('div');
+	face3.className = "voxelFace";
+	cssText = "width:" + voxelDimension + "px;"
+                + "height:" + voxelDimension + "px;"
+                + "transform: rotateX(90deg);"
+                + "background-color:" + cursorVoxelColor + ";";
+	face3.setAttribute('style', cssText);
+
+        point.appendChild(face1);
+	point.appendChild(face2);
+        point.appendChild(face3);
 
 	//Assigns the cursor's coordinates to the new voxel.
 	point.style.paddingLeft = cursorX;
