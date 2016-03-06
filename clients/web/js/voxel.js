@@ -349,3 +349,29 @@ function importMesh(importText){
 	updateGrid("right")
 	updateGrid("down")
 }
+
+function translateSet(){
+    var voxels = document.getElementsByClassName("voxel");
+    for(var i = 0; i < voxels.length; i++){
+        var cursorX = voxels[i].style.paddingLeft;
+	var cursorY = voxels[i].style.paddingTop;
+	var cursorZ = voxels[i].style.transform;
+
+	//Strips the numeric information from the padding 
+	//and translation properties of the x, y, and z coordinates.
+	cursorX = cursorX.substring(0, cursorX.length - 2);
+	cursorX = parseInt(cursorX);
+	cursorY = cursorY.substring(0, cursorY.length - 2);
+	cursorY = parseInt(cursorY);
+	cursorZ = cursorZ.substring(11, cursorZ.length - 3);
+	cursorZ = parseInt(cursorZ);
+
+        cursorZ += voxelDimension;
+	cursorZ = cursorZ + "px";
+	cursorZ = "translateZ(" + cursorZ + ")";
+
+	voxels[i].style.paddingLeft = cursorX;
+	voxels[i].style.paddingTop = cursorY;
+	voxels[i].style.transform = cursorZ;
+    }
+}
