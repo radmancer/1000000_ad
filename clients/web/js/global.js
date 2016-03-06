@@ -5,7 +5,7 @@ var globalCursorZ = -245;
 
 //A boolean that is switched to true
 //when the user wishes to use a RAD device.
-var isRadDeviceConnected = false;
+var isRadDeviceConnected = true;
 
 //Controls the amount of time in milliseconds 
 //between voxel translation function calls.

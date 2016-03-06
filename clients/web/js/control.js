@@ -56,7 +56,7 @@ function pingRadServer(url){
     xmlHttp.onreadystatechange=function()
     {
         if (xmlHttp.readyState==4 && xmlHttp.status==200){
-            jsonInterpreter(xmlHttp.responseText);
+           transform(xmlHttp.responseText);
         }
     }
     xmlHttp.open("GET", url, true);
