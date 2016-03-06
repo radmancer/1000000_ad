@@ -350,7 +350,7 @@ function importMesh(importText){
 	updateGrid("down")
 }
 
-function translateSet(){
+function translateSet(direction){
     var voxels = document.getElementsByClassName("voxel");
     for(var i = 0; i < voxels.length; i++){
         var cursorX = voxels[i].style.paddingLeft;
@@ -365,10 +365,49 @@ function translateSet(){
 	cursorY = parseInt(cursorY);
 	cursorZ = cursorZ.substring(11, cursorZ.length - 3);
 	cursorZ = parseInt(cursorZ);
+/*
+        if(direction == "out"){
+            cursorZ += voxelDimension;
+	    cursorZ = cursorZ + "px";
+	    cursorZ = "translateZ(" + cursorZ + ")";
+        }
 
-        cursorZ += voxelDimension;
-	cursorZ = cursorZ + "px";
-	cursorZ = "translateZ(" + cursorZ + ")";
+        if(direction == "in"){
+            cursorZ -= voxelDimension;
+	    cursorZ = cursorZ + "px";
+	    cursorZ = "translateZ(" + cursorZ + ")";
+        }
+*/
+	//Depending on what button the user pressed, a right,
+	//up, left, down, in, or out translation is made.
+	switch(direction){
+		case 'right':
+		    cursorX += voxelDimension;
+		    cursorX = cursorX + "px";
+		    break;
+		case 'up':
+		    cursorY -= voxelDimension;
+		    cursorY = cursorY + "px";
+		    break;
+		case 'left':
+		    cursorX -= voxelDimension;
+		    cursorX = cursorX + "px";
+		    break;
+		case 'down':
+		    cursorY += voxelDimension;
+		    cursorY = cursorY + "px";
+		    break;
+		case 'in':
+                    cursorZ -= voxelDimension;
+	            cursorZ = cursorZ + "px";
+	            cursorZ = "translateZ(" + cursorZ + ")";
+		    break;
+		case 'out':
+                    cursorZ += voxelDimension;
+	            cursorZ = cursorZ + "px";
+	            cursorZ = "translateZ(" + cursorZ + ")";
+		    break;
+	}
 
 	voxels[i].style.paddingLeft = cursorX;
 	voxels[i].style.paddingTop = cursorY;

@@ -48,6 +48,20 @@ function transform(jsonText){
             saveMesh('export_default');
         if(json.stage == "export_blender")
             saveMesh('export_blender');
+        if(json.cloud == "up")
+            translateSet("up");
+        if(json.cloud == "left")
+            translateSet("left");
+        if(json.cloud == "right")
+            translateSet("right");
+        if(json.cloud == "in")
+            translateSet("in");
+        if(json.cloud == "down")
+            translateSet("down");
+        if(json.cloud == "out")
+            translateSet("out");
+        if(json.cloud == "delete")
+            translateSet("delete");
     }
 }
 
@@ -65,4 +79,39 @@ function pingRadServer(url){
 
 if(isRadDeviceConnected == true){
     window.setInterval(function(){pingRadServer(radUrl);}, pingInterval);
+}
+
+function changePanelMode(){
+    /*Loops over the right panel's buttons.*/
+    for(var i = 0; i < 12; i++){
+        var currentButton = document.getElementById("rightPanelButton" + i);
+        if(i == 0){
+            currentButton.firstChild.innerHTML = "&bull;";
+            currentButton.onclick = function(){transform('{\'stage\':\'center\'}');};
+        }
+        if(i == 1 || i == 3 || i == 5 || i == 6 || i == 7 || i == 8 || i == 10){
+            currentButton.firstChild.innerHTML = "&#8756;" + currentButton.firstChild.innerHTML;
+            if(i == 1){
+                currentButton.onclick = function(){transform('{\'cloud\':\'up\'}');};
+            }
+            if(i == 3){
+                currentButton.onclick = function(){transform('{\'cloud\':\'left\'}');};
+            }
+            if(i == 5){
+                currentButton.onclick = function(){transform('{\'cloud\':\'right\'}');};
+            }
+            if(i == 6){
+                currentButton.onclick = function(){transform('{\'cloud\':\'in\'}');};
+            }
+            if(i == 7){
+                currentButton.onclick = function(){transform('{\'cloud\':\'down\'}');};
+            }
+            if(i == 8){
+                currentButton.onclick = function(){transform('{\'cloud\':\'out\'}');};
+            }
+            if(i == 10){
+                currentButton.onclick = function(){transform('{\'stage\':\'reset\'}');};
+            }
+        }
+    }
 }
