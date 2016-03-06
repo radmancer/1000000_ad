@@ -353,35 +353,24 @@ function importMesh(importText){
 function translateSet(direction){
     var voxels = document.getElementsByClassName("voxel");
     for(var i = 0; i < voxels.length; i++){
-        var cursorX = voxels[i].style.paddingLeft;
-	var cursorY = voxels[i].style.paddingTop;
-	var cursorZ = voxels[i].style.transform;
+        if(voxels[i].id != "cursor"){
+            var cursorX = voxels[i].style.paddingLeft;
+	    var cursorY = voxels[i].style.paddingTop;
+	    var cursorZ = voxels[i].style.transform;
 
-	//Strips the numeric information from the padding 
-	//and translation properties of the x, y, and z coordinates.
-	cursorX = cursorX.substring(0, cursorX.length - 2);
-	cursorX = parseInt(cursorX);
-	cursorY = cursorY.substring(0, cursorY.length - 2);
-	cursorY = parseInt(cursorY);
-	cursorZ = cursorZ.substring(11, cursorZ.length - 3);
-	cursorZ = parseInt(cursorZ);
-/*
-        if(direction == "out"){
-            cursorZ += voxelDimension;
-	    cursorZ = cursorZ + "px";
-	    cursorZ = "translateZ(" + cursorZ + ")";
-        }
+	    //Strips the numeric information from the padding 
+	    //and translation properties of the x, y, and z coordinates.
+	    cursorX = cursorX.substring(0, cursorX.length - 2);
+	    cursorX = parseInt(cursorX);
+	    cursorY = cursorY.substring(0, cursorY.length - 2);
+	    cursorY = parseInt(cursorY);
+	    cursorZ = cursorZ.substring(11, cursorZ.length - 3);
+	    cursorZ = parseInt(cursorZ);
 
-        if(direction == "in"){
-            cursorZ -= voxelDimension;
-	    cursorZ = cursorZ + "px";
-	    cursorZ = "translateZ(" + cursorZ + ")";
-        }
-*/
-	//Depending on what button the user pressed, a right,
-	//up, left, down, in, or out translation is made.
-	switch(direction){
-		case 'right':
+	    //Depending on what button the user pressed, a right,
+	    //up, left, down, in, or out translation is made.
+	    switch(direction){
+	        case 'right':
 		    cursorX += voxelDimension;
 		    cursorX = cursorX + "px";
 		    break;
@@ -407,10 +396,11 @@ function translateSet(direction){
 	            cursorZ = cursorZ + "px";
 	            cursorZ = "translateZ(" + cursorZ + ")";
 		    break;
-	}
+	    }
 
-	voxels[i].style.paddingLeft = cursorX;
-	voxels[i].style.paddingTop = cursorY;
-	voxels[i].style.transform = cursorZ;
+	    voxels[i].style.paddingLeft = cursorX;
+	    voxels[i].style.paddingTop = cursorY;
+	    voxels[i].style.transform = cursorZ;
+        }
     }
 }
