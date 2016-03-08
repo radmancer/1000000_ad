@@ -326,28 +326,52 @@ function saveMesh(format){
 //Reads coordinates from the import/export text area and populates the stage with voxels based on the supplied coordinates.
 //The user is expected to copy and past the coordinates from a text file into the textarea input of the page.
 function importMesh(importText){
-	importText = importText.replace("{","");
-	importText = importText.replace("}","");
-	var importArray = importText.split(";");
-	for(var i = 0; i < importArray.length; i++){
-		var coordinateArray = importArray[i].split(",");
-		coordinateArray[0] = coordinateArray[0].replace("(","");
-		coordinateArray[2] = coordinateArray[2].replace(")","");
-		
-		//Gets the cursor voxel and its coordinates.
-		var cursor = document.getElementById("cursor");
-		cursor.style.paddingLeft = coordinateArray[0] + "px";
-		cursor.style.paddingTop = coordinateArray[1] + "px";
-		cursor.style.transform = "translateZ(" + coordinateArray[2] + "px)";
-		
-		capturePoint();
-	}
+    if(importText.search("OBJ") > -1){ //.obj wavefront object found.
+        var importArray = importText.split("usemtl (null)");
+        importArray = importArray[0].split("# www.blender3d.org");
+        importArray = importArray[1].split("\n");
+        importArray.shift(); //removes the first newline character.
+        importArray.pop(); //removes the last newline character.
+        for(var i = 0; i < importArray.length; i++){
+            importArray[i] = importArray[i].replace("v ",""); //removes the "v" from the front of each 3d point.
+            var coordinateArray = importArray[i].split(" ");
+
+            //Gets the cursor voxel and its coordinates.
+            var cursor = document.getElementById("cursor");
+            coordinateArray[0] = parseInt(coordinateArray[0], 10);
+            coordinateArray[1] = parseInt(coordinateArray[1], 10);
+            coordinateArray[2] = parseInt(coordinateArray[2], 10);
+            cursor.style.paddingLeft = coordinateArray[0] + "px";
+            cursor.style.paddingTop = coordinateArray[1] + "px";
+            cursor.style.transform = "translateZ(" + coordinateArray[2] + "px)";
+
+            capturePoint();
+        }
+    }
+    else{ //otherwise, import my custom list format.
+        importText = importText.replace("{","");
+        importText = importText.replace("}","");
+        var importArray = importText.split(";");
+        for(var i = 0; i < importArray.length; i++){
+            var coordinateArray = importArray[i].split(",");
+            coordinateArray[0] = coordinateArray[0].replace("(","");
+            coordinateArray[2] = coordinateArray[2].replace(")","");
+
+            //Gets the cursor voxel and its coordinates.
+            var cursor = document.getElementById("cursor");
+            cursor.style.paddingLeft = coordinateArray[0] + "px";
+            cursor.style.paddingTop = coordinateArray[1] + "px";
+            cursor.style.transform = "translateZ(" + coordinateArray[2] + "px)";
+
+            capturePoint();
+        }
+    }
 	
-	//WARNING!!!
-	//It is not known why updating the grid twice solves the issue where the cursor cannot enter its parent's space.
-	//The bug in question only happens after an import.
-	updateGrid("right")
-	updateGrid("down")
+    //WARNING!!!
+    //It is not known why updating the grid twice solves the issue where the cursor cannot enter its parent's space.
+    //The bug in question only happens after an import.
+    updateGrid("right")
+    updateGrid("down")
 }
 
 function translateSet(direction){
