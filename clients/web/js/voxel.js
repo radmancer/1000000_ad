@@ -284,6 +284,27 @@ function customReplaceAll(find, replace, string) {
 //Traverses all voxels on screen, strips their coordinates, and stores their coordinates in a textarea element.
 //The user is expected to copy and past the coordinates into a text file.
 function saveMesh(format){
+    var voxelCoordinates = "# Blender3D v249 OBJ File: \n";
+    voxelCoordinates += "# www.blender3d.org\n";
+    for(var i = 0; i < voxelCount; i++){
+        var voxel = document.getElementById(i + "");
+        var voxelX = voxel.style.paddingLeft;
+        var voxelY = voxel.style.paddingTop;
+        var voxelZ = voxel.style.transform;
+
+        //Strips the numeric information from the padding 
+        //and translation properties of the x, y, and z coordinates.
+        voxelX = voxelX.substring(0, voxelX.length - 2);
+        voxelX = parseInt(voxelX);
+        voxelY = voxelY.substring(0, voxelY.length - 2);
+        voxelY = parseInt(voxelY);
+        voxelZ = voxelZ.substring(11, voxelZ.length - 3);
+        voxelZ = parseInt(voxelZ);
+        voxelCoordinates += "v " + voxelX + " " + voxelY + " " + voxelZ + "\n";
+    }
+    voxelCoordinates += faceData;
+    document.getElementById("importExport").value = voxelCoordinates;
+/*
     var voxelCoordinates = "{";
 
     for(var i = 0; i < voxelCount; i++){
@@ -321,12 +342,15 @@ function saveMesh(format){
     }
 
     document.getElementById("importExport").value = voxelCoordinates;
+*/
 }
 
 //Reads coordinates from the import/export text area and populates the stage with voxels based on the supplied coordinates.
 //The user is expected to copy and past the coordinates from a text file into the textarea input of the page.
 function importMesh(importText){
     if(importText.search("OBJ") > -1){ //.obj wavefront object found.
+        faceData = importText.split("usemtl (null)")[1];
+        faceData = "usemtl (null)" + faceData;
         var importArray = importText.split("usemtl (null)");
         importArray = importArray[0].split("# www.blender3d.org");
         importArray = importArray[1].split("\n");
@@ -338,9 +362,9 @@ function importMesh(importText){
 
             //Gets the cursor voxel and its coordinates.
             var cursor = document.getElementById("cursor");
-            coordinateArray[0] = parseInt(coordinateArray[0], 10);
-            coordinateArray[1] = parseInt(coordinateArray[1], 10);
-            coordinateArray[2] = parseInt(coordinateArray[2], 10);
+            coordinateArray[0] = Math.round(parseFloat(coordinateArray[0]));
+            coordinateArray[1] = Math.round(parseFloat(coordinateArray[1]));
+            coordinateArray[2] = Math.round(parseFloat(coordinateArray[2]));
             cursor.style.paddingLeft = coordinateArray[0] + "px";
             cursor.style.paddingTop = coordinateArray[1] + "px";
             cursor.style.transform = "translateZ(" + coordinateArray[2] + "px)";
