@@ -284,95 +284,95 @@ function customReplaceAll(find, replace, string) {
 //Traverses all voxels on screen, strips their coordinates, and stores their coordinates in a textarea element.
 //The user is expected to copy and past the coordinates into a text file.
 function saveMesh(format){
-    var voxelCoordinates = "# Blender3D v249 OBJ File: \n";
-    voxelCoordinates += "# www.blender3d.org\n";
-    for(var i = 0; i < voxelCount; i++){
-        var voxel = document.getElementById(i + "");
-        var voxelX = voxel.style.paddingLeft;
-        var voxelY = voxel.style.paddingTop;
-        var voxelZ = voxel.style.transform;
+	if(format == "export_blender"){
+        var voxelCoordinates = "";
+        for(var i = 0; i < voxelCount; i++){
+            var voxel = document.getElementById(i + "");
+            var voxelX = voxel.style.paddingLeft;
+            var voxelY = voxel.style.paddingTop;
+            var voxelZ = voxel.style.transform;
 
-        //Strips the numeric information from the padding 
-        //and translation properties of the x, y, and z coordinates.
-        voxelX = voxelX.substring(0, voxelX.length - 2);
-        voxelX = parseInt(voxelX);
-        voxelY = voxelY.substring(0, voxelY.length - 2);
-        voxelY = parseInt(voxelY);
-        voxelZ = voxelZ.substring(11, voxelZ.length - 3);
-        voxelZ = parseInt(voxelZ);
-        voxelCoordinates += "v " + voxelX + " " + voxelY + " " + voxelZ + "\n";
-    }
-    voxelCoordinates += faceData;
-    document.getElementById("importExport").value = voxelCoordinates;
+            //Strips the numeric information from the padding 
+            //and translation properties of the x, y, and z coordinates.
+            voxelX = voxelX.substring(0, voxelX.length - 2);
+            voxelX = parseInt(voxelX);
+            voxelY = voxelY.substring(0, voxelY.length - 2);
+            voxelY = parseInt(voxelY);
+            voxelZ = voxelZ.substring(11, voxelZ.length - 3);
+            voxelZ = parseInt(voxelZ);
+            voxelCoordinates += "v " + voxelX + " " + voxelY + " " + voxelZ + "\n";
+        }
+        voxelCoordinates += faceData;
+        document.getElementById("importExport").value = voxelCoordinates;
+	}
+	else if(format == "export_default"){
+alert("Exporting list-style data is no longer supported!");
 /*
-    var voxelCoordinates = "{";
+        var voxelCoordinates = "{";
 
-    for(var i = 0; i < voxelCount; i++){
-        var voxel = document.getElementById(i + "");
-        var voxelX = voxel.style.paddingLeft;
-        var voxelY = voxel.style.paddingTop;
-        var voxelZ = voxel.style.transform;
+        for(var i = 0; i < voxelCount; i++){
 
-        //Strips the numeric information from the padding 
-        //and translation properties of the x, y, and z coordinates.
-        voxelX = voxelX.substring(0, voxelX.length - 2);
-        voxelX = parseInt(voxelX);
-        voxelY = voxelY.substring(0, voxelY.length - 2);
-        voxelY = parseInt(voxelY);
-        voxelZ = voxelZ.substring(11, voxelZ.length - 3);
-        voxelZ = parseInt(voxelZ);
+            var voxel = document.getElementById(i + "");
+            var voxelX = voxel.style.paddingLeft;
+            var voxelY = voxel.style.paddingTop;
+            var voxelZ = voxel.style.transform;
 
-        if(i == voxelCount - 1){
-            voxelCoordinates += "(" + voxelX + "," + voxelY + "," + voxelZ + ")";
+            //Strips the numeric information from the padding 
+            //and translation properties of the x, y, and z coordinates.
+            voxelX = voxelX.substring(0, voxelX.length - 2);
+            voxelX = parseInt(voxelX);
+            voxelY = voxelY.substring(0, voxelY.length - 2);
+            voxelY = parseInt(voxelY);
+            voxelZ = voxelZ.substring(11, voxelZ.length - 3);
+            voxelZ = parseInt(voxelZ);
+
+            if(i == voxelCount - 1){
+                voxelCoordinates += "(" + voxelX + "," + voxelY + "," + voxelZ + ")";
+            }
+            else{
+                voxelCoordinates += "(" + voxelX + "," + voxelY + "," + voxelZ + ");";
+            }
         }
-        else{
-            voxelCoordinates += "(" + voxelX + "," + voxelY + "," + voxelZ + ");";
-        }
-    }
-
-    voxelCoordinates += "}";
-
-    if(format == "export_blender"){
-        voxelCoordinates = customReplaceAll("{", "[", voxelCoordinates);
-        voxelCoordinates = customReplaceAll("}", "]", voxelCoordinates);
-        voxelCoordinates = customReplaceAll("(", "[", voxelCoordinates);
-        voxelCoordinates = customReplaceAll(")", "]", voxelCoordinates);
-        voxelCoordinates = customReplaceAll(";", ",", voxelCoordinates);
-        voxelCoordinates = "from Blender import *\nimport bpy\npoint_cloud = " + voxelCoordinates + "\nmesh = bpy.data.meshes.new(\"rad_mesh\")\nmesh.verts.extend(point_cloud)\nscene = bpy.data.scenes.active\nscene.objects.new(mesh, \"rad_object\")";
-    }
-
-    document.getElementById("importExport").value = voxelCoordinates;
+        voxelCoordinates += "}";
+        document.getElementById("importExport").value = voxelCoordinates;
 */
+	}
 }
 
 //Reads coordinates from the import/export text area and populates the stage with voxels based on the supplied coordinates.
 //The user is expected to copy and past the coordinates from a text file into the textarea input of the page.
 function importMesh(importText){
-    if(importText.search("OBJ") > -1){ //.obj wavefront object found.
-        faceData = importText.split("usemtl (null)")[1];
-        faceData = "usemtl (null)" + faceData;
-        var importArray = importText.split("usemtl (null)");
-        importArray = importArray[0].split("# www.blender3d.org");
-        importArray = importArray[1].split("\n");
-        importArray.shift(); //removes the first newline character.
-        importArray.pop(); //removes the last newline character.
+    if(importText.search("v") > -1){ //.obj wavefront object found.
+        var importArray = importText.split("\n");
         for(var i = 0; i < importArray.length; i++){
-            importArray[i] = importArray[i].replace("v ",""); //removes the "v" from the front of each 3d point.
-            var coordinateArray = importArray[i].split(" ");
+			if(importArray[i].charAt(0) == "v"){
+                importArray[i] = importArray[i].replace("v ",""); //removes the "v" from the front of each 3d point.
+                var coordinateArray = importArray[i].split(" ");
 
-            //Gets the cursor voxel and its coordinates.
-            var cursor = document.getElementById("cursor");
-            coordinateArray[0] = Math.round(parseFloat(coordinateArray[0]));
-            coordinateArray[1] = Math.round(parseFloat(coordinateArray[1]));
-            coordinateArray[2] = Math.round(parseFloat(coordinateArray[2]));
-            cursor.style.paddingLeft = coordinateArray[0] + "px";
-            cursor.style.paddingTop = coordinateArray[1] + "px";
-            cursor.style.transform = "translateZ(" + coordinateArray[2] + "px)";
+                //Gets the cursor voxel and its coordinates.
+                var cursor = document.getElementById("cursor");
+                coordinateArray[0] = Math.round(parseFloat(coordinateArray[0]));
+                coordinateArray[1] = Math.round(parseFloat(coordinateArray[1]));
+                coordinateArray[2] = Math.round(parseFloat(coordinateArray[2]));
+                cursor.style.paddingLeft = coordinateArray[0] + "px";
+                cursor.style.paddingTop = coordinateArray[1] + "px";
+                cursor.style.transform = "translateZ(" + coordinateArray[2] + "px)";
 
-            capturePoint();
+                capturePoint();
+			}
+			else if(importArray[i].charAt(0) == "f"){
+			    if(i == importArray.length - 1){
+					faceData += importArray[i];
+				}
+				else{
+				    faceData += importArray[i] + "\n";
+			    }
+			}
         }
     }
     else{ //otherwise, import my custom list format.
+alert("Importing list-style data is no longer supported!");
+/*
         importText = importText.replace("{","");
         importText = importText.replace("}","");
         var importArray = importText.split(";");
@@ -389,6 +389,7 @@ function importMesh(importText){
 
             capturePoint();
         }
+*/
     }
 	
     //WARNING!!!
