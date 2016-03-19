@@ -1,47 +1,54 @@
 /*
 Controls the translucency of the reference images.
 */
-img{
-	opacity:0.5;
-}
-
 .view{
-	width:500px;
-	height:500px;
+    opacity:0.5;
+    max-width:100%;
+    max-height:100%;
+
+/*
+THE FOLLOWING CODE IS NOT PERMANENT!!!
+Flips image on the y axis.
+The following lines of code are meant to fix an issue
+where I inadvertently set the back stage view with an image and did not
+see that the image was reversed.  To solve this problem without creating new geometry, I temporarily flipped the image.
+*/
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
 }
-
-#stage {
-	-webkit-perspective:800px;
-	-webkit-perspective-origin:50% 200px;
-	-moz-perspective:800px;
-	-moz-perspective-origin:50% 200px;
-	perspective:800px;
-	perspective-origin:50% 200px;
+#stage{
+    -webkit-perspective:800px;
+    -webkit-perspective-origin:50%;
+    -moz-perspective:800px;
+    -moz-perspective-origin:50%;
+    perspective:800px;
+    perspective-origin:50%;
 }
-
-#cube {
-	margin:100px auto;
-	-webkit-transition:-webkit-transform 2s linear;
-	-webkit-transform-style:preserve-3d;
-	-moz-transition:-moz-transform 2s linear;
-	-moz-transform-style:preserve-3d;
-	transition:transform 2s linear;
-	transform-style:preserve-3d;
-
-	/*Disables the user from inadvertently selecting the div's text*/
-	-webkit-user-select:none;  
-	-moz-user-select:none;    
-	-ms-user-select:none;      
-	user-select:none;
-	cursor:pointer;
+#cube{
+    margin:100px auto;
+    -webkit-transition:-webkit-transform 2s linear;
+    -webkit-transform-style:preserve-3d;
+    -moz-transition:-moz-transform 2s linear;
+    -moz-transform-style:preserve-3d;
+    transition:transform 2s linear;
+    transform-style:preserve-3d;
+    /*Disables the user from inadvertently selecting the div's text*/
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+    cursor:pointer;
 }
-
 /*
 Controls the styling of each side of the stage.
 */
 .face {
-	position:absolute;
-	background-color:rgba(50, 50, 50, 0);
-	color:black;
-	border:1px solid black;
+    position:absolute;
+    background-color:rgba(50, 50, 50, 0);
+    color:black;
+    border:1px solid black;
 }

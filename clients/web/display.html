@@ -1,354 +1,77 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<title>Render by Accretion Display</title>
-		<script src="js/global.js"></script>
-		<script src="js/voxel.js"></script>
-		<link rel="stylesheet" type="text/css" href="css/layout.css">
-		<link rel="stylesheet" type="text/css" href="css/control.css">
-		<link rel="stylesheet" type="text/css" href="css/stage.css">
-		<link rel="stylesheet" type="text/css" href="css/voxel.css">
-	</head>
-	<body onkeydown='rotateByArrowKeys(event);'>
-		<div>
-			<table style="width:100%;">
-				<tr>
-					<td>
-						<!--Stage object, a cube consisting of six face elements.-->
-						<div id="stage">
-							<div id="cube" onclick='rotateByMouse(event);'>
-								<!--top-->
-								<div id="face1" class="face"></div>
-
-								<!--front-->
-								<div id="face2" class="face two"></div>
-
-								<!--right-->
-								<div id="face3" class="face three"><!--<img class="view" src="images/views/left.png">--></div>
-
-								<!--back-->
-								<div id="face4" class="face four"><!--<img class="view" src="images/views/front.png">--></div>
-
-								<!--left-->
-								<div id="face5" class="face five"><!--<img class="view" src="images/views/right.png">--></div>
-
-								<!--bottom-->
-								<div id="face6" class="face six"><!--<img class="view" src="images/views/top.png">--></div>
-							</div>
-						</div>
-					</td>
-					<td>
-						<center>
-							<table>
-								<tr>
-									<td>
-										<div><center><span>stage</span></center></div>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<!--Control panel for common operations that are performed on the stage object.-->
-										<table class="buttonPanel">
-											<tr>
-												<td>
-													<div onmouseover="buttonFocus(this, 'black', 'white');" onmouseout="buttonFocus(this, document.body.style.backgroundColor, 'black');" onclick="deleteVoxel(1);" class="button">
-														<center>
-															<table>
-																<tr>
-																	<td><div style="height:15px;"></div></td>
-																</tr>
-																<tr>
-																	<td><div><center>delete</center></div></td>
-																</tr>
-															</table>
-														</center>
-													</div>
-												</td>
-												<td>
-													<div id="up" onmouseover="buttonFocus(this, 'black', 'white');" onmouseout="buttonFocus(this, document.body.style.backgroundColor, 'black');" onclick="rotateOrthogonally(this.id);" class="button">
-														<center>
-															<table>
-																<tr>
-																	<td><div style="height:15px;"></div></td>
-																</tr>
-																<tr>
-																	<td><div><center>&uarr;</center></div></td>
-																</tr>
-															</table>
-														</center>
-													</div>
-												</td>
-												<td>
-													<div onmouseover="buttonFocus(this, 'black', 'white');" onmouseout="buttonFocus(this, document.body.style.backgroundColor, 'black');" onclick="if(voxelCount > 0 || document.getElementById('importExport').value == ''){this.style.backgroundColor='red';}else{importMesh(document.getElementById('importExport').value);}" class="button">
-														<center>
-															<table>
-																<tr>
-																	<td><div style="height:15px;"></div></td>
-																</tr>
-																<tr>
-																	<td><div><center>import</center></div></td>
-																</tr>
-															</table>
-														</center>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<div id="left" onmouseover="buttonFocus(this, 'black', 'white');" onmouseout="buttonFocus(this, document.body.style.backgroundColor, 'black');" onclick="rotateOrthogonally(this.id);" class="button">
-														<center>
-															<table>
-																<tr>
-																	<td><div style="height:15px;"></div></td>
-																</tr>
-																<tr>
-																	<td><div><center>&larr;</center></div></td>
-																</tr>
-															</table>
-														</center>
-													</div>
-												</td>
-												<td>
-													<div onmouseover="buttonFocus(this, 'black', 'white');" onmouseout="buttonFocus(this, document.body.style.backgroundColor, 'black');" onclick="resetStage();" class="button">
-														<center>
-															<table>
-																<tr>
-																	<td><div style="height:15px;"></div></td>
-																</tr>
-																<tr>
-																	<td><div><center>center</center></div></td>
-																</tr>
-															</table>
-														</center>
-													</div>
-												</td>
-												<td>
-													<div id="right" onmouseover="buttonFocus(this, 'black', 'white');" onmouseout="buttonFocus(this, document.body.style.backgroundColor, 'black');" onclick="rotateOrthogonally(this.id);" class="button">
-														<center>
-															<table>
-																<tr>
-																	<td><div style="height:15px;"></div></td>
-																</tr>
-																<tr>
-																	<td><div><center>&rarr;</center></div></td>
-																</tr>
-															</table>
-														</center>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<div onmouseover="buttonFocus(this, 'black', 'white');" onmouseout="buttonFocus(this, document.body.style.backgroundColor, 'black');" onclick="window.location='display.html'" class="button" class="button">
-														<center>
-															<table>
-																<tr>
-																	<td><div style="height:15px;"></div></td>
-																</tr>
-																<tr>
-																	<td><div><center>clear</center></div></td>
-																</tr>
-															</table>
-														</center>
-													</div>
-												</td>
-												<td>
-													<div id="down" onmouseover="buttonFocus(this, 'black', 'white');" onmouseout="buttonFocus(this, document.body.style.backgroundColor, 'black');" onclick="rotateOrthogonally(this.id);" class="button">
-														<center>
-															<table>
-																<tr>
-																	<td><div style="height:15px;"></div></td>
-																</tr>
-																<tr>
-																	<td><div><center>&darr;</center></div></td>
-																</tr>
-															</table>
-														</center>
-													</div>
-												</td>
-												<td>
-													<div id="save" onmouseover="buttonFocus(this, 'black', 'white');" onmouseout="buttonFocus(this, document.body.style.backgroundColor, 'black');" onclick="if(voxelCount == 0){this.style.backgroundColor='red';}else{saveMesh('blender');}" class="button">
-														<center>
-															<table>
-																<tr>
-																	<td><div style="height:15px;"></div></td>
-																</tr>
-																<tr>
-																	<td><div><center>save</center></div></td>
-																</tr>
-															</table>
-														</center>
-													</div>
-												</td>
-											</tr>
-										</table>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<div style="height:50px;"></div>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<div><center><span>voxel</span></center></div>
-									</td>
-								</tr>
-								<tr>
-									</td>
-										<!--Control panel for common operations that are performed on voxel objects.-->
-										<table class="buttonPanel">
-											<tr>
-												<td>
-													<div id="up" onmouseover="buttonFocus(this, 'black', 'white');" onmouseout="buttonFocus(this, document.body.style.backgroundColor, 'black');" onclick="cycleVoxel('back');" class="button">
-														<center>
-															<table>
-																<tr>
-																	<td><div style="height:15px;"></div></td>
-																</tr>
-																<tr>
-																	<td><div><center>back</center></div></td>
-																</tr>
-															</table>
-														</center>
-													</div>
-												</td>
-												<td>
-													<div id="up" onmouseover="buttonFocus(this, 'black', 'white');" onmouseout="buttonFocus(this, document.body.style.backgroundColor, 'black');" onmousedown="updateGridOnMouseDown('{\'translation\':{\'voxel\':\'cursor\',\'direction\':\'up\'}}');" onmouseup="updateGridOnMouseUp();" class="button">
-														<center>
-															<table>
-																<tr>
-																	<td><div style="height:15px;"></div></td>
-																</tr>
-																<tr>
-																	<td><div><center>&uarr;</center></div></td>
-																</tr>
-															</table>
-														</center>
-													</div>
-												</td>
-												<td>
-													<div id="down" onmouseover="buttonFocus(this, 'black', 'white');" onmouseout="buttonFocus(this, document.body.style.backgroundColor, 'black');" class="button" onclick="cycleVoxel('forward');" class="button">
-														<center>
-															<table>
-																<tr>
-																	<td><div style="height:15px;"></div></td>
-																</tr>
-																<tr>
-																	<td><div><center>forward</center></div></td>
-																</tr>
-															</table>
-														</center>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<div id="left" onmouseover="buttonFocus(this, 'black', 'white');" onmouseout="buttonFocus(this, document.body.style.backgroundColor, 'black');" onmousedown="updateGridOnMouseDown('{\'translation\':{\'voxel\':\'cursor\',\'direction\':\'left\'}}');" onmouseup="updateGridOnMouseUp();" class="button">
-														<center>
-															<table>
-																<tr>
-																	<td><div style="height:15px;"></div></td>
-																</tr>
-																<tr>
-																	<td><div><center>&larr;</center></div></td>
-																</tr>
-															</table>
-														</center>
-													</div>
-												</td>
-												<td>
-													<div onmouseover="buttonFocus(this, 'black', 'white');" onmouseout="buttonFocus(this, document.body.style.backgroundColor, 'black');" onclick="capturePoint();" class="button">
-														<center>
-															<table>
-																<tr>
-																	<td><div style="height:15px;"></div></td>
-																</tr>
-																<tr>
-																	<td><div><center>capture</center></div></td>
-																</tr>
-															</table>
-														</center>
-													</div>
-												</td>
-												<td>
-													<div id="right" onmouseover="buttonFocus(this, 'black', 'white');" onmouseout="buttonFocus(this, document.body.style.backgroundColor, 'black');" onmousedown="updateGridOnMouseDown('{\'translation\':{\'voxel\':\'cursor\',\'direction\':\'right\'}}');" onmouseup="updateGridOnMouseUp();" class="button">
-														<center>
-															<table>
-																<tr>
-																	<td><div style="height:15px;"></div></td>
-																</tr>
-																<tr>
-																	<td><div><center>&rarr;</center></div></td>
-																</tr>
-															</table>
-														</center>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<div id="down" onmouseover="buttonFocus(this, 'black', 'white');" onmouseout="buttonFocus(this, document.body.style.backgroundColor, 'black');" class="button" onmousedown="updateGridOnMouseDown('{\'translation\':{\'voxel\':\'cursor\',\'direction\':\'out\'}}');" onmouseup="updateGridOnMouseUp();" class="button">
-														<center>
-															<table>
-																<tr>
-																	<td><div style="height:15px;"></div></td>
-																</tr>
-																<tr>
-																	<td><div><center>&#x2299</center></div></td>
-																</tr>
-															</table>
-														</center>
-													</div>
-												</td>
-												<td>
-													<div onmouseover="buttonFocus(this, 'black', 'white');" onmouseout="buttonFocus(this, document.body.style.backgroundColor, 'black');" onmousedown="updateGridOnMouseDown('{\'translation\':{\'voxel\':\'cursor\',\'direction\':\'down\'}}');" onmouseup="updateGridOnMouseUp();" class="button">
-														<center>
-															<table>
-																<tr>
-																	<td><div style="height:15px;"></div></td>
-																</tr>
-																<tr>
-																	<td><div><center>&darr;</center></div></td>
-																</tr>
-															</table>
-														</center>
-													</div>
-												</td>
-												<td>
-													<div id="down" onmouseover="buttonFocus(this, 'black', 'white');" onmouseout="buttonFocus(this, document.body.style.backgroundColor, 'black');" class="button" onmousedown="updateGridOnMouseDown('{\'translation\':{\'voxel\':\'cursor\',\'direction\':\'in\'}}');" onmouseup="updateGridOnMouseUp();" class="button">
-														<center>
-															<table>
-																<tr>
-																	<td><div style="height:15px;"></div></td>
-																</tr>
-																<tr>
-																	<td><div><center>&#x2297</center></div></td>
-																</tr>
-															</table>
-														</center>
-													</div>
-												</td>
-											</tr>
-										</table>
-										<br />
-										<!--A textarea input used to import and export voxel coordinates.-->
-										<!--The user is expected to copy this data to and from an external text file.-->
-										<textarea id="importExport" rows="10" cols="19"></textarea>
-									</td>
-								</tr>
-							</table>
-						</center>
-					</td>
-				</tr>
-			</table>
-		</div>
-	</body>
-	<script>
-		//A cursor voxel must be created directly after the entire page has finished loading.
-		createCursor();
-	</script>
-	<script src="js/stage.js"></script>
-        <script src="js/control.js"></script>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="user-scalable=no" />
+        <title>Render by Accretion Display</title>
+        <link rel="stylesheet" type="text/css" href="css/layout.css">
+        <link rel="stylesheet" type="text/css" href="css/control.css">
+        <link rel="stylesheet" type="text/css" href="css/stage.css">
+        <link rel="stylesheet" type="text/css" href="css/voxel.css">
+        <script src="js/global.js"></script>
+        <script src="js/voxel.js"></script>
+        <script src="js/orientation.js"></script>
+    </head>
+    <body onkeydown='rotateByArrowKeys(event);'>
+        <div class="column-left vertical-horizontal-center columnHeight">
+            <div class="buttonPanel">
+                <textarea id="importExport" style="width:11.65rem;height:6rem;"></textarea>
+                <div class="button button-column-left" onclick="transform('{\'stage\':\'import\'}')"><p>import</p></div>
+                <div class="button button-column-center" onclick="transform('{\'stage\':\'pitchCW\'}');updateViewDirection('up');" ontouch="transform('{\'stage\':\'pitchCW\'}')"><p>&uarr;</p></div>
+                <div class="button button-column-right" onclick="transform('{\'stage\':\'reset\'}')" ontouch="transform('{\'stage\':\'reset\'}')"><p>reset</p></div>
+                <br>
+                <div class="button button-column-left" onclick="transform('{\'stage\':\'yawCW\'}');updateViewDirection('left');" ontouch="transform('{\'stage\':\'yawCW\'}')"><p>&larr;</p></div>
+                <div class="button button-column-center" onclick="transform('{\'stage\':\'center\'}')" ontouch="transform('{\'stage\':\'center\'}')"><p>center</p></div>
+                <div class="button button-column-right" onclick="transform('{\'stage\':\'yawCCW\'}');updateViewDirection('right');" ontouch="transform('{\'stage\':\'yawCCW\'}')"><p>&rarr;</p></div>
+                <br>
+                <div class="button button-column-left"><p></p></div>
+                <div class="button button-column-center" onclick="transform('{\'stage\':\'pitchCCW\'}');updateViewDirection('down');" ontouch="transform('{\'stage\':\'pitchCCW\'}')"><p>&darr;</p></div>
+                <div class="button button-column-right" onclick="transform('{\'stage\':\'export_blender\'}')"><p>export</p></div>
+            </div>
+        </div>
+        <!--Stage object, a cube consisting of six face elements.-->
+        <div id="stage" class="column-center">
+            <div id="cube" onclick='rotateByMouse(event);'>
+                <!--top-->
+                <div id="face1" class="face"></div>
+                <!--front-->
+                <div id="face2" class="face two"></div>
+                <!--right-->
+                <div id="face3" class="face three"><!--<img class="view" src="images/left.png">--></div>
+                <!--back-->
+                <div id="face4" class="face four"><!--<img class="view" src="images/front.jpg">--></div>
+                <!--left-->
+                <div id="face5" class="face five"><!--<img class="view" src="images/right.png">--></div>
+                <!--bottom-->
+                <div id="face6" class="face six"><!--<img class="view" src="images/top.png">--></div>
+                <!--trace plane-->
+                <div id="tracePlane" class="face four" style="border:none;"><img class="view" src="images/front.jpg"></div>
+            </div>
+        </div>
+        <div class="column-right vertical-horizontal-center columnHeight">
+            <div class="buttonPanel" style="margin: 0">
+                <div id="rightPanelButton0" class="button button-column-left" onclick="changePanelMode();/*translateSet();*/"><p>&#8756;</p></div>
+                <div id="rightPanelButton1" class="button button-column-center" onmousedown="changeVoxelDirectionByView('up');" onmouseup="updateGridOnMouseUp();" ontouchstart="changeVoxelDirectionByView('up');" ontouchend="updateGridOnMouseUp();"><p>&uarr;</p></div>
+                <div id="rightPanelButton2" class="button button-column-right"><p></p></div>
+                <br>
+                <div id="rightPanelButton3" class="button button-column-left" onmousedown="changeVoxelDirectionByView('left');" onmouseup="updateGridOnMouseUp();" ontouchstart="changeVoxelDirectionByView('left');" ontouchend="updateGridOnMouseUp();"><p>&larr;</p></div>
+                <div id="rightPanelButton4" class="button button-column-center" onclick="transform('{\'vertex\':\'add\'}');" ontouch="('{\'vertex\':\'add\'}');"><p>&#9632;</p></div>
+                <div id="rightPanelButton5" class="button button-column-right" onmousedown="changeVoxelDirectionByView('right');" onmouseup="updateGridOnMouseUp();" ontouchstart="changeVoxelDirectionByView('right');" ontouchend="updateGridOnMouseUp();"><p>&rarr;</p></div>
+                <br>
+                <div id="rightPanelButton6" class="button button-column-left" onmousedown="changeVoxelDirectionByView('in');" onmouseup="updateGridOnMouseUp();" ontouchstart="changeVoxelDirectionByView('in');" ontouchend="updateGridOnMouseUp();"><p>&#x2297</p></div>
+                <div id="rightPanelButton7" class="button button-column-center" onmousedown="changeVoxelDirectionByView('down');" onmouseup="updateGridOnMouseUp();" ontouchstart="changeVoxelDirectionByView('down');" ontouchend="updateGridOnMouseUp();"><p>&darr;</p></div>
+                <div id="rightPanelButton8" class="button button-column-right" onmousedown="changeVoxelDirectionByView('out');" onmouseup="updateGridOnMouseUp();" ontouchstart="changeVoxelDirectionByView('out');" ontouchend="updateGridOnMouseUp();"><p>&#x2299</p></div>
+                <br>
+                <div id="rightPanelButton9" class="button button-column-left" onmousedown="updateGridOnMouseDown('{\'vertex\':\'back\'}', cycleInterval);" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'vertex\':\'back\'}', cycleInterval);" ontouchend="updateGridOnMouseUp();"><p><<</p></div>
+                <div id="rightPanelButton10" class="button button-column-center" onclick="transform('{\'vertex\':\'delete\'}');" ontouch="transform('{\'vertex\':\'delete\'}');"><p>x</p></div>
+                <div id="rightPanelButton11" class="button button-column-right" onmousedown="updateGridOnMouseDown('{\'vertex\':\'forward\'}', cycleInterval);" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'vertex\':\'forward\'}', cycleInterval);" ontouchend="updateGridOnMouseUp();"><p>>></p></div>
+            </div>
+        </div>
+    </body>
+    <script>
+        //A cursor voxel must be created directly after the entire page has finished loading.
+        createCursor();
+    </script>
+    <script src="js/stage.js"></script>
+    <script src="js/control.js"></script>
 </html>
