@@ -127,15 +127,14 @@ for(var i = 0, l = props.length; i < l; i++) {
 var thetaX = 0;
 var thetaY = 0;
 
-//Gets query string information.
-var queryString = window.location.search;
-var queryStringArray = queryString.split("?voxel_coordinates=");
-var queryCoordinates = queryStringArray[1];
+//Gets point data from the session storage object.
+var sessionMesh = sessionStorage.mesh;
 
 //The import will not work if the user supplies an empty set,
 //or if the query string information does not exist.
 //NOTE: this code always runs upon page load, it is meant to run right 
 //      after a window refresh event fired by the refresh button.
-if(queryCoordinates != "{}" && queryCoordinates != null){
-	importMesh(queryCoordinates);
+if(sessionMesh != "" && sessionMesh != null){
+    importMesh(sessionMesh);
+    document.getElementById("importExport").value = sessionMesh;
 }
