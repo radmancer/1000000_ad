@@ -55,7 +55,3 @@ var correctedZCoordinate = -((cubeDimension / 2) - (voxelDimension / 2));
 //of how often the device should be pinged.
 var pingInterval = 10;
 var radUrl = "http://192.168.1.177/";
-
-//Keeps the face data from a wavefront .obj import.
-//This is appended to the geometry upon export and is useful for preserving faces when the user edits the geometry in Blender.
-var faceData = "";

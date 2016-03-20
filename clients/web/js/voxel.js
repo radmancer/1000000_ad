@@ -15,9 +15,6 @@ function updateGridOnMouseUp(){
 //In order for the stage to be reset, a page redirect is necessary and all point 
 //data must be placed in the query string to be read by the page upon refresh.
 function resetStage(){
-    sessionStorage.setItem("mesh", document.getElementById("importExport").value);
-    window.location = window.location;
-/*
 	var voxelCoordinates = "{";
 
 	for(var i = 0; i < voxelCount; i++){
@@ -45,7 +42,6 @@ function resetStage(){
 
 	voxelCoordinates += "}";
 	window.location = "display.html?voxel_coordinates=" + voxelCoordinates;
-*/
 }
 
 //Cycles through all voxels on screen based on if the user wants to cycle forward or backward.
@@ -70,10 +66,10 @@ function cycleVoxel(direction){
 		}
 	}
 
-        for(var i = 0; i < 3; i++){ //There are 3 intersecting planes inside a point.
-	    document.getElementById(selectedVoxelPosition+"").childNodes[i].style.backgroundColor = selectedVoxelColor;
-	    document.getElementById(previousSelectedVoxelPosition+"").childNodes[i].style.backgroundColor = voxelColor;
-        }
+	for(var i = 0; i < 6; i++){
+		document.getElementById(selectedVoxelPosition+"").childNodes[i].style.backgroundColor = selectedVoxelColor;
+		document.getElementById(previousSelectedVoxelPosition+"").childNodes[i].style.backgroundColor = voxelColor;
+	}
 }
 
 //Deletes a voxel at a specific position.
@@ -97,34 +93,36 @@ function createCursor(){
 	//Creates the cursor.
 	var cursor = document.createElement('div');
 	cursor.className = 'voxel';
-
 	var face1 = document.createElement('div');
 	face1.className = "voxelFace";
-	cssText = "width:" + voxelDimension + "px;"
-                + "height:" + voxelDimension + "px;"
-                + "transform: rotateY(0deg);"
-                + "background-color:" + cursorVoxelColor + ";";
+	var cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + cursorVoxelColor + ";-webkit-transform: rotateX(90deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateX(90deg) translateZ(" + voxelSideDimension + "px);transform: rotateX(90deg) translateZ(" + voxelSideDimension + "px);";
 	face1.setAttribute('style', cssText);
-
 	var face2 = document.createElement('div');
 	face2.className = "voxelFace";
-	cssText = "width:" + voxelDimension + "px;"
-                + "height:" + voxelDimension + "px;"
-                + "transform: rotateY(90deg);"
-                + "background-color:" + cursorVoxelColor + ";";
+	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + cursorVoxelColor + ";-webkit-transform: translateZ(" + voxelSideDimension + "px);-moz-transform: translateZ(" + voxelSideDimension + "px);transform: translateZ(" + voxelSideDimension + "px);";
 	face2.setAttribute('style', cssText);
-
 	var face3 = document.createElement('div');
 	face3.className = "voxelFace";
-	cssText = "width:" + voxelDimension + "px;"
-                + "height:" + voxelDimension + "px;"
-                + "transform: rotateX(90deg);"
-                + "background-color:" + cursorVoxelColor + ";";
+	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + cursorVoxelColor + ";-webkit-transform: rotateY(90deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateY(90deg) translateZ(" + voxelSideDimension + "px);transform: rotateY(90deg) translateZ(" + voxelSideDimension + "px);";
 	face3.setAttribute('style', cssText);
-
-        cursor.appendChild(face1);
+	var face4 = document.createElement('div');
+	face4.className = "voxelFace";
+	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + cursorVoxelColor + ";-webkit-transform: rotateY(180deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateY(180deg) translateZ(" + voxelSideDimension + "px);transform: rotateY(180deg) translateZ(" + voxelSideDimension + "px);";
+	face4.setAttribute('style', cssText);
+	var face5 = document.createElement('div');
+	face5.className = "voxelFace";
+	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + cursorVoxelColor + ";-webkit-transform: rotateY(-90deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateY(-90deg) translateZ(" + voxelSideDimension + "px);transform: rotateY(-90deg) translateZ(" + voxelSideDimension + "px);";
+	face5.setAttribute('style', cssText);
+	var face6 = document.createElement('div');
+	face6.className = "voxelFace";
+	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + cursorVoxelColor + ";-webkit-transform: rotateX(-90deg) rotate(180deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateX(-90deg) rotate(180deg) translateZ(" + voxelSideDimension + "px);transform: rotateX(-90deg) rotate(180deg) translateZ(" + voxelSideDimension + "px);";
+	face6.setAttribute('style', cssText);
+	cursor.appendChild(face1);
 	cursor.appendChild(face2);
-        cursor.appendChild(face3);
+	cursor.appendChild(face3);
+	cursor.appendChild(face4);
+	cursor.appendChild(face5);
+	cursor.appendChild(face6);
 
 	//Sets the cursor's coordinates.
 	cursor.style.paddingLeft = "0px";
@@ -217,6 +215,7 @@ function updateNewPointColor(cursor){
 //      Setting the CSS with a JavaScript style property is desired, but I have not had any luck setting the webkit transform property.
 //      The concatenation method works across all browsers regardless.
 function capturePoint(){
+
 	//Gets the cursor voxel and its coordinates.
 	var cursor = document.getElementById("cursor");
 	var cursorX = cursor.style.paddingLeft;
@@ -226,34 +225,36 @@ function capturePoint(){
 	//Creates a new voxel.
 	var point = document.createElement('div');
 	point.className = 'voxel';
-
 	var face1 = document.createElement('div');
 	face1.className = "voxelFace";
-	cssText = "width:" + voxelDimension + "px;"
-                + "height:" + voxelDimension + "px;"
-                + "transform: rotateY(0deg);"
-                + "background-color:" + cursorVoxelColor + ";";
+	var cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + cursorVoxelColor + ";-webkit-transform: rotateX(90deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateX(90deg) translateZ(" + voxelSideDimension + "px);transform: rotateX(90deg) translateZ(" + voxelSideDimension + "px);";
 	face1.setAttribute('style', cssText);
-
 	var face2 = document.createElement('div');
 	face2.className = "voxelFace";
-	cssText = "width:" + voxelDimension + "px;"
-                + "height:" + voxelDimension + "px;"
-                + "transform: rotateY(90deg);"
-                + "background-color:" + cursorVoxelColor + ";";
+	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + cursorVoxelColor + ";-webkit-transform: translateZ(" + voxelSideDimension + "px);-moz-transform: translateZ(" + voxelSideDimension + "px);transform: translateZ(" + voxelSideDimension + "px);";
 	face2.setAttribute('style', cssText);
-
 	var face3 = document.createElement('div');
 	face3.className = "voxelFace";
-	cssText = "width:" + voxelDimension + "px;"
-                + "height:" + voxelDimension + "px;"
-                + "transform: rotateX(90deg);"
-                + "background-color:" + cursorVoxelColor + ";";
+	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + cursorVoxelColor + ";-webkit-transform: rotateY(90deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateY(90deg) translateZ(" + voxelSideDimension + "px);transform: rotateY(90deg) translateZ(" + voxelSideDimension + "px);";
 	face3.setAttribute('style', cssText);
-
-        point.appendChild(face1);
+	var face4 = document.createElement('div');
+	face4.className = "voxelFace";
+	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + cursorVoxelColor + ";-webkit-transform: rotateY(180deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateY(180deg) translateZ(" + voxelSideDimension + "px);transform: rotateY(180deg) translateZ(" + voxelSideDimension + "px);";
+	face4.setAttribute('style', cssText);
+	var face5 = document.createElement('div');
+	face5.className = "voxelFace";
+	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + cursorVoxelColor + ";-webkit-transform: rotateY(-90deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateY(-90deg) translateZ(" + voxelSideDimension + "px);transform: rotateY(-90deg) translateZ(" + voxelSideDimension + "px);";
+	face5.setAttribute('style', cssText);
+	var face6 = document.createElement('div');
+	face6.className = "voxelFace";
+	cssText = "height:" + voxelDimension + "px;width:" + voxelDimension + "px;background-color:" + cursorVoxelColor + ";-webkit-transform: rotateX(-90deg) rotate(180deg) translateZ(" + voxelSideDimension + "px);-moz-transform: rotateX(-90deg) rotate(180deg) translateZ(" + voxelSideDimension + "px);transform: rotateX(-90deg) rotate(180deg) translateZ(" + voxelSideDimension + "px);";
+	face6.setAttribute('style', cssText);
+	point.appendChild(face1);
 	point.appendChild(face2);
-        point.appendChild(face3);
+	point.appendChild(face3);
+	point.appendChild(face4);
+	point.appendChild(face5);
+	point.appendChild(face6);
 
 	//Assigns the cursor's coordinates to the new voxel.
 	point.style.paddingLeft = cursorX;
@@ -288,172 +289,68 @@ function customReplaceAll(find, replace, string) {
 //Traverses all voxels on screen, strips their coordinates, and stores their coordinates in a textarea element.
 //The user is expected to copy and past the coordinates into a text file.
 function saveMesh(format){
-	if(format == "export_blender"){
-        var voxelCoordinates = "";
-        for(var i = 0; i < voxelCount; i++){
-            var voxel = document.getElementById(i + "");
-            var voxelX = voxel.style.paddingLeft;
-            var voxelY = voxel.style.paddingTop;
-            var voxelZ = voxel.style.transform;
+    var voxelCoordinates = "{";
 
-            //Strips the numeric information from the padding 
-            //and translation properties of the x, y, and z coordinates.
-            voxelX = voxelX.substring(0, voxelX.length - 2);
-            voxelX = parseInt(voxelX);
-            voxelY = voxelY.substring(0, voxelY.length - 2);
-            voxelY = parseInt(voxelY);
-            voxelZ = voxelZ.substring(11, voxelZ.length - 3);
-            voxelZ = parseInt(voxelZ);
-            voxelCoordinates += "v " + voxelX + " " + voxelY + " " + voxelZ + "\n";
+    for(var i = 0; i < voxelCount; i++){
+        var voxel = document.getElementById(i + "");
+        var voxelX = voxel.style.paddingLeft;
+        var voxelY = voxel.style.paddingTop;
+        var voxelZ = voxel.style.transform;
+
+        //Strips the numeric information from the padding 
+        //and translation properties of the x, y, and z coordinates.
+        voxelX = voxelX.substring(0, voxelX.length - 2);
+        voxelX = parseInt(voxelX);
+        voxelY = voxelY.substring(0, voxelY.length - 2);
+        voxelY = parseInt(voxelY);
+        voxelZ = voxelZ.substring(11, voxelZ.length - 3);
+        voxelZ = parseInt(voxelZ);
+
+        if(i == voxelCount - 1){
+            voxelCoordinates += "(" + voxelX + "," + voxelY + "," + voxelZ + ")";
         }
-        voxelCoordinates += faceData;
-        document.getElementById("importExport").value = voxelCoordinates;
-	}
-	else if(format == "export_default"){
-alert("Exporting list-style data is no longer supported!");
-/*
-        var voxelCoordinates = "{";
-
-        for(var i = 0; i < voxelCount; i++){
-
-            var voxel = document.getElementById(i + "");
-            var voxelX = voxel.style.paddingLeft;
-            var voxelY = voxel.style.paddingTop;
-            var voxelZ = voxel.style.transform;
-
-            //Strips the numeric information from the padding 
-            //and translation properties of the x, y, and z coordinates.
-            voxelX = voxelX.substring(0, voxelX.length - 2);
-            voxelX = parseInt(voxelX);
-            voxelY = voxelY.substring(0, voxelY.length - 2);
-            voxelY = parseInt(voxelY);
-            voxelZ = voxelZ.substring(11, voxelZ.length - 3);
-            voxelZ = parseInt(voxelZ);
-
-            if(i == voxelCount - 1){
-                voxelCoordinates += "(" + voxelX + "," + voxelY + "," + voxelZ + ")";
-            }
-            else{
-                voxelCoordinates += "(" + voxelX + "," + voxelY + "," + voxelZ + ");";
-            }
+        else{
+            voxelCoordinates += "(" + voxelX + "," + voxelY + "," + voxelZ + ");";
         }
-        voxelCoordinates += "}";
-        document.getElementById("importExport").value = voxelCoordinates;
-*/
-	}
+    }
+
+    voxelCoordinates += "}";
+
+    if(format == "export_blender"){
+        voxelCoordinates = customReplaceAll("{", "[", voxelCoordinates);
+        voxelCoordinates = customReplaceAll("}", "]", voxelCoordinates);
+        voxelCoordinates = customReplaceAll("(", "[", voxelCoordinates);
+        voxelCoordinates = customReplaceAll(")", "]", voxelCoordinates);
+        voxelCoordinates = customReplaceAll(";", ",", voxelCoordinates);
+        voxelCoordinates = "from Blender import *\nimport bpy\npoint_cloud = " + voxelCoordinates + "\nmesh = bpy.data.meshes.new(\"rad_mesh\")\nmesh.verts.extend(point_cloud)\nscene = bpy.data.scenes.active\nscene.objects.new(mesh, \"rad_object\")";
+    }
+
+    document.getElementById("importExport").value = voxelCoordinates;
 }
 
 //Reads coordinates from the import/export text area and populates the stage with voxels based on the supplied coordinates.
 //The user is expected to copy and past the coordinates from a text file into the textarea input of the page.
 function importMesh(importText){
-    if(importText.search("v") > -1){ //.obj wavefront object found.
-        var importArray = importText.split("\n");
-        for(var i = 0; i < importArray.length; i++){
-			if(importArray[i].charAt(0) == "v"){
-                importArray[i] = importArray[i].replace("v ",""); //removes the "v" from the front of each 3d point.
-                var coordinateArray = importArray[i].split(" ");
-
-                //Gets the cursor voxel and its coordinates.
-                var cursor = document.getElementById("cursor");
-                coordinateArray[0] = Math.round(parseFloat(coordinateArray[0]));
-                coordinateArray[1] = Math.round(parseFloat(coordinateArray[1]));
-                coordinateArray[2] = Math.round(parseFloat(coordinateArray[2]));
-                cursor.style.paddingLeft = coordinateArray[0] + "px";
-                cursor.style.paddingTop = coordinateArray[1] + "px";
-                cursor.style.transform = "translateZ(" + coordinateArray[2] + "px)";
-
-                capturePoint();
-			}
-			else if(importArray[i].charAt(0) == "f"){
-			    if(i == importArray.length - 1){
-					faceData += importArray[i];
-				}
-				else{
-				    faceData += importArray[i] + "\n";
-			    }
-			}
-        }
-    }
-    else{ //otherwise, import my custom list format.
-alert("Importing list-style data is no longer supported!");
-/*
-        importText = importText.replace("{","");
-        importText = importText.replace("}","");
-        var importArray = importText.split(";");
-        for(var i = 0; i < importArray.length; i++){
-            var coordinateArray = importArray[i].split(",");
-            coordinateArray[0] = coordinateArray[0].replace("(","");
-            coordinateArray[2] = coordinateArray[2].replace(")","");
-
-            //Gets the cursor voxel and its coordinates.
-            var cursor = document.getElementById("cursor");
-            cursor.style.paddingLeft = coordinateArray[0] + "px";
-            cursor.style.paddingTop = coordinateArray[1] + "px";
-            cursor.style.transform = "translateZ(" + coordinateArray[2] + "px)";
-
-            capturePoint();
-        }
-*/
-    }
+	importText = importText.replace("{","");
+	importText = importText.replace("}","");
+	var importArray = importText.split(";");
+	for(var i = 0; i < importArray.length; i++){
+		var coordinateArray = importArray[i].split(",");
+		coordinateArray[0] = coordinateArray[0].replace("(","");
+		coordinateArray[2] = coordinateArray[2].replace(")","");
+		
+		//Gets the cursor voxel and its coordinates.
+		var cursor = document.getElementById("cursor");
+		cursor.style.paddingLeft = coordinateArray[0] + "px";
+		cursor.style.paddingTop = coordinateArray[1] + "px";
+		cursor.style.transform = "translateZ(" + coordinateArray[2] + "px)";
+		
+		capturePoint();
+	}
 	
-    //WARNING!!!
-    //It is not known why updating the grid twice solves the issue where the cursor cannot enter its parent's space.
-    //The bug in question only happens after an import.
-    updateGrid("right")
-    updateGrid("down")
-}
-
-function translateSet(direction){
-    var voxels = document.getElementsByClassName("voxel");
-    for(var i = 0; i < voxels.length; i++){
-        if(voxels[i].id != "cursor"){
-            var cursorX = voxels[i].style.paddingLeft;
-	    var cursorY = voxels[i].style.paddingTop;
-	    var cursorZ = voxels[i].style.transform;
-
-	    //Strips the numeric information from the padding 
-	    //and translation properties of the x, y, and z coordinates.
-	    cursorX = cursorX.substring(0, cursorX.length - 2);
-	    cursorX = parseInt(cursorX);
-	    cursorY = cursorY.substring(0, cursorY.length - 2);
-	    cursorY = parseInt(cursorY);
-	    cursorZ = cursorZ.substring(11, cursorZ.length - 3);
-	    cursorZ = parseInt(cursorZ);
-
-	    //Depending on what button the user pressed, a right,
-	    //up, left, down, in, or out translation is made.
-	    switch(direction){
-	        case 'right':
-		    cursorX += voxelDimension;
-		    cursorX = cursorX + "px";
-		    break;
-		case 'up':
-		    cursorY -= voxelDimension;
-		    cursorY = cursorY + "px";
-		    break;
-		case 'left':
-		    cursorX -= voxelDimension;
-		    cursorX = cursorX + "px";
-		    break;
-		case 'down':
-		    cursorY += voxelDimension;
-		    cursorY = cursorY + "px";
-		    break;
-		case 'in':
-                    cursorZ -= voxelDimension;
-	            cursorZ = cursorZ + "px";
-	            cursorZ = "translateZ(" + cursorZ + ")";
-		    break;
-		case 'out':
-                    cursorZ += voxelDimension;
-	            cursorZ = cursorZ + "px";
-	            cursorZ = "translateZ(" + cursorZ + ")";
-		    break;
-	    }
-
-	    voxels[i].style.paddingLeft = cursorX;
-	    voxels[i].style.paddingTop = cursorY;
-	    voxels[i].style.transform = cursorZ;
-        }
-    }
+	//WARNING!!!
+	//It is not known why updating the grid twice solves the issue where the cursor cannot enter its parent's space.
+	//The bug in question only happens after an import.
+	updateGrid("right")
+	updateGrid("down")
 }

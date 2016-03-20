@@ -17,16 +17,16 @@
             <div class="buttonPanel">
                 <textarea id="importExport" style="width:11.65rem;height:6rem;"></textarea>
                 <div class="button button-column-left" onclick="transform('{\'stage\':\'import\'}')"><p>import</p></div>
-                <div class="button button-column-center" onclick="transform('{\'stage\':\'pitchCW\'}');updateViewDirection('up');" ontouch="transform('{\'stage\':\'pitchCW\'}');updateViewDirection('up');"><p>&uarr;</p></div>
+                <div class="button button-column-center" onclick="transform('{\'stage\':\'pitchCW\'}');updateViewDirection('up');" ontouch="transform('{\'stage\':\'pitchCW\'}')"><p>&uarr;</p></div>
                 <div class="button button-column-right" onclick="transform('{\'stage\':\'reset\'}')" ontouch="transform('{\'stage\':\'reset\'}')"><p>reset</p></div>
                 <br>
-                <div class="button button-column-left" onclick="transform('{\'stage\':\'yawCW\'}');updateViewDirection('left');" ontouch="transform('{\'stage\':\'yawCW\'}');updateViewDirection('left');"><p>&larr;</p></div>
+                <div class="button button-column-left" onclick="transform('{\'stage\':\'yawCW\'}');updateViewDirection('left');" ontouch="transform('{\'stage\':\'yawCW\'}')"><p>&larr;</p></div>
                 <div class="button button-column-center" onclick="transform('{\'stage\':\'center\'}')" ontouch="transform('{\'stage\':\'center\'}')"><p>center</p></div>
-                <div class="button button-column-right" onclick="transform('{\'stage\':\'yawCCW\'}');updateViewDirection('right');" ontouch="transform('{\'stage\':\'yawCCW\'}');updateViewDirection('right');"><p>&rarr;</p></div>
+                <div class="button button-column-right" onclick="transform('{\'stage\':\'yawCCW\'}');updateViewDirection('right');" ontouch="transform('{\'stage\':\'yawCCW\'}')"><p>&rarr;</p></div>
                 <br>
-                <div class="button button-column-left"><p></p></div>
-                <div class="button button-column-center" onclick="transform('{\'stage\':\'pitchCCW\'}');updateViewDirection('down');" ontouch="transform('{\'stage\':\'pitchCCW\'}');updateViewDirection('down');"><p>&darr;</p></div>
-                <div class="button button-column-right" onclick="transform('{\'stage\':\'export_blender\'}')"><p>export</p></div>
+                <div class="button button-column-left" onclick="transform('{\'stage\':\'export_default\'}')"><p>export default</p></div>
+                <div class="button button-column-center" onclick="transform('{\'stage\':\'pitchCCW\'}');updateViewDirection('down');" ontouch="transform('{\'stage\':\'pitchCCW\'}')"><p>&darr;</p></div>
+                <div class="button button-column-right" onclick="transform('{\'stage\':\'export_blender\'}')"><p>export blender</p></div>
             </div>
         </div>
         <!--Stage object, a cube consisting of six face elements.-->
@@ -39,32 +39,30 @@
                 <!--right-->
                 <div id="face3" class="face three"><!--<img class="view" src="images/left.png">--></div>
                 <!--back-->
-                <div id="face4" class="face four"><!--<img class="view" src="images/front.jpg">--></div>
+                <div id="face4" class="face four"><img class="view" src="images/front.jpg"></div>
                 <!--left-->
                 <div id="face5" class="face five"><!--<img class="view" src="images/right.png">--></div>
                 <!--bottom-->
                 <div id="face6" class="face six"><!--<img class="view" src="images/top.png">--></div>
-                <!--trace plane-->
-                <div id="tracePlane" class="face four" style="border:none;"><img class="view" src="images/front.jpg"></div>
             </div>
         </div>
         <div class="column-right vertical-horizontal-center columnHeight">
             <div class="buttonPanel" style="margin: 0">
-                <div id="rightPanelButton0" class="button button-column-left" onclick="changePanelMode();/*translateSet();*/"><p>&#8756;</p></div>
-                <div id="rightPanelButton1" class="button button-column-center" onmousedown="changeVoxelDirectionByView('up');" onmouseup="updateGridOnMouseUp();" ontouchstart="changeVoxelDirectionByView('up');" ontouchend="updateGridOnMouseUp();"><p>&uarr;</p></div>
-                <div id="rightPanelButton2" class="button button-column-right"><p></p></div>
+                <div class="button button-column-left"></div>
+                <div class="button button-column-center" onmousedown="changeVoxelDirectionByView('up');" onmouseup="updateGridOnMouseUp();" ontouchstart="changeVoxelDirectionByView('up');" ontouchend="updateGridOnMouseUp();"><p>&uarr;</p></div>
+                <div class="button button-column-right"></div>
                 <br>
-                <div id="rightPanelButton3" class="button button-column-left" onmousedown="changeVoxelDirectionByView('left');" onmouseup="updateGridOnMouseUp();" ontouchstart="changeVoxelDirectionByView('left');" ontouchend="updateGridOnMouseUp();"><p>&larr;</p></div>
-                <div id="rightPanelButton4" class="button button-column-center" onclick="transform('{\'vertex\':\'add\'}');" ontouch="('{\'vertex\':\'add\'}');"><p>&#9632;</p></div>
-                <div id="rightPanelButton5" class="button button-column-right" onmousedown="changeVoxelDirectionByView('right');" onmouseup="updateGridOnMouseUp();" ontouchstart="changeVoxelDirectionByView('right');" ontouchend="updateGridOnMouseUp();"><p>&rarr;</p></div>
+                <div class="button button-column-left" onmousedown="changeVoxelDirectionByView('left');" onmouseup="updateGridOnMouseUp();" ontouchstart="changeVoxelDirectionByView('left');" ontouchend="updateGridOnMouseUp();"><p>&larr;</p></div>
+                <div class="button button-column-center" onclick="transform('{\'vertex\':\'add\'}');" ontouch="('{\'vertex\':\'add\'}');"><p>&#9632;</p></div>
+                <div class="button button-column-right" onmousedown="changeVoxelDirectionByView('right');" onmouseup="updateGridOnMouseUp();" ontouchstart="changeVoxelDirectionByView('right');" ontouchend="updateGridOnMouseUp();"><p>&rarr;</p></div>
                 <br>
-                <div id="rightPanelButton6" class="button button-column-left" onmousedown="changeVoxelDirectionByView('in');" onmouseup="updateGridOnMouseUp();" ontouchstart="changeVoxelDirectionByView('in');" ontouchend="updateGridOnMouseUp();"><p>&#x2297</p></div>
-                <div id="rightPanelButton7" class="button button-column-center" onmousedown="changeVoxelDirectionByView('down');" onmouseup="updateGridOnMouseUp();" ontouchstart="changeVoxelDirectionByView('down');" ontouchend="updateGridOnMouseUp();"><p>&darr;</p></div>
-                <div id="rightPanelButton8" class="button button-column-right" onmousedown="changeVoxelDirectionByView('out');" onmouseup="updateGridOnMouseUp();" ontouchstart="changeVoxelDirectionByView('out');" ontouchend="updateGridOnMouseUp();"><p>&#x2299</p></div>
+                <div class="button button-column-left" onmousedown="changeVoxelDirectionByView('in');" onmouseup="updateGridOnMouseUp();" ontouchstart="changeVoxelDirectionByView('in');" ontouchend="updateGridOnMouseUp();"><p>&#x2297</p></div>
+                <div class="button button-column-center" onmousedown="changeVoxelDirectionByView('down');" onmouseup="updateGridOnMouseUp();" ontouchstart="changeVoxelDirectionByView('down');" ontouchend="updateGridOnMouseUp();"><p>&darr;</p></div>
+                <div class="button button-column-right" onmousedown="changeVoxelDirectionByView('out');" onmouseup="updateGridOnMouseUp();" ontouchstart="changeVoxelDirectionByView('out');" ontouchend="updateGridOnMouseUp();"><p>&#x2299</p></div>
                 <br>
-                <div id="rightPanelButton9" class="button button-column-left" onmousedown="updateGridOnMouseDown('{\'vertex\':\'back\'}', cycleInterval);" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'vertex\':\'back\'}', cycleInterval);" ontouchend="updateGridOnMouseUp();"><p><<</p></div>
-                <div id="rightPanelButton10" class="button button-column-center" onclick="transform('{\'vertex\':\'delete\'}');" ontouch="transform('{\'vertex\':\'delete\'}');"><p>x</p></div>
-                <div id="rightPanelButton11" class="button button-column-right" onmousedown="updateGridOnMouseDown('{\'vertex\':\'forward\'}', cycleInterval);" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'vertex\':\'forward\'}', cycleInterval);" ontouchend="updateGridOnMouseUp();"><p>>></p></div>
+                <div class="button button-column-left" onmousedown="updateGridOnMouseDown('{\'vertex\':\'back\'}', cycleInterval);" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'vertex\':\'back\'}', cycleInterval);" ontouchend="updateGridOnMouseUp();"><p><<</p></div>
+                <div class="button button-column-center" onclick="transform('{\'vertex\':\'delete\'}');" ontouch="transform('{\'vertex\':\'delete\'}');"><p>x</p></div>
+                <div class="button button-column-right" onmousedown="updateGridOnMouseDown('{\'vertex\':\'forward\'}', cycleInterval);" onmouseup="updateGridOnMouseUp();" ontouchstart="updateGridOnMouseDown('{\'vertex\':\'forward\'}', cycleInterval);" ontouchend="updateGridOnMouseUp();"><p>>></p></div>
             </div>
         </div>
     </body>
