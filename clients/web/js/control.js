@@ -39,7 +39,7 @@ function transform(jsonText){
         if(json.vertex == "delete")
             deleteVoxel(1);
         if(json.stage == "reset")
-            //sessionStorage.clear();
+            sessionStorage.mesh = "";
             window.location = window.location;
         if(json.stage == "center")
             resetStage();
