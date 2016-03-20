@@ -1,3 +1,4 @@
+//test
 var rightViewCounter = 0;
 var upViewCounter = 0;
 var leftViewCounter = 0;
