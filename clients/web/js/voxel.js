@@ -15,9 +15,6 @@ function updateGridOnMouseUp(){
 //In order for the stage to be reset, a page redirect is necessary and all point 
 //data must be placed in the query string to be read by the page upon refresh.
 function resetStage(){
-    sessionStorage.setItem("mesh", document.getElementById("importExport").value);
-    window.location = window.location;
-/*
 	var voxelCoordinates = "{";
 
 	for(var i = 0; i < voxelCount; i++){
@@ -45,7 +42,6 @@ function resetStage(){
 
 	voxelCoordinates += "}";
 	window.location = "display.html?voxel_coordinates=" + voxelCoordinates;
-*/
 }
 
 //Cycles through all voxels on screen based on if the user wants to cycle forward or backward.

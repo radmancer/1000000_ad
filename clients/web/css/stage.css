@@ -22,11 +22,11 @@ see that the image was reversed.  To solve this problem without creating new geo
 }
 #stage{
     -webkit-perspective:800px;
-    -webkit-perspective-origin:50%;
+    -webkit-perspective-origin:50% 200px;
     -moz-perspective:800px;
-    -moz-perspective-origin:50%;
+    -moz-perspective-origin:50% 200px;
     perspective:800px;
-    perspective-origin:50%;
+    perspective-origin:50% 200px;
 }
 #cube{
     margin:100px auto;
