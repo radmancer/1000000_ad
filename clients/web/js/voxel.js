@@ -16,7 +16,7 @@ function updateGridOnMouseUp(){
 //data must be placed in the query string to be read by the page upon refresh.
 function resetStage(){
     sessionStorage.setItem("mesh", document.getElementById("importExport").value);
-    window.location = window.location;
+    window.location = "display.html";
 /*
 	var voxelCoordinates = "{";
 
