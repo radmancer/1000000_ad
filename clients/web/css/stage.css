@@ -10,11 +10,11 @@ img{
 }
 #stage{
     -webkit-perspective:800px;
-    -webkit-perspective-origin:50% 200px;
+    -webkit-perspective-origin:50%;
     -moz-perspective:800px;
-    -moz-perspective-origin:50% 200px;
+    -moz-perspective-origin:50%;
     perspective:800px;
-    perspective-origin:50% 200px;
+    perspective-origin:50%;
 }
 #cube{
     margin:100px auto;
