@@ -190,13 +190,11 @@ function updateGrid(direction){
 			globalCursorZ -= voxelDimension;
 			cursorZ = globalCursorZ + "px";
 			cursorZ = "translateZ(" + cursorZ + ")";
-alert('in');
 			break;
 		case 'out':
 			globalCursorZ += voxelDimension;
 			cursorZ = globalCursorZ + "px";
 			cursorZ = "translateZ(" + cursorZ + ")";
-alert('out');
 			break;
 	}
 
