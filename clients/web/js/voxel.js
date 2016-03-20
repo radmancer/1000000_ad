@@ -15,37 +15,33 @@ function updateGridOnMouseUp(){
 //In order for the stage to be reset, a page redirect is necessary and all point 
 //data must be placed in the query string to be read by the page upon refresh.
 function resetStage(){
-    sessionStorage.setItem("mesh", document.getElementById("importExport").value);
-    window.location = window.location;
-/*
-	var voxelCoordinates = "{";
+    var voxelCoordinates = "{";
 
-	for(var i = 0; i < voxelCount; i++){
-		var voxel = document.getElementById(i + "");
-		var voxelX = voxel.style.paddingLeft;
-		var voxelY = voxel.style.paddingTop;
-		var voxelZ = voxel.style.transform;
+    for(var i = 0; i < voxelCount; i++){
+        var voxel = document.getElementById(i + "");
+        var voxelX = voxel.style.paddingLeft;
+        var voxelY = voxel.style.paddingTop;
+        var voxelZ = voxel.style.transform;
 
-		//Strips the numeric information from the padding 
-		//and translation properties of the x, y, and z coordinates.
-		voxelX = voxelX.substring(0, voxelX.length - 2);
-		voxelX = parseInt(voxelX);
-		voxelY = voxelY.substring(0, voxelY.length - 2);
-		voxelY = parseInt(voxelY);
-		voxelZ = voxelZ.substring(11, voxelZ.length - 3);
-		voxelZ = parseInt(voxelZ);
+        //Strips the numeric information from the padding 
+        //and translation properties of the x, y, and z coordinates.
+        voxelX = voxelX.substring(0, voxelX.length - 2);
+        voxelX = parseInt(voxelX);
+        voxelY = voxelY.substring(0, voxelY.length - 2);
+        voxelY = parseInt(voxelY);
+        voxelZ = voxelZ.substring(11, voxelZ.length - 3);
+        voxelZ = parseInt(voxelZ);
 
-		if(i == voxelCount - 1){
-			voxelCoordinates += "(" + voxelX + "," + voxelY + "," + voxelZ + ")";
-		}
-		else{
-			voxelCoordinates += "(" + voxelX + "," + voxelY + "," + voxelZ + ");";
-		}
-	}
+        if(i == voxelCount - 1){
+            voxelCoordinates += "(" + voxelX + "," + voxelY + "," + voxelZ + ")";
+        }
+        else{
+            voxelCoordinates += "(" + voxelX + "," + voxelY + "," + voxelZ + ");";
+        }
+    }
 
-	voxelCoordinates += "}";
-	window.location = "display.html?voxel_coordinates=" + voxelCoordinates;
-*/
+    voxelCoordinates += "}";
+    window.location = "display.html?voxel_coordinates=" + voxelCoordinates;
 }
 
 //Cycles through all voxels on screen based on if the user wants to cycle forward or backward.
@@ -375,8 +371,6 @@ function importMesh(importText){
         }
     }
     else{ //otherwise, import my custom list format.
-alert("Importing list-style data is no longer supported!");
-/*
         importText = importText.replace("{","");
         importText = importText.replace("}","");
         var importArray = importText.split(";");
@@ -393,7 +387,6 @@ alert("Importing list-style data is no longer supported!");
 
             capturePoint();
         }
-*/
     }
 	
     //WARNING!!!

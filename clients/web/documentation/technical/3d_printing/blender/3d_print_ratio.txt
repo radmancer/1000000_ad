@@ -1,0 +1,30 @@
+/////////////////////////////////
+//            Cube             //
+/////////////////////////////////
+w * l * h
+16mm * 16mm * 16mm
+8bu * 8bu * 8bu
+16mm / 8bu = 1mm / Xbu
+16mm * Xbu = 1mm * 8bu
+16Xmmbu = 8mmbu
+16Xmmbu / 16mmbu = 8mmbu / 16mmbu
+X = 0.5
+
+Ratio: 1mm / 0.5bu
+       1bu : 2mm
+       2mm : 1bu
+
+/////////////////////////////////
+//           Bedding           //
+/////////////////////////////////
+w * l
+20mm * 25mm
+
+20mm / Xbu = 1mm / 0.5bu
+20mm * 0.5bu = 1mm * Xbu
+10mmbu = 1Xmmbu
+10mmbu / 1mmbu = 1Xmmbu / 1mmbu
+X = 10
+
+Bedding's logical width: 10bu
+ 
