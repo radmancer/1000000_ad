@@ -15,8 +15,8 @@ function updateGridOnMouseUp(){
 //In order for the stage to be reset, a page redirect is necessary and all point 
 //data must be placed in the query string to be read by the page upon refresh.
 function resetStage(){
-    sessionStorage.setItem("mesh", document.getElementById("importExport").value);
-    window.location = "display.html";
+    /*sessionStorage.setItem("mesh", document.getElementById("importExport").value);*/
+    window.location = window.location;
 /*
 	var voxelCoordinates = "{";
 
