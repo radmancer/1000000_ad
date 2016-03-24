@@ -139,3 +139,8 @@ var queryCoordinates = queryStringArray[1];
 if(queryCoordinates != "{}" && queryCoordinates != null){
     importMesh(queryCoordinates);
 }
+
+function toggleVisibility(id) {
+    var div = document.getElementById(id);
+    div.style.display = div.style.display == "none" ? "block" : "none";
+}

@@ -16,7 +16,7 @@
         <div class="column-left vertical-horizontal-center columnHeight">
             <div class="buttonPanel">
                 <textarea id="importExport" style="width:11.65rem;height:6rem;"></textarea>
-                <div class="button button-column-left" onclick="transform('{\'stage\':\'import\'}')"><p>import</p></div>
+                <div class="button button-column-left" onclick="transform('{\'stage\':\'import\'}')" ontouch="transform('{\'stage\':\'import\'}')"><p>import</p></div>
                 <div class="button button-column-center" onclick="transform('{\'stage\':\'pitchCW\'}');updateViewDirection('up');" ontouch="transform('{\'stage\':\'pitchCW\'}')"><p>&uarr;</p></div>
                 <div class="button button-column-right" onclick="transform('{\'stage\':\'reset\'}')" ontouch="transform('{\'stage\':\'reset\'}')"><p>reset</p></div>
                 <br>
@@ -24,9 +24,9 @@
                 <div class="button button-column-center" onclick="transform('{\'stage\':\'center\'}')" ontouch="transform('{\'stage\':\'center\'}')"><p>center</p></div>
                 <div class="button button-column-right" onclick="transform('{\'stage\':\'yawCCW\'}');updateViewDirection('right');" ontouch="transform('{\'stage\':\'yawCCW\'}')"><p>&rarr;</p></div>
                 <br>
-                <div class="button button-column-left"><p></p></div>
+                <div class="button button-column-left" onclick="toggleVisibility('tracePlane');" ontouch="toggleVisibility('tracePlane');"><p>ref img (y/n)</p></div>
                 <div class="button button-column-center" onclick="transform('{\'stage\':\'pitchCCW\'}');updateViewDirection('down');" ontouch="transform('{\'stage\':\'pitchCCW\'}')"><p>&darr;</p></div>
-                <div class="button button-column-right" onclick="transform('{\'stage\':\'export_blender\'}')"><p>export</p></div>
+                <div class="button button-column-right" onclick="transform('{\'stage\':\'export_blender\'}')" ontouch="transform('{\'stage\':\'export_blender\'}')"><p>export</p></div>
             </div>
         </div>
         <!--Stage object, a cube consisting of six face elements.-->

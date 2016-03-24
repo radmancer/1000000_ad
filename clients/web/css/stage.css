@@ -13,12 +13,14 @@ The following lines of code are meant to fix an issue
 where I inadvertently set the back stage view with an image and did not
 see that the image was reversed.  To solve this problem without creating new geometry, I temporarily flipped the image.
 */
+/*
     -moz-transform: scaleX(-1);
     -o-transform: scaleX(-1);
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
     filter: FlipH;
     -ms-filter: "FlipH";
+*/
 }
 #stage{
     -webkit-perspective:800px;
